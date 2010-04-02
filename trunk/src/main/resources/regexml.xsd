@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.regexml.org/expressions">
+    <element name="regexml">
+        <complexType>
+            <sequence>
+                <element name="start"/>
+                <sequence>
+                    <element name="match">
+                        <complexType>
+                            <attribute name="equals" type="string" use="optional"/>
+                            <attribute name="except" type="string" use="optional"/>
+                            <attribute name="min" type="nonNegativeInteger" use="optional"/>
+                            <attribute name="max" type="nonNegativeInteger" use="optional"/>
+                            <attribute name="capture" type="boolean" use="optional"/>
+                        </complexType>
+                    </element>
+                </sequence>
+                <element name="end"/>
+            </sequence>
+            <attribute name="escape" type="boolean" use="optional"/>
+        </complexType>
+    </element>
+</schema>
+
+<!-- SCHEMA IN PROGRESS! -->

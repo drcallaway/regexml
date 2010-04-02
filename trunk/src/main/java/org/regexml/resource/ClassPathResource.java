@@ -13,11 +13,22 @@ public class ClassPathResource implements Resource
 {
     String name;
 
+    /**
+     * Constructs a new ClassPathResource object.
+     *
+     * @param name Name of file in classpath containing expressions in XML
+     */
     public ClassPathResource(String name)
     {
         this.name = name;
     }
 
+    /**
+     * Returns a reader object for the classpath resource.
+     *
+     * @return Reader for the file containing expressions in XML
+     * @throws ExpressionFileNotFoundException
+     */
     public Reader getReader() throws ExpressionFileNotFoundException
     {
         InputStream is = this.getClass().getResourceAsStream(name);

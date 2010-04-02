@@ -9,21 +9,27 @@ import java.io.FileReader;
 import java.io.Reader;
 
 /**
- * Created by IntelliJ IDEA.
- * User: dcallaway
- * Date: Apr 1, 2010
- * Time: 3:28:57 PM
- * To change this template use File | Settings | File Templates.
+ * Resource implementation that reads configuration files from the classpath.
  */
 public class FileSystemResource implements Resource
 {
     File file;
 
+    /**
+     * Constructs a new FileSystemResource object.
+     *
+     * @param name Name of file containing expressions in XML
+     */
     public FileSystemResource(String name)
     {
         this(new File(name));
     }
 
+    /**
+     * Constructs a new FileSystemResource object.
+     *
+     * @param file File containing expressions in XML
+     */
     public FileSystemResource(File file)
     {
         if (file.exists() && file.isFile())
@@ -32,6 +38,12 @@ public class FileSystemResource implements Resource
         }
     }
 
+    /**
+     * Returns a reader object for the file system resource.
+     *
+     * @return Reader for the file containing expressions in XML
+     * @throws ExpressionFileNotFoundException
+     */
     public Reader getReader() throws ExpressionFileNotFoundException
     {
         if (file == null)

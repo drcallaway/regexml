@@ -57,7 +57,7 @@ public class FileSystemResource implements Resource
         }
         catch (FileNotFoundException e)
         {
-            throw new ExpressionFileNotFoundException();
+            throw new ExpressionFileNotFoundException("File not found: " + file.getAbsolutePath());
         }
     }
 }

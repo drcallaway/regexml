@@ -7,11 +7,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 /**
- * Created by IntelliJ IDEA.
- * User: dcallaway
- * Date: Apr 1, 2010
- * Time: 3:29:03 PM
- * To change this template use File | Settings | File Templates.
+ * Resource implementation that reads configuration files from the classpath.
  */
 public class ClassPathResource implements Resource
 {

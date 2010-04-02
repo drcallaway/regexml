@@ -1,7 +1,6 @@
 package org.regexml.resource;
 
 import org.regexml.exception.ExpressionFileNotFoundException;
-import org.regexml.resource.Resource;
 
 import java.io.File;
 import java.io.FileNotFoundException;

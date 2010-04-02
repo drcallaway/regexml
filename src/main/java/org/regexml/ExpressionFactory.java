@@ -17,35 +17,47 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * Created by IntelliJ IDEA.
- * User: dcallaway
- * Date: Apr 1, 2010
- * Time: 4:20:28 PM
- * To change this template use File | Settings | File Templates.
+ * Constructs regular expressions from an XML file.
  */
 public class ExpressionFactory
 {
     private static final String[] escapeChars = {"$", "(", ")", "*", "+", "?", "^", "{", "|"};
 
     private Map<String, Pattern> map = new HashMap<String, Pattern>();
-    private XMLInputFactory inputFactory = null;
+    private XMLInputFactory inputFactory = XMLInputFactory.newInstance();
     private StringBuilder regExpression;
     private String expressionId;
     private String groupMin;
     private String groupMax;
     private boolean escape = true;
 
+    /**
+     * Constructs an ExpressionFactory object.
+     *
+     * @param resource Resource referencing the file containing expressions in XML
+     */
     public ExpressionFactory(Resource resource)
     {
         this(resource.getReader());
     }
 
+    /**
+     * Constructs an ExpressionFactory object.
+     *
+     * @param reader Reader for the file containing expressions in XML
+     */
     public ExpressionFactory(Reader reader)
     {
-        inputFactory = XMLInputFactory.newInstance();
-        loadConfiguration(reader);
+        loadExpressions(reader);
     }
 
+    /**
+     * Retrieves an expression from the factory based on the given ID.
+     *
+     * @param id ID of expression to retrieve
+     * @return Pattern object representing the requested regular expression
+     * @throws ExpressionNotFoundException
+     */
     public Pattern getExpression(String id) throws ExpressionNotFoundException
     {
         if (!map.containsKey(id))
@@ -56,7 +68,12 @@ public class ExpressionFactory
         return map.get(id);
     }
 
-    private void loadConfiguration(Reader reader)
+    /**
+     * Initializes the factory by loading regular expressions from an XML file.
+     *
+     * @param reader Reader for file containing regular expressions in XML
+     */
+    private void loadExpressions(Reader reader)
     {
         try
         {
@@ -84,13 +101,18 @@ public class ExpressionFactory
         }
     }
 
+    /**
+     * Processes start elements.
+     *
+     * @param se Start element
+     */
     private void handleStartElement(StartElement se)
     {
         String name = se.getName().getLocalPart();
 
         if (name.equals("regexml"))
         {
-            handleRegXmlElement(se);
+            handleRegexmlElement(se);
         }
         else if (name.equals("expression"))
         {
@@ -114,6 +136,11 @@ public class ExpressionFactory
         }
     }
 
+    /**
+     * Processes end elements.
+     *
+     * @param ee End element
+     */
     private void handleEndElement(EndElement ee)
     {
         String name = ee.getName().getLocalPart();
@@ -128,7 +155,12 @@ public class ExpressionFactory
         }
     }
 
-    private void handleRegXmlElement(StartElement se)
+    /**
+     * Processes the regexml element.
+     *
+     * @param se Start element
+     */
+    private void handleRegexmlElement(StartElement se)
     {
         for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
         {
@@ -143,7 +175,12 @@ public class ExpressionFactory
             }
         }
     }
-    
+
+    /**
+     * Processes the start of the expression element.
+     *
+     * @param se Start element
+     */
     private void handleExpressionElementStart(StartElement se)
     {
         regExpression = new StringBuilder();
@@ -162,12 +199,22 @@ public class ExpressionFactory
         }
     }
 
+    /**
+     * Processes the end of the expression element.
+     *
+     * @param ee End element
+     */
     private void handleExpressionElementEnd(EndElement ee)
     {
         Pattern pattern = Pattern.compile(regExpression.toString());
         map.put(expressionId, pattern);
     }
 
+    /**
+     * Processes the match element.
+     *
+     * @param se Start element
+     */
     private void handleMatchElement(StartElement se)
     {
         int length = regExpression.length();
@@ -221,6 +268,11 @@ public class ExpressionFactory
         }
     }
 
+    /**
+     * Processes the start of the group element.
+     *
+     * @param se Start element
+     */
     private void handleGroupElementStart(StartElement se)
     {
         int length = regExpression.length();
@@ -259,12 +311,23 @@ public class ExpressionFactory
         }
     }
 
+    /**
+     * Processes the end of the group element.
+     *
+     * @param ee End element
+     */
     private void handleGroupElementEnd(EndElement ee)
     {
         regExpression.append(")");
         handleMinMax(groupMin, groupMax);
     }
 
+    /**
+     * Processes min and max settings.
+     *
+     * @param min Minimum number of times match can occur
+     * @param max Maximum number of times match can occur
+     */
     private void handleMinMax(String min, String max)
     {
         if (!min.equals("1") || !max.equals("1"))

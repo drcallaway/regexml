@@ -1,0 +1,39 @@
+<regexml>
+    <expression id="url">
+        <start/>
+        <group min="0">
+            <match equals="[A-Za-z]" max="*" capture="true"/> <!-- scheme (e.g., http) -->
+            <match equals=":"/>
+        </group>
+        <match equals="/" min="0" max="3"/>
+        <match equals="[0-9.\-A-Za-z]" max="*" capture="true"/> <!-- domain (e.g., www.intuit.com) -->
+        <group min="0">
+            <match equals=":"/>
+            <match equals="\d" max="5" capture="true"/> <!-- port number -->
+        </group>
+        <group min="0">
+            <match equals="/"/>
+            <match except="[?#]" max="*" capture="true"/> <!-- resource (e.g., about/company/hq) -->
+        </group>
+        <group min="0">
+            <match equals="?"/>
+            <match except="#" min="0" max="*" capture="true"/> <!-- query string -->
+        </group>
+        <group min="0">
+            <match equals="#"/>
+            <match equals="." min="0" max="*" capture="true"/> <!-- anchor -->
+        </group>
+        <end/>
+    </expression>
+
+    <expression id="phone">
+        <start/>
+        <match equals="("/>
+        <match equals="\d" min="3" capture="true"/>
+        <match equals=") "/>
+        <match equals="\d" min="3" capture="true"/>
+        <match equals="-"/>
+        <match equals="\d" min="4" capture="true"/>
+        <end/>
+    </expression>
+</regexml>

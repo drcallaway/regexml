@@ -40,7 +40,7 @@ public class ClassPathResource implements Resource
 
         if (is == null)
         {
-            throw new ExpressionFileNotFoundException();
+            throw new ExpressionFileNotFoundException("File not found in classpath: " + name);
         }
 
         return new InputStreamReader(is);

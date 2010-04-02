@@ -62,7 +62,7 @@ public class ExpressionFactory
     {
         if (!map.containsKey(id))
         {
-            throw new ExpressionNotFoundException();
+            throw new ExpressionNotFoundException("Expression not found: " + id);
         }
 
         return map.get(id);

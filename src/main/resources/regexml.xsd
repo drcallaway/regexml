@@ -1,25 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.regexml.org/expressions">
+<!--
+    Schema defining the Regexml expression file format.
+
+    Author: Dustin R. Callaway
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:re="http://schemas.regexml.org/expressions"
+        targetNamespace="http://schemas.regexml.org/expressions">
+
     <element name="regexml">
         <complexType>
             <sequence>
-                <element name="start"/>
-                <sequence>
-                    <element name="match">
-                        <complexType>
-                            <attribute name="equals" type="string" use="optional"/>
-                            <attribute name="except" type="string" use="optional"/>
-                            <attribute name="min" type="nonNegativeInteger" use="optional"/>
-                            <attribute name="max" type="nonNegativeInteger" use="optional"/>
-                            <attribute name="capture" type="boolean" use="optional"/>
-                        </complexType>
-                    </element>
-                </sequence>
-                <element name="end"/>
+                <element name="expression" type="re:expressionType"/>
             </sequence>
-            <attribute name="escape" type="boolean" use="optional"/>
+            <attribute name="autoEscape" type="boolean" use="optional" default="true"/>
         </complexType>
     </element>
-</schema>
 
-<!-- SCHEMA IN PROGRESS! -->
+    <complexType name="expressionType">
+        <sequence>
+            <element name="start" minOccurs="0" maxOccurs="1"/>
+            <sequence>
+                <choice>
+                    <element name="group" type="re:groupType"/>
+                    <element name="match" type="re:matchType"/>
+                </choice>
+            </sequence>
+            <element name="end" minOccurs="0" maxOccurs="1"/>
+        </sequence>
+        <attribute name="id" type="string" use="required"/>
+        <attribute name="ignoreCase" type="boolean" use="optional" default="false"/>
+        <attribute name="dotMatchAll" type="boolean" use="optional" default="false"/>
+        <attribute name="multiline" type="boolean" use="optional" default="false"/>
+    </complexType>
+
+    <complexType name="groupType">
+        <sequence>
+            <element name="match" type="re:matchType"/>
+        </sequence>
+        <attributeGroup ref="re:minMaxCap"/>
+    </complexType>
+
+    <complexType name="matchType">
+        <attribute name="equals" type="string" use="optional"/>
+        <attribute name="except" type="string" use="optional"/>
+        <attributeGroup ref="re:minMaxCap"/>
+    </complexType>
+
+    <attributeGroup name="minMaxCap">
+        <attribute name="min" type="nonNegativeInteger" use="optional" default="1"/>
+        <attribute name="max" type="nonNegativeInteger" use="optional" default="1"/>
+        <attribute name="capture" type="boolean" use="optional" default="false"/>
+    </attributeGroup>
+
+</schema>

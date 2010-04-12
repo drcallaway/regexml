@@ -10,7 +10,7 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
-import java.io.*;
+import java.io.Reader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -18,10 +18,12 @@ import java.util.regex.Pattern;
 
 /**
  * Constructs regular expressions from an XML file.
+ *
+ * @author Dustin R. Callaway
  */
 public class ExpressionFactory
 {
-    private static final String[] escapeChars = {"$", "(", ")", "*", "+", "?", "^", "{", "|"};
+    private static final String[] autoEscapeChars = {"$", "(", ")", "*", "+", "?", "^", "{", "|"};
 
     private Map<String, Pattern> map = new HashMap<String, Pattern>();
     private XMLInputFactory inputFactory = XMLInputFactory.newInstance();
@@ -29,7 +31,10 @@ public class ExpressionFactory
     private String expressionId;
     private String groupMin;
     private String groupMax;
-    private boolean escape = true;
+    private boolean autoEscape = true;
+    private boolean ignoreCase;
+    private boolean dotMatchAll;
+    private boolean multiline;
 
     /**
      * Constructs an ExpressionFactory object.
@@ -171,7 +176,7 @@ public class ExpressionFactory
 
             if (name.equals("escape") && value.equals("false"))
             {
-                escape = false;
+                autoEscape = false;
             }
         }
     }
@@ -183,6 +188,9 @@ public class ExpressionFactory
      */
     private void handleExpressionElementStart(StartElement se)
     {
+        ignoreCase = false;
+        dotMatchAll = false;
+        multiline = false;
         regExpression = new StringBuilder();
         
         for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
@@ -206,7 +214,24 @@ public class ExpressionFactory
      */
     private void handleExpressionElementEnd(EndElement ee)
     {
-        Pattern pattern = Pattern.compile(regExpression.toString());
+        int options = 0;
+
+        if (ignoreCase)
+        {
+            options = options | Pattern.CASE_INSENSITIVE;
+        }
+
+        if (dotMatchAll)
+        {
+            options = options | Pattern.DOTALL;
+        }
+
+        if (multiline)
+        {
+            options = options | Pattern.MULTILINE;
+        }
+        
+        Pattern pattern = Pattern.compile(regExpression.toString(), options);
         map.put(expressionId, pattern);
     }
 
@@ -359,18 +384,18 @@ public class ExpressionFactory
     /**
      * Escapes the following characters: $()*+.?\^{|
      * 
-     * @param text Text containing characters to escape
+     * @param text Text containing characters to autoEscape
      * @return Escaped text
      */
     private String autoEscape(String text)
     {
-        if (escape)
+        if (autoEscape)
         {
-            for (int i = 0; i < escapeChars.length; i++)
+            for (int i = 0; i < autoEscapeChars.length; i++)
             {
-                if (text.contains(escapeChars[i]))
+                if (text.contains(autoEscapeChars[i]))
                 {
-                    text = text.replaceAll("\\" + escapeChars[i], "\\\\" + escapeChars[i]);
+                    text = text.replaceAll("\\" + autoEscapeChars[i], "\\\\" + autoEscapeChars[i]);
                 }
             }
         }

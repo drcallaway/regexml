@@ -1,8 +1,11 @@
 package org.regexml;
 
 import org.regexml.exception.ExpressionNotFoundException;
+import org.regexml.resource.ClassPathResource;
 import org.regexml.resource.Resource;
+import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -10,6 +13,10 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+import java.io.IOException;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,6 +34,7 @@ public class ExpressionFactory
 
     private Map<String, Pattern> map = new HashMap<String, Pattern>();
     private XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+    private SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     private StringBuilder regExpression;
     private String expressionId;
     private String groupMin;
@@ -39,21 +47,43 @@ public class ExpressionFactory
     /**
      * Constructs an ExpressionFactory object.
      *
-     * @param resource Resource referencing the file containing expressions in XML
+     * @param inputResource Resource referencing the file containing expressions in XML
      */
-    public ExpressionFactory(Resource resource)
+    public ExpressionFactory(Resource inputResource)
     {
-        this(resource.getReader());
+        this(inputResource, false);
     }
 
     /**
      * Constructs an ExpressionFactory object.
      *
-     * @param reader Reader for the file containing expressions in XML
+     * @param inputResource Resource referencing the file containing expressions in XML
+     * @param validate Indicates whether or not the expressions file should be validated against the regexml schema
      */
-    public ExpressionFactory(Reader reader)
+    public ExpressionFactory(Resource inputResource, boolean validate)
     {
-        loadExpressions(reader);
+        if (validate)
+        {
+            Resource schemaResource = null;
+
+            try
+            {
+                schemaResource = new ClassPathResource("regexml.xsd");
+                Validator validator = schemaFactory.newSchema(new StreamSource(schemaResource.getReader())).newValidator();
+                validator.validate(new StreamSource(inputResource.getReader()));
+            }
+            catch (SAXException saxe)
+            {
+                throw new RuntimeException("Error loading schema: " + schemaResource.getName(), saxe);
+            }
+            catch (IOException ioe)
+            {
+                throw new RuntimeException("Error validating schema: " + schemaResource.getName(), ioe);
+            }
+            
+        }
+
+        loadExpressions(inputResource.getReader());
     }
 
     /**
@@ -74,7 +104,7 @@ public class ExpressionFactory
     }
 
     /**
-     * Initializes the factory by loading regular expressions from an XML file.
+     * Initializes the factory by loading regular expressions from an XML file using the StAX pull parser.
      *
      * @param reader Reader for file containing regular expressions in XML
      */

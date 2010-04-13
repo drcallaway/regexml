@@ -4,13 +4,13 @@
 
     Author: Dustin R. Callaway
 -->
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:re="http://schemas.regexml.org/expressions"
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:rex="http://schemas.regexml.org/expressions"
         targetNamespace="http://schemas.regexml.org/expressions" elementFormDefault="qualified">
 
     <element name="regexml">
         <complexType>
             <sequence maxOccurs="unbounded">
-                <element name="expression" type="re:expressionType"/>
+                <element name="expression" type="rex:expressionType"/>
             </sequence>
             <attribute name="autoEscape" type="boolean" use="optional" default="true"/>
         </complexType>
@@ -21,8 +21,8 @@
             <element name="start" minOccurs="0" maxOccurs="1"/>
             <sequence maxOccurs="unbounded">
                 <choice>
-                    <element name="group" type="re:groupType"/>
-                    <element name="match" type="re:matchType"/>
+                    <element name="group" type="rex:groupType"/>
+                    <element name="match" type="rex:matchType"/>
                 </choice>
             </sequence>
             <element name="end" minOccurs="0" maxOccurs="1"/>
@@ -35,15 +35,15 @@
 
     <complexType name="groupType">
         <sequence maxOccurs="unbounded">
-            <element name="match" type="re:matchType"/>
+            <element name="match" type="rex:matchType"/>
         </sequence>
-        <attributeGroup ref="re:minMaxCap"/>
+        <attributeGroup ref="rex:minMaxCap"/>
     </complexType>
 
     <complexType name="matchType">
         <attribute name="equals" type="string" use="optional"/>
         <attribute name="except" type="string" use="optional"/>
-        <attributeGroup ref="re:minMaxCap"/>
+        <attributeGroup ref="rex:minMaxCap"/>
     </complexType>
 
     <attributeGroup name="minMaxCap">

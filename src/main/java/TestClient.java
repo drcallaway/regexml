@@ -11,7 +11,7 @@ public class TestClient
 {
     public static void main(String[] args)
     {
-        ExpressionFactory ef = new ExpressionFactory(new FileSystemResource("test.xml"));
+        ExpressionFactory ef = new ExpressionFactory(new FileSystemResource("test.xml"), true);
 
         Pattern pattern = ef.getExpression("phone");
         Matcher matcher = pattern.matcher("(801) 796-3438");

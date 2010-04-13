@@ -8,6 +8,8 @@ import java.io.Reader;
 
 /**
  * Resource implementation that reads configuration files from the classpath.
+ *
+ * @author Dustin R. Callaway
  */
 public class ClassPathResource implements Resource
 {
@@ -21,6 +23,16 @@ public class ClassPathResource implements Resource
     public ClassPathResource(String name)
     {
         this.name = name;
+    }
+
+    /**
+     * Returns the name of the file represented by this resource.
+     *
+     * @return Name of file abstracted by this resource
+     */
+    public String getName()
+    {
+        return name;
     }
 
     /**

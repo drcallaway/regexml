@@ -3,7 +3,6 @@ package org.regexml;
 import org.regexml.exception.ExpressionNotFoundException;
 import org.regexml.resource.ClassPathResource;
 import org.regexml.resource.Resource;
-import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
 import javax.xml.stream.XMLEventReader;
@@ -16,7 +15,6 @@ import javax.xml.stream.events.XMLEvent;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.IOException;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -72,15 +70,10 @@ public class ExpressionFactory
                 Validator validator = schemaFactory.newSchema(new StreamSource(schemaResource.getReader())).newValidator();
                 validator.validate(new StreamSource(inputResource.getReader()));
             }
-            catch (SAXException saxe)
+            catch (Exception e)
             {
-                throw new RuntimeException("Error loading schema: " + schemaResource.getName(), saxe);
+                throw new RuntimeException("Error loading schema: " + schemaResource.getName(), e);
             }
-            catch (IOException ioe)
-            {
-                throw new RuntimeException("Error validating schema: " + schemaResource.getName(), ioe);
-            }
-            
         }
 
         loadExpressions(inputResource.getReader());

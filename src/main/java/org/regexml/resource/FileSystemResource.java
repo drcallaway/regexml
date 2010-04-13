@@ -9,6 +9,8 @@ import java.io.Reader;
 
 /**
  * Resource implementation that reads configuration files from the classpath.
+ *
+ * @author Dustin R. Callaway
  */
 public class FileSystemResource implements Resource
 {
@@ -35,6 +37,16 @@ public class FileSystemResource implements Resource
         {
             this.file = file;
         }
+    }
+
+    /**
+     * Returns the name of the file represented by this resource.
+     *
+     * @return Name of file abstracted by this resource
+     */
+    public String getName()
+    {
+        return file.getName();
     }
 
     /**

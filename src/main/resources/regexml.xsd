@@ -4,52 +4,52 @@
 
     Author: Dustin R. Callaway
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.regexml.org/expressions"
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:re="http://schemas.regexml.org/expressions"
         targetNamespace="http://schemas.regexml.org/expressions" elementFormDefault="qualified">
 
-    <xsd:element name="regexml">
-        <xsd:complexType>
-            <xsd:sequence maxOccurs="unbounded">
-                <xsd:element name="expression" type="expressionType"/>
-            </xsd:sequence>
-            <xsd:attribute name="autoEscape" type="xsd:boolean" use="optional" default="true"/>
-        </xsd:complexType>
-    </xsd:element>
+    <element name="regexml">
+        <complexType>
+            <sequence maxOccurs="unbounded">
+                <element name="expression" type="re:expressionType"/>
+            </sequence>
+            <attribute name="autoEscape" type="boolean" use="optional" default="true"/>
+        </complexType>
+    </element>
 
-    <xsd:complexType name="expressionType">
-        <xsd:sequence>
-            <xsd:element name="start" minOccurs="0" maxOccurs="1"/>
-            <xsd:sequence maxOccurs="unbounded">
-                <xsd:choice>
-                    <xsd:element name="group" type="groupType"/>
-                    <xsd:element name="match" type="matchType"/>
-                </xsd:choice>
-            </xsd:sequence>
-            <xsd:element name="end" minOccurs="0" maxOccurs="1"/>
-        </xsd:sequence>
-        <xsd:attribute name="id" type="xsd:string" use="required"/>
-        <xsd:attribute name="ignoreCase" type="xsd:boolean" use="optional" default="false"/>
-        <xsd:attribute name="dotMatchAll" type="xsd:boolean" use="optional" default="false"/>
-        <xsd:attribute name="multiline" type="xsd:boolean" use="optional" default="false"/>
-    </xsd:complexType>
+    <complexType name="expressionType">
+        <sequence>
+            <element name="start" minOccurs="0" maxOccurs="1"/>
+            <sequence maxOccurs="unbounded">
+                <choice>
+                    <element name="group" type="re:groupType"/>
+                    <element name="match" type="re:matchType"/>
+                </choice>
+            </sequence>
+            <element name="end" minOccurs="0" maxOccurs="1"/>
+        </sequence>
+        <attribute name="id" type="string" use="required"/>
+        <attribute name="ignoreCase" type="boolean" use="optional" default="false"/>
+        <attribute name="dotMatchAll" type="boolean" use="optional" default="false"/>
+        <attribute name="multiline" type="boolean" use="optional" default="false"/>
+    </complexType>
 
-    <xsd:complexType name="groupType">
-        <xsd:sequence maxOccurs="unbounded">
-            <xsd:element name="match" type="matchType"/>
-        </xsd:sequence>
-        <xsd:attributeGroup ref="minMaxCap"/>
-    </xsd:complexType>
+    <complexType name="groupType">
+        <sequence maxOccurs="unbounded">
+            <element name="match" type="re:matchType"/>
+        </sequence>
+        <attributeGroup ref="re:minMaxCap"/>
+    </complexType>
 
-    <xsd:complexType name="matchType">
-        <xsd:attribute name="equals" type="xsd:string" use="optional"/>
-        <xsd:attribute name="except" type="xsd:string" use="optional"/>
-        <xsd:attributeGroup ref="minMaxCap"/>
-    </xsd:complexType>
+    <complexType name="matchType">
+        <attribute name="equals" type="string" use="optional"/>
+        <attribute name="except" type="string" use="optional"/>
+        <attributeGroup ref="re:minMaxCap"/>
+    </complexType>
 
-    <xsd:attributeGroup name="minMaxCap">
-        <xsd:attribute name="min" type="xsd:nonNegativeInteger" use="optional" default="1"/>
-        <xsd:attribute name="max" type="xsd:string" use="optional" default="1"/>
-        <xsd:attribute name="capture" type="xsd:boolean" use="optional" default="false"/>
-    </xsd:attributeGroup>
+    <attributeGroup name="minMaxCap">
+        <attribute name="min" type="nonNegativeInteger" use="optional" default="1"/>
+        <attribute name="max" type="string" use="optional" default="1"/>
+        <attribute name="capture" type="boolean" use="optional" default="false"/>
+    </attributeGroup>
 
-</xsd:schema>
+</schema>

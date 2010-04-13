@@ -1,3 +1,4 @@
+import org.regexml.Expression;
 import org.regexml.ExpressionFactory;
 import org.regexml.resource.FileSystemResource;
 
@@ -13,7 +14,10 @@ public class TestClient
     {
         ExpressionFactory ef = new ExpressionFactory(new FileSystemResource("test.xml"), true);
 
-        Pattern pattern = ef.getExpression("phone");
+        Expression exp = ef.getExpression("phone");
+
+        System.out.println("RegEx: " + exp.getRegExString());
+        Pattern pattern = exp.getPattern();
         Matcher matcher = pattern.matcher("(801) 796-3438");
 
         if (matcher.find())
@@ -24,7 +28,10 @@ public class TestClient
             }
         }
 
-        pattern = ef.getExpression("url");
+        exp = ef.getExpression("url");
+
+        System.out.println("RegEx: " + exp.getRegExString());
+        pattern = exp.getPattern();
         matcher = pattern.matcher("http://www.regexml.org:8080/test?param=1#anchor");
 
         if (matcher.find())

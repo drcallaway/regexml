@@ -4,7 +4,8 @@
 
     Author: Dustin R. Callaway
 -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.regexml.org/expressions"
+        targetNamespace="http://schemas.regexml.org/expressions" elementFormDefault="qualified">
 
     <xsd:element name="regexml">
         <xsd:complexType>

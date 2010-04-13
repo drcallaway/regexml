@@ -5,6 +5,11 @@ package org.regexml.exception;
  */
 public class ExpressionFileNotFoundException extends RuntimeException
 {
+    /**
+     * Constructs a new expression file not found exception.
+     *
+     * @param message Error message
+     */
     public ExpressionFileNotFoundException(String message)
     {
         super(message);

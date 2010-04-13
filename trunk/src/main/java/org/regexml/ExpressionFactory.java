@@ -1,6 +1,7 @@
 package org.regexml;
 
 import org.regexml.exception.ExpressionNotFoundException;
+import org.regexml.exception.SchemaValidationException;
 import org.regexml.resource.ClassPathResource;
 import org.regexml.resource.Resource;
 
@@ -22,7 +23,8 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * Constructs regular expressions from an XML file.
+ * Constructs regular expressions from an XML file. Note that this class is not thread safe. Use of a ThreadLocal
+ * variable is recommended if this factory is to be called from multiple threads.
  *
  * @author Dustin R. Callaway
  */
@@ -30,7 +32,7 @@ public class ExpressionFactory
 {
     private static final String[] autoEscapeChars = {"$", "(", ")", "*", "+", "?", "^", "{", "|"};
 
-    private Map<String, Pattern> map = new HashMap<String, Pattern>();
+    private Map<String, Expression> expressionMap = new HashMap<String, Expression>();
     private XMLInputFactory inputFactory = XMLInputFactory.newInstance();
     private SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     private StringBuilder regExpression;
@@ -62,38 +64,65 @@ public class ExpressionFactory
     {
         if (validate)
         {
-            Resource schemaResource = null;
-
-            try
-            {
-                schemaResource = new ClassPathResource("regexml.xsd");
-                Validator validator = schemaFactory.newSchema(new StreamSource(schemaResource.getReader())).newValidator();
-                validator.validate(new StreamSource(inputResource.getReader()));
-            }
-            catch (Exception e)
-            {
-                throw new RuntimeException("Error loading schema: " + schemaResource.getName(), e);
-            }
+            validateDocument(inputResource);
         }
 
-        loadExpressions(inputResource.getReader());
+        processExpressions(inputResource.getReader());
     }
 
     /**
-     * Retrieves an expression from the factory based on the given ID.
+     * Validates the given document against the expressions schema.
      *
-     * @param id ID of expression to retrieve
-     * @return Pattern object representing the requested regular expression
-     * @throws ExpressionNotFoundException
+     * @param inputResource Document to validate
+     * @throws SchemaValidationException Indicates that the given document was not valid
      */
-    public Pattern getExpression(String id) throws ExpressionNotFoundException
+    private void validateDocument(Resource inputResource) throws SchemaValidationException
     {
-        if (!map.containsKey(id))
+        Resource schemaResource = new ClassPathResource("regexml.xsd");
+
+        try
+        {
+            Validator validator = schemaFactory.newSchema(new StreamSource(schemaResource.getReader())).newValidator();
+            validator.validate(new StreamSource(inputResource.getReader()));
+        }
+        catch (Exception e)
+        {
+            throw new SchemaValidationException("Error validating document: " + inputResource.getName(), e);
+        }
+    }
+
+    /**
+     * Retrieves a pattern based on the given ID.
+     *
+     * @param id ID of expression
+     * @return Pattern object representing the requested regular expression
+     * @throws ExpressionNotFoundException Indicates that the requested expression was not found
+     */
+    public Pattern getPattern(String id) throws ExpressionNotFoundException
+    {
+        if (!expressionMap.containsKey(id))
         {
             throw new ExpressionNotFoundException("Expression not found: " + id);
         }
 
-        return map.get(id);
+        return expressionMap.get(id).getPattern();
+    }
+
+    /**
+     * Retrieves an expression based on the given ID.
+     *
+     * @param id ID of expression
+     * @return Expression object containing the regular expression string and a pattern object
+     * @throws ExpressionNotFoundException Indicates that the requested expression was not found
+     */
+    public Expression getExpression(String id) throws ExpressionNotFoundException
+    {
+        if (!expressionMap.containsKey(id))
+        {
+            throw new ExpressionNotFoundException("Expression not found: " + id);
+        }
+
+        return expressionMap.get(id);
     }
 
     /**
@@ -101,7 +130,7 @@ public class ExpressionFactory
      *
      * @param reader Reader for file containing regular expressions in XML
      */
-    private void loadExpressions(Reader reader)
+    private void processExpressions(Reader reader)
     {
         try
         {
@@ -253,9 +282,11 @@ public class ExpressionFactory
         {
             options = options | Pattern.MULTILINE;
         }
-        
-        Pattern pattern = Pattern.compile(regExpression.toString(), options);
-        map.put(expressionId, pattern);
+
+        String regExpressionString = regExpression.toString();
+        Pattern pattern = Pattern.compile(regExpressionString, options);
+
+        expressionMap.put(expressionId, new Expression(regExpressionString, pattern));
     }
 
     /**

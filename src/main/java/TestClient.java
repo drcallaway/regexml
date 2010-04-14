@@ -32,7 +32,7 @@ public class TestClient
 
         System.out.println("RegEx: " + exp.getRegExString());
         pattern = exp.getPattern();
-        matcher = pattern.matcher("http://www.regexml.org:8080/test?param=1#anchor");
+        matcher = pattern.matcher("http://www.regexml.org:8080/sample/resource?param=1#anchor");
 
         if (matcher.find())
         {

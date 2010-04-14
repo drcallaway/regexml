@@ -377,6 +377,8 @@ public class ExpressionFactory
         groupMin = "1";
         groupMax = "1";
         boolean capture = false;
+        StringBuilder matchOptionsOn = new StringBuilder();
+        StringBuilder matchOptionsOff = new StringBuilder("-");
 
         for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
         {
@@ -397,16 +399,61 @@ public class ExpressionFactory
             {
                 capture = true;
             }
+            else if (name.equals("ignoreCase"))
+            {
+                if (value.equals("true"))
+                {
+                    matchOptionsOn.append("i");
+                }
+                else
+                {
+                    matchOptionsOff.append("i");
+                }
+            }
+            else if (name.equals("dotMatchAll"))
+            {
+                if (value.equals("true"))
+                {
+                    matchOptionsOn.append("d");
+                }
+                else
+                {
+                    matchOptionsOff.append("d");
+                }
+            }
+            else if (name.equals("multiline"))
+            {
+                if (value.equals("true"))
+                {
+                    matchOptionsOn.append("m");
+                }
+                else
+                {
+                    matchOptionsOff.append("m");
+                }
+            }
         }
 
-        if (capture)
+        StringBuilder groupStart = new StringBuilder("(");
+
+        if (!capture)
         {
-            regExpression.insert(length, "(");
+            groupStart.append("?");
         }
-        else
+
+        groupStart.append(matchOptionsOn.toString());
+
+        if (matchOptionsOff.length() > 1)
         {
-            regExpression.insert(length, "(?:");
+            groupStart.append(matchOptionsOff.toString());
         }
+
+        if (!capture)
+        {
+            groupStart.append(":");
+        }
+
+        regExpression.insert(length, groupStart.toString());
     }
 
     /**

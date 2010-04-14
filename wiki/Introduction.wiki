@@ -1,4 +1,4 @@
-#summary Provides a comprehensive introduction to using the Java regexml library.
+#summary A comprehensive introduction to using the Java regexml library.
 
 = Introduction =
 

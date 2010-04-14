@@ -45,9 +45,7 @@
             <element name="end" minOccurs="0" maxOccurs="1"/>
         </sequence>
         <attribute name="id" type="string" use="required"/>
-        <attribute name="ignoreCase" type="boolean" use="optional" default="false"/>
-        <attribute name="dotMatchAll" type="boolean" use="optional" default="false"/>
-        <attribute name="multiline" type="boolean" use="optional" default="false"/>
+        <attributeGroup ref="rex:caseDotLine"/>
     </complexType>
 
     <complexType name="groupType">
@@ -55,6 +53,7 @@
             <element name="match" type="rex:matchType"/>
         </sequence>
         <attributeGroup ref="rex:minMaxCap"/>
+        <attributeGroup ref="rex:caseDotLine"/>
     </complexType>
 
     <complexType name="matchType">
@@ -62,6 +61,12 @@
         <attribute name="except" type="string" use="optional"/>
         <attributeGroup ref="rex:minMaxCap"/>
     </complexType>
+
+    <attributeGroup name="caseDotLine">
+        <attribute name="ignoreCase" type="boolean" use="optional" default="false"/>
+        <attribute name="dotMatchAll" type="boolean" use="optional" default="false"/>
+        <attribute name="multiline" type="boolean" use="optional" default="false"/>
+    </attributeGroup>
 
     <attributeGroup name="minMaxCap">
         <attribute name="min" type="nonNegativeInteger" use="optional" default="1"/>

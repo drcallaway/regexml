@@ -18,7 +18,11 @@ In order to use the regexml Java library, simply add the _regexml-x.x.x.jar_ fil
 
 See below for examples of how to use these classes.
 
-= Create Expressions File =
+= Expressions File =
+
+The expressions file is the heart of the regexml library. It is within this file that regular expressions are defined in a simple XML format. Only one expressions file is needed per application since any number of regular expressions can be defined within it.
+
+== Create the File ==
 
 After adding the regexml JAR to your project, you'll need to create an XML file in which regular expressions are defined. In order to simplify creation of this XML, a schema is provided that describes the structure of a valid file. In order to retrieve the XML schema, you'll need to open the regexml JAR in a compression utility (e.g., WinZip, jZip, StuffIt, Zipeg, etc.) or the Java command-line _jar_ utility and extract the file named _regexml.xsd_. Using the _jar_ utility that ships with Java, you can extract the schema with this command:
 
@@ -37,9 +41,13 @@ For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog
 
 Other schema-aware XML editors should have similar ways to associate a namespace with a schema file. The structure of the expressions file is discussed in detail in sections below.
 
-Within your application, you can choose to access the regexml expressions file from either the classpath or the file system (depending on whether you choose to pass a `ClassPathResource` or `FileSystemResource` object when instantiating the `ExpressionFactory` class). After an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.
+Within your application, you can choose to access the regexml expressions file from either the classpath or the file system (depending on whether you choose to pass a `ClassPathResource` or `FileSystemResource` object when instantiating the `ExpressionFactory` class). Keep in mind that after an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.
 
-== Matching Constructs ==
+== File Format ==
+
+
+
+=== Matching Constructs ===
 
 || *Construct* || *Matches* ||
 || _x_ || Any literal character _x_ except for period, backslash, less than symbol, and double quotes. [`.\<"`] ||
@@ -60,3 +68,5 @@ Within your application, you can choose to access the regexml expressions file f
 || `[ab\d]` || Character class matching a, b, or any digit ||
 || `[0-9a-f]` || Ranges matching digits 0 through 9 and letters a through f (hyphen indicates a range) ||
 || `[a\-c]` || Characters a, c, and hyphen (within character classes, literal hyphens must be escaped) ||
+
+= Java API =

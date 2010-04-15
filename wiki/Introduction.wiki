@@ -3,3 +3,25 @@
 = Introduction =
 
 Coming soon...
+
+= Matching Constructs =
+
+|| *Construct* || *Matches* ||
+|| _x_ || Any literal character _x_ except for period, backslash, less than symbol, and double quotes. [`.\<"`] ||
+|| `\.` || Period character ||
+|| `\\` || Backslash character ||
+|| `&lt;` || Less than character (since it conflicts with XML markup) ||
+|| `&quot;` || Double quote character `"` (escape not needed when using single-quotes to delimit attribute values) ||
+|| `&apos;` || Single quote character `'` (escape not needed when using double-quotes to delimit attribute values) ||
+|| `.` || Any character (matches line terminators only if the dotMatchAll attribute is set to true) ||
+|| `\d` || Digit [`0-9`] ||
+|| `\D` || Non-digit ||
+|| `\s` || Whitespace characters including space, tab, new line, form-feed, and carriage return [` \t\n\f\r`] ||
+|| `\S` || Non-whitespace character ||
+|| `\w` || Word character [`a-zA-Z_0-9`] ||
+|| `\W` || Non-word character ||
+|| `\b` || Word boundary anchor (e.g., `\bJava\b` matches "Java" but not "JavaScript". Finds whole words only.) ||
+|| `\B` || Non-word boundary anchor || 
+|| `[ab\d]` || Character class matching a, b, or any digit ||
+|| `[0-9a-f]` || Ranges matching digits 0 through 9 and letters a through f (hyphen indicates a range) ||
+|| `[a\-c]` || Characters a, c, and hyphen (within character classes, literal hyphens must be escaped) ||

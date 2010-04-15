@@ -16,9 +16,20 @@ In order to use the regexml Java library, simply add the _regexml-x.x.x.jar_ fil
 || ExpressionFactory || Parses the XML file specified by a `ClassPathResource` or `FileSystemResource` and creates a `java.util.regex.Pattern` object for each expression defined in the XML. This object can then be used to extract portions of a string or match text against the pattern. ||
 || Expression || Provides access to a regexml expression's `java.util.regex.Pattern` object as well as the standard regular expression string represented by the expression. ||
 
-Next, you'll need to create an XML file in which any number of regular expressions can be defined. In order to simplify creation of this XML, a schema is provided that describes the structure of a valid file. In order to retrieve the XML schema, you'll need to open the regexml JAR in a compression utility (e.g., WinZip, jZip, StuffIt, Zipeg, etc.) or the Java command-line _jar_ program and extract the file named _regexml.xsd_. Using the _jar_ program that ships with Java, you can extract the schema using this command:
+Next, you'll need to create an XML file in which any number of regular expressions can be defined. In order to simplify creation of this XML, a schema is provided that describes the structure of a valid file. In order to retrieve the XML schema, you'll need to open the regexml JAR in a compression utility (e.g., WinZip, jZip, StuffIt, Zipeg, etc.) or the Java command-line _jar_ utility and extract the file named _regexml.xsd_. Using the _jar_ utility that ships with Java, you can extract the schema with this command:
 
-`jar -xf regexml-0.9.jar regexml.xsd`
+ `jar -xf regexml-0.9.jar regexml.xsd`
+
+Once the schema is available in the file system, you can reference it from any XML editor that supports schemas by associating it with the following namespace:
+
+ `http://schemas.regexml.org/expressions`
+
+For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog box and select "Resources". Then click "Add..." in the "Configure External Resources" section and enter a URI of "http://schemas.regexml.org/expressions" and the path to the schema file under Location. Once this is complete, IDEA will assist you when creating regexml files by showing the valid elements and attributes available at any point in the document. Just be sure to include regexml expressions namespace at the beginning of the file like this:
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+</regexml>
+}}}
 
 == Matching Constructs ==
 

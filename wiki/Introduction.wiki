@@ -13,7 +13,7 @@ In order to use the regexml Java library, simply add the _regexml-x.x.x.jar_ fil
 || *Class* || *Description* ||
 || ClassPathResource || Specifies the name of an XML file available on the classpath that contains regexml expressions. ||
 || FileSystemResource || Specifies the name of an XML file available on the file system that contains regexml expressions. ||
-|| ExpressionFactory || Parses the XML file specified by a `ClassPathResource` or `FileSystemResource` object and creates a `java.util.regex.Pattern` object for each expression defined in the XML. This object can then be used to extract portions of a string or match text against the pattern. ||
+|| ExpressionFactory || Parses the XML file specified by a `ClassPathResource` or `FileSystemResource` object and creates a `java.util.regex.Pattern` object for each expression defined in the XML. The `Pattern` object can then be used to extract portions of a string or match text against the pattern. ||
 || Expression || Provides access to a regexml expression's `java.util.regex.Pattern` object as well as the standard regular expression string represented by the expression. ||
 
 See below for examples of how to use these classes.

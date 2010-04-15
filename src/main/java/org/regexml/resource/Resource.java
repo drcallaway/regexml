@@ -25,8 +25,6 @@ import java.io.Reader;
 
 /**
  * Represents a resource file containing XML expressions.
- *
- * @author Dustin R. Callaway
  */
 public interface Resource
 {

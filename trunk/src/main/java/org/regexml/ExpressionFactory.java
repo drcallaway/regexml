@@ -60,8 +60,9 @@ public class ExpressionFactory
     private String groupMax;
     private boolean autoEscape = true;
     private boolean ignoreCase;
-    private boolean dotMatchAll;
-    private boolean multiline;
+    private boolean dotMatchesLineBreaks;
+    private boolean anchorsMatchLineBreaks;
+    private boolean startAnchorMatchesLineBreaks;
 
     /**
      * Constructs an ExpressionFactory object.
@@ -196,11 +197,11 @@ public class ExpressionFactory
         }
         else if (name.equals("start"))
         {
-            regExpression.append("^");
+            handleStartAnchorElement(se);
         }
         else if (name.equals("end"))
         {
-            regExpression.append("$");
+            handleEndAnchorElement(se);
         }
         else if (name.equals("match"))
         {
@@ -259,11 +260,8 @@ public class ExpressionFactory
      */
     private void handleExpressionElementStart(StartElement se)
     {
-        ignoreCase = false;
-        dotMatchAll = false;
-        multiline = false;
-        regExpression = new StringBuilder();
-        
+        resetInstanceVariables();
+
         for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
         {
             Attribute a = it.next();
@@ -275,7 +273,28 @@ public class ExpressionFactory
             {
                 expressionId = value;
             }
+            else if (name.equals("ignoreCase") && value.equals("true"))
+            {
+                ignoreCase = true;
+            }
+            else if (name.equals("dotMatchesLineBreaks") && value.equals("true"))
+            {
+                dotMatchesLineBreaks = true;
+            }
+            else if (name.equals("anchorsMatchLineBreaks") && value.equals("true"))
+            {
+                anchorsMatchLineBreaks = true;
+            }
         }
+    }
+
+    private void resetInstanceVariables()
+    {
+        ignoreCase = false;
+        dotMatchesLineBreaks = false;
+        anchorsMatchLineBreaks = false;
+        startAnchorMatchesLineBreaks = false;
+        regExpression = new StringBuilder();
     }
 
     /**
@@ -292,12 +311,12 @@ public class ExpressionFactory
             options = options | Pattern.CASE_INSENSITIVE;
         }
 
-        if (dotMatchAll)
+        if (dotMatchesLineBreaks)
         {
             options = options | Pattern.DOTALL;
         }
 
-        if (multiline)
+        if (anchorsMatchLineBreaks)
         {
             options = options | Pattern.MULTILINE;
         }
@@ -306,6 +325,57 @@ public class ExpressionFactory
         Pattern pattern = Pattern.compile(regExpressionString, options);
 
         expressionMap.put(expressionId, new Expression(regExpressionString, pattern));
+    }
+
+    private void handleStartAnchorElement(StartElement se)
+    {
+        for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
+        {
+            Attribute a = it.next();
+
+            String name = a.getName().getLocalPart();
+            String value = a.getValue();
+
+            if (name.equals("matchLineBreaks") && value.equals("true"))
+            {
+                regExpression.append("(?m)");
+                startAnchorMatchesLineBreaks = true;
+            }
+        }
+
+        regExpression.append("^");
+    }
+
+    private void handleEndAnchorElement(StartElement se)
+    {
+        boolean matchLineBreaks = false;
+
+        for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
+        {
+            Attribute a = it.next();
+
+            String name = a.getName().getLocalPart();
+            String value = a.getValue();
+
+            if (name.equals("matchLineBreaks") && value.equals("true"))
+            {
+                matchLineBreaks = true;
+            }
+        }
+
+        if (startAnchorMatchesLineBreaks)
+        {
+            if (!matchLineBreaks)
+            {
+                regExpression.append("(?-m)");
+            }
+        }
+        else if (matchLineBreaks)
+        {
+            regExpression.append("(?m)");
+        }
+
+        regExpression.append("$");
     }
 
     /**
@@ -410,7 +480,7 @@ public class ExpressionFactory
                     matchOptionsOff.append("i");
                 }
             }
-            else if (name.equals("dotMatchAll"))
+            else if (name.equals("dotMatchesLineBreaks"))
             {
                 if (value.equals("true"))
                 {
@@ -421,7 +491,7 @@ public class ExpressionFactory
                     matchOptionsOff.append("s");
                 }
             }
-            else if (name.equals("multiline"))
+            else if (name.equals("anchorsMatchLineBreaks"))
             {
                 if (value.equals("true"))
                 {

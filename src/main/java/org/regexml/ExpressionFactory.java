@@ -482,7 +482,7 @@ public class ExpressionFactory
         groupMax = "1";
         boolean capture = false;
         StringBuilder matchOptionsOn = new StringBuilder();
-        StringBuilder matchOptionsOff = new StringBuilder("-");
+        StringBuilder matchOptionsOff = new StringBuilder();
 
         for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
         {
@@ -547,9 +547,9 @@ public class ExpressionFactory
 
         groupStart.append(matchOptionsOn.toString());
 
-        if (matchOptionsOff.length() > 1)
+        if (matchOptionsOff.length() > 0)
         {
-            groupStart.append(matchOptionsOff.toString());
+            groupStart.append("-").append(matchOptionsOff.toString());
         }
 
         if (!capture)

@@ -1,6 +1,6 @@
 #summary A comprehensive introduction to using the Java regexml library.
 
-= About Regexml =
+= Description =
 
 Coming soon...
 

@@ -28,7 +28,7 @@ Once the schema is available in the file system, you can reference it from any X
 
  `http://schemas.regexml.org/expressions`
 
-For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog box and select "Resources". Then click the "Add..." button in the "Configure External Resources" section and enter a URI of "http://schemas.regexml.org/expressions" and the path to the schema file under Location. Once this is complete, IDEA will assist you when creating regexml expression files by showing the valid elements and attributes available at any point in the document. Just be sure to include regexml expressions namespace at the beginning of the file like this:
+For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog box and select "Resources". Then click the "Add..." button in the "Configure External Resources" section and enter a URI of `http://schemas.regexml.org/expressions` as well as the path to the schema file under Location. Once this is complete, IDEA will assist you when creating regexml expression files by showing the valid elements and attributes available at any point in the document. Just be sure to use a ".xml" file extension and include the regexml expressions namespace at the beginning of the file like this:
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
@@ -37,7 +37,7 @@ For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog
 
 Other schema-aware XML editors should have similar ways to associate a namespace with a schema file. The structure of the expressions file is discussed in detail in sections below.
 
-Within your application, you can choose to access the regexml expressions file from either the classpath or the file system (depending on whether you choose to pass a `ClassPathResource` or `FileSystemResource` when instantiating the `ExpressionFactory` class). After an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.
+Within your application, you can choose to access the regexml expressions file from either the classpath or the file system (depending on whether you choose to pass a `ClassPathResource` or `FileSystemResource` object when instantiating the `ExpressionFactory` class). After an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.
 
 == Matching Constructs ==
 

@@ -4,7 +4,7 @@ This page is under construction.
 
 = Project Description =
 
-The regexml Java library provides a way to define regular expressions in verbose XML rather than the terse and cryptic format commonly in use. By defining and documenting complex expressions in XML, regular expressions are easier to understand, debug, and maintain.
+The regexml Java library provides a way to define regular expressions in verbose XML rather than the terse and cryptic format currently in use. By defining and documenting complex expressions in XML, regular expressions are easier to understand, debug, and maintain.
 
 = Library Installation =
 
@@ -20,11 +20,11 @@ See below for examples of how to use these classes.
 
 = Expressions File =
 
-The expressions file is the heart of the regexml library. It is within this file that regular expressions are defined in a simple XML format. Only one expressions file is needed per application since it can contain any number of regular expressions.
+The expressions file is the heart of the regexml library. It is within this file that regular expressions are defined in a simple XML format. Only one expressions file is needed per application since a single file can contain any number of regular expressions.
 
 == Create the File ==
 
-After adding the regexml JAR to your project, you'll need to create an XML file in which regular expressions are defined. In order to simplify creation of this XML, a schema is provided that describes the structure of a valid file. In order to retrieve the XML schema, you'll need to open the regexml JAR in a compression utility (e.g., WinZip, jZip, StuffIt, Zipeg, etc.) or the Java command-line _jar_ utility and extract the file named _regexml.xsd_. Using the _jar_ utility that ships with Java, you can extract the schema with this command:
+After adding the regexml JAR to your project, the next step is to create an XML file in which regular expressions are defined. In order to simplify creation of this XML, a schema is provided that describes the structure of a valid file. In order to retrieve the XML schema, you'll need to open the regexml JAR in a compression utility (e.g., WinZip, jZip, StuffIt, Zipeg, etc.) or the Java command-line _jar_ utility and extract the file named _regexml.xsd_. Using the _jar_ utility that ships with Java, you can extract the schema with this command:
 
  `jar -xf regexml-x.x.x.jar regexml.xsd`
 
@@ -32,7 +32,7 @@ Once the schema is available in the file system, you can reference it from any X
 
  `http://schemas.regexml.org/expressions`
 
-For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog box and select "Resources". Then click the "Add..." button in the "Configure External Resources" section and enter a URI of `http://schemas.regexml.org/expressions` as well as the path to the schema file under Location. Once this is complete, IDEA will assist you when creating regexml expression files by showing the valid elements and attributes available at any point in the document. Just be sure to use a ".xml" file extension and include the regexml expressions namespace at the beginning of the file like this:
+For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog box and select "Resources". Then click the "Add..." button in the "Configure External Resources" section and enter a URI of `http://schemas.regexml.org/expressions` as well as the path to the schema file under Location. Once the regexml namespace is associated with the schema, IDEA will assist you when creating regexml expression files by showing the valid elements and attributes available at any point in the document. Just be sure to use a _.xml_ file extension and include the regexml expressions namespace at the beginning of the file like this:
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
@@ -40,8 +40,6 @@ For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog
 }}}
 
 Other schema-aware XML editors should have similar ways to associate a namespace with a schema file. The structure of the expressions file is discussed in detail in sections below.
-
-Within your application, you can choose to access the regexml expressions file from either the classpath or the file system (depending on whether you choose to pass a `ClassPathResource` or `FileSystemResource` object when instantiating the `ExpressionFactory` class). Keep in mind that after an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.
 
 == File Format ==
 
@@ -72,3 +70,5 @@ Within your application, you can choose to access the regexml expressions file f
 More about constructs here...
 
 = Java API =
+
+Within your application, you can choose to access the regexml expressions file from either the classpath or the file system (depending on whether you choose to pass a `ClassPathResource` or `FileSystemResource` object when instantiating the `ExpressionFactory` class). Keep in mind that after an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.

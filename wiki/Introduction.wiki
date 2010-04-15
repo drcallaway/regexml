@@ -20,7 +20,7 @@ See below for examples of how to use these classes.
 
 = Create Expressions File =
 
-After adding the regexml JAR to your project, you'll need to create an XML file in which regular expressions can be defined. In order to simplify creation of this XML, a schema is provided that describes the structure of a valid file. In order to retrieve the XML schema, you'll need to open the regexml JAR in a compression utility (e.g., WinZip, jZip, StuffIt, Zipeg, etc.) or the Java command-line _jar_ utility and extract the file named _regexml.xsd_. Using the _jar_ utility that ships with Java, you can extract the schema with this command:
+After adding the regexml JAR to your project, you'll need to create an XML file in which regular expressions are defined. In order to simplify creation of this XML, a schema is provided that describes the structure of a valid file. In order to retrieve the XML schema, you'll need to open the regexml JAR in a compression utility (e.g., WinZip, jZip, StuffIt, Zipeg, etc.) or the Java command-line _jar_ utility and extract the file named _regexml.xsd_. Using the _jar_ utility that ships with Java, you can extract the schema with this command:
 
  `jar -xf regexml-x.x.x.jar regexml.xsd`
 

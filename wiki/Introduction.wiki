@@ -4,11 +4,11 @@ This page is under construction.
 
 = Description =
 
-The regexml Java library provides a way to define regular expressions in verbose XML rather than the terse and cryptic format currently in use. By defining and documenting complex expressions in XML, regular expressions are easier to document, understand, debug, and maintain.
+The regexml Java library provides a way to define regular expressions in verbose XML rather than the terse and cryptic format commonly in use. By defining and documenting complex expressions in XML, regular expressions are easier to understand, debug, and maintain.
 
 = Installation =
 
-In order to use the regexml Java library, simply add the _regexml-x.x.x.jar_ file to your project's classpath. Once added, the following public classes will be available from your application:
+In order to use the regexml Java library, simply add the _regexml-x.x.x.jar_ file to your project's classpath. Once added, the following public classes will be available to your application:
 
 || *Class* || *Description* ||
 || ClassPathResource || Specifies the name of an XML file available on the classpath that contains regexml expressions. ||
@@ -20,22 +20,24 @@ See below for examples of how to use these classes.
 
 = Create Expressions File =
 
-After adding the regexml JAR file to your project, you'll need to create an XML file in which any number of regular expressions can be defined. In order to simplify creation of this XML, a schema is provided that describes the structure of a valid file. In order to retrieve the XML schema, you'll need to open the regexml JAR in a compression utility (e.g., WinZip, jZip, StuffIt, Zipeg, etc.) or the Java command-line _jar_ utility and extract the file named _regexml.xsd_. Using the _jar_ utility that ships with Java, you can extract the schema with this command:
+After adding the regexml JAR to your project, you'll need to create an XML file in which regular expressions can be defined. In order to simplify creation of this XML, a schema is provided that describes the structure of a valid file. In order to retrieve the XML schema, you'll need to open the regexml JAR in a compression utility (e.g., WinZip, jZip, StuffIt, Zipeg, etc.) or the Java command-line _jar_ utility and extract the file named _regexml.xsd_. Using the _jar_ utility that ships with Java, you can extract the schema with this command:
 
- `jar -xf regexml-0.9.jar regexml.xsd`
+ `jar -xf regexml-x.x.x.jar regexml.xsd`
 
 Once the schema is available in the file system, you can reference it from any XML editor that supports schemas by associating it with the following namespace:
 
  `http://schemas.regexml.org/expressions`
 
-For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog box and select "Resources". Then click "Add..." in the "Configure External Resources" section and enter a URI of "http://schemas.regexml.org/expressions" and the path to the schema file under Location. Once this is complete, IDEA will assist you when creating regexml files by showing the valid elements and attributes available at any point in the document. Just be sure to include regexml expressions namespace at the beginning of the file like this:
+For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog box and select "Resources". Then click "Add..." in the "Configure External Resources" section and enter a URI of "http://schemas.regexml.org/expressions" and the path to the schema file under Location. Once this is complete, IDEA will assist you when creating regexml expression files by showing the valid elements and attributes available at any point in the document. Just be sure to include regexml expressions namespace at the beginning of the file like this:
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
 </regexml>
 }}}
 
-Other schema-aware XML editors should have similar ways to associate a namespace with a schema file. The following sections describe the format of the expressions file.
+Other schema-aware XML editors should have similar ways to associate a namespace with a schema file. The structure of the expressions file is discussed in detail in sections below.
+
+Within your application, you can choose to access the regexml expressions file from either the classpath or the file system (depending on whether you choose to pass a `ClassPathResource` or `FileSystemResource` when instantiating the `ExpressionFactory` class). After an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.
 
 == Matching Constructs ==
 

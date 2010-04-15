@@ -28,7 +28,7 @@ Once the schema is available in the file system, you can reference it from any X
 
  `http://schemas.regexml.org/expressions`
 
-For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog box and select "Resources". Then click "Add..." in the "Configure External Resources" section and enter a URI of "http://schemas.regexml.org/expressions" and the path to the schema file under Location. Once this is complete, IDEA will assist you when creating regexml expression files by showing the valid elements and attributes available at any point in the document. Just be sure to include regexml expressions namespace at the beginning of the file like this:
+For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog box and select "Resources". Then click the "Add..." button in the "Configure External Resources" section and enter a URI of "http://schemas.regexml.org/expressions" and the path to the schema file under Location. Once this is complete, IDEA will assist you when creating regexml expression files by showing the valid elements and attributes available at any point in the document. Just be sure to include regexml expressions namespace at the beginning of the file like this:
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

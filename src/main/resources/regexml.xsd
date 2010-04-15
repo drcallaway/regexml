@@ -35,17 +35,26 @@
 
     <complexType name="expressionType">
         <sequence>
-            <element name="start" minOccurs="0" maxOccurs="1"/>
+            <element name="start" type="rex:startType" minOccurs="0" maxOccurs="1"/>
             <sequence maxOccurs="unbounded">
                 <choice>
                     <element name="group" type="rex:groupType"/>
                     <element name="match" type="rex:matchType"/>
                 </choice>
             </sequence>
-            <element name="end" minOccurs="0" maxOccurs="1"/>
+            <element name="end" type="rex:endType" minOccurs="0" maxOccurs="1"/>
         </sequence>
         <attribute name="id" type="string" use="required"/>
-        <attributeGroup ref="rex:caseDotLine"/>
+        <attributeGroup ref="rex:caseDot"/>
+        <attribute name="anchorsMatchLineBreaks" type="boolean" use="optional" default="false"/>
+    </complexType>
+
+    <complexType name="startType">
+        <attribute name="matchLineBreaks" type="boolean" use="optional" default="false"/>
+    </complexType>
+
+    <complexType name="endType">
+        <attribute name="matchLineBreaks" type="boolean" use="optional" default="false"/>
     </complexType>
 
     <complexType name="groupType">
@@ -53,7 +62,7 @@
             <element name="match" type="rex:matchType"/>
         </sequence>
         <attributeGroup ref="rex:minMaxCap"/>
-        <attributeGroup ref="rex:caseDotLine"/>
+        <attributeGroup ref="rex:caseDot"/>
     </complexType>
 
     <complexType name="matchType">
@@ -62,10 +71,9 @@
         <attributeGroup ref="rex:minMaxCap"/>
     </complexType>
 
-    <attributeGroup name="caseDotLine">
+    <attributeGroup name="caseDot">
         <attribute name="ignoreCase" type="boolean" use="optional" default="false"/>
-        <attribute name="dotMatchAll" type="boolean" use="optional" default="false"/>
-        <attribute name="multiline" type="boolean" use="optional" default="false"/>
+        <attribute name="dotMatchesLineBreaks" type="boolean" use="optional" default="false"/>
     </attributeGroup>
 
     <attributeGroup name="minMaxCap">

@@ -491,12 +491,18 @@ public class ExpressionFactory
             }
             else
             {
-                if (Integer.parseInt(min) > Integer.parseInt(max))
+                regExpression.append("{").append(min);
+
+                if (max.equals("*"))
                 {
-                    max = min;
+                    regExpression.append(",");
+                }
+                else if (Integer.parseInt(max) > Integer.parseInt(min))
+                {
+                    regExpression.append(",").append(max);
                 }
                 
-                regExpression.append("{").append(min).append(",").append(max).append("}");
+                regExpression.append("}");
             }
         }
     }

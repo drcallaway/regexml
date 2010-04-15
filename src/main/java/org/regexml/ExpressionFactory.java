@@ -69,8 +69,11 @@ public class ExpressionFactory
     private static final String ATTR_MIN = "min";
     private static final String ATTR_MAX = "max";
     private static final String ATTR_CAPTURE = "capture";
+    private static final String ATTR_OPERATOR = "operator";
     private static final String TRUE = "true";
     private static final String FALSE = "false";
+    private static final String OPERATOR_AND = "and";
+    private static final String OPERATOR_OR = "or";
 
     private Map<String, Expression> expressionMap = new HashMap<String, Expression>();
     private XMLInputFactory inputFactory = XMLInputFactory.newInstance();
@@ -79,6 +82,8 @@ public class ExpressionFactory
     private String expressionId;
     private String groupMin;
     private String groupMax;
+    private boolean groupOperatorOr;
+    private boolean groupFirstMatch;
     private boolean autoEscape = true;
     private boolean ignoreCase;
     private boolean dotMatchesLineBreaks;
@@ -424,6 +429,15 @@ public class ExpressionFactory
         String min = "1";
         String max = "1";
 
+        if (groupFirstMatch)
+        {
+            groupFirstMatch = false;
+        }
+        else if (groupOperatorOr)
+        {
+            regExpression.append("|");
+        }
+
         for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
         {
             Attribute a = it.next();
@@ -480,6 +494,8 @@ public class ExpressionFactory
         int length = regExpression.length();
         groupMin = "1";
         groupMax = "1";
+        groupOperatorOr = false;
+        groupFirstMatch = true;
         boolean capture = false;
         StringBuilder matchOptionsOn = new StringBuilder();
         StringBuilder matchOptionsOff = new StringBuilder();
@@ -535,6 +551,10 @@ public class ExpressionFactory
                 {
                     matchOptionsOff.append("m");
                 }
+            }
+            else if (name.equals(ATTR_OPERATOR) && value.equals(OPERATOR_OR))
+            {
+                groupOperatorOr = true;
             }
         }
 

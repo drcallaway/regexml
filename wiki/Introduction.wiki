@@ -39,9 +39,34 @@ For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog
 </regexml>
 }}}
 
-Other schema-aware XML editors should have similar ways to associate a namespace with a schema file. The structure of the expressions file is discussed in detail in sections below.
+Other schema-aware XML editors should have similar ways to associate a namespace with a schema file. The structure of the expressions file is discussed in detail in the following section.
 
 == File Format ==
+
+The regexml expressions file format is very simple. This section presents the structure of these files in detail.
+
+=== Empty File ===
+
+The simplest valid expressions file is an file that defines no expressions like this:
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+</regexml>
+}}}
+
+Even though it is pretty much empty, this file still satisfies the schema because it uses the `<regexml>` root element and the correct regexml expressions namespace.
+
+=== Simplest Useful File ===
+
+About the simplest expressions file that may be useful is on that includes a single expression that performs a literal match.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="myName">
+        <match equals="Dustin"/>
+    </expression>
+</regexml>
+}}}
 
 
 

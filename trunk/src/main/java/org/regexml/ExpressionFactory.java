@@ -51,6 +51,27 @@ public class ExpressionFactory
 {
     private static final String[] autoEscapeChars = {"$", "(", ")", "*", "+", "?", "^", "{", "|"};
 
+    private static final String SCHEMA_FILE_NAME = "regexml.xsd";
+    private static final String ELEMENT_REGEXML = "regexml";
+    private static final String ELEMENT_EXPRESSION = "expression";
+    private static final String ELEMENT_START = "start";
+    private static final String ELEMENT_END = "end";
+    private static final String ELEMENT_MATCH = "match";
+    private static final String ELEMENT_GROUP = "group";
+    private static final String ATTR_AUTO_ESCAPE = "autoEscape";
+    private static final String ATTR_ID = "id";
+    private static final String ATTR_IGNORE_CASE = "ignoreCase";
+    private static final String ATTR_DOT_MATCHES_LINE_BREAKS = "dotMatchesLineBreaks";
+    private static final String ATTR_ANCHORS_MATCH_LINE_BREAKS = "anchorsMatchLineBreaks";
+    private static final String ATTR_MATCH_LINE_BREAKS = "matchLineBreaks";
+    private static final String ATTR_EQUALS = "equals";
+    private static final String ATTR_EXCEPT = "except";
+    private static final String ATTR_MIN = "min";
+    private static final String ATTR_MAX = "max";
+    private static final String ATTR_CAPTURE = "capture";
+    private static final String TRUE = "true";
+    private static final String FALSE = "false";
+
     private Map<String, Expression> expressionMap = new HashMap<String, Expression>();
     private XMLInputFactory inputFactory = XMLInputFactory.newInstance();
     private SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -98,7 +119,7 @@ public class ExpressionFactory
      */
     private void validateDocument(Resource inputResource) throws SchemaValidationException
     {
-        Resource schemaResource = new ClassPathResource("regexml.xsd");
+        Resource schemaResource = new ClassPathResource(SCHEMA_FILE_NAME);
 
         try
         {
@@ -187,27 +208,27 @@ public class ExpressionFactory
     {
         String name = se.getName().getLocalPart();
 
-        if (name.equals("regexml"))
+        if (name.equals(ELEMENT_REGEXML))
         {
             handleRegexmlElement(se);
         }
-        else if (name.equals("expression"))
+        else if (name.equals(ELEMENT_EXPRESSION))
         {
             handleExpressionElementStart(se);
         }
-        else if (name.equals("start"))
+        else if (name.equals(ELEMENT_START))
         {
             handleStartAnchorElement(se);
         }
-        else if (name.equals("end"))
+        else if (name.equals(ELEMENT_END))
         {
             handleEndAnchorElement(se);
         }
-        else if (name.equals("match"))
+        else if (name.equals(ELEMENT_MATCH))
         {
             handleMatchElement(se);
         }
-        else if (name.equals("group"))
+        else if (name.equals(ELEMENT_GROUP))
         {
             handleGroupElementStart(se);
         }
@@ -222,11 +243,11 @@ public class ExpressionFactory
     {
         String name = ee.getName().getLocalPart();
 
-        if (name.equals("expression"))
+        if (name.equals(ELEMENT_EXPRESSION))
         {
             handleExpressionElementEnd(ee);
         }
-        else if (name.equals("group"))
+        else if (name.equals(ELEMENT_GROUP))
         {
             handleGroupElementEnd(ee);
         }
@@ -246,7 +267,7 @@ public class ExpressionFactory
             String name = a.getName().getLocalPart();
             String value = a.getValue();
 
-            if (name.equals("escape") && value.equals("false"))
+            if (name.equals(ATTR_AUTO_ESCAPE) && value.equals(FALSE))
             {
                 autoEscape = false;
             }
@@ -269,25 +290,28 @@ public class ExpressionFactory
             String name = a.getName().getLocalPart();
             String value = a.getValue();
 
-            if (name.equals("id"))
+            if (name.equals(ATTR_ID))
             {
                 expressionId = value;
             }
-            else if (name.equals("ignoreCase") && value.equals("true"))
+            else if (name.equals(ATTR_IGNORE_CASE) && value.equals(TRUE))
             {
                 ignoreCase = true;
             }
-            else if (name.equals("dotMatchesLineBreaks") && value.equals("true"))
+            else if (name.equals(ATTR_DOT_MATCHES_LINE_BREAKS) && value.equals(TRUE))
             {
                 dotMatchesLineBreaks = true;
             }
-            else if (name.equals("anchorsMatchLineBreaks") && value.equals("true"))
+            else if (name.equals(ATTR_ANCHORS_MATCH_LINE_BREAKS) && value.equals(TRUE))
             {
                 anchorsMatchLineBreaks = true;
             }
         }
     }
 
+    /**
+     * Resets all instance variables to their initial values.
+     */
     private void resetInstanceVariables()
     {
         ignoreCase = false;
@@ -327,6 +351,11 @@ public class ExpressionFactory
         expressionMap.put(expressionId, new Expression(regExpressionString, pattern));
     }
 
+    /**
+     * Processes the start anchor element.
+     *
+     * @param se Start element
+     */
     private void handleStartAnchorElement(StartElement se)
     {
         for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
@@ -336,7 +365,7 @@ public class ExpressionFactory
             String name = a.getName().getLocalPart();
             String value = a.getValue();
 
-            if (name.equals("matchLineBreaks") && value.equals("true"))
+            if (name.equals(ATTR_MATCH_LINE_BREAKS) && value.equals(TRUE))
             {
                 regExpression.append("(?m)");
                 startAnchorMatchesLineBreaks = true;
@@ -346,6 +375,11 @@ public class ExpressionFactory
         regExpression.append("^");
     }
 
+    /**
+     * Processes the end anchor element.
+     *
+     * @param se Start element
+     */
     private void handleEndAnchorElement(StartElement se)
     {
         boolean matchLineBreaks = false;
@@ -357,7 +391,7 @@ public class ExpressionFactory
             String name = a.getName().getLocalPart();
             String value = a.getValue();
 
-            if (name.equals("matchLineBreaks") && value.equals("true"))
+            if (name.equals(ATTR_MATCH_LINE_BREAKS) && value.equals(TRUE))
             {
                 matchLineBreaks = true;
             }
@@ -397,11 +431,11 @@ public class ExpressionFactory
             String name = a.getName().getLocalPart();
             String value = a.getValue();
 
-            if (name.equals("equals"))
+            if (name.equals(ATTR_EQUALS))
             {
                 regExpression.append(autoEscape(value));
             }
-            else if (name.equals("except"))
+            else if (name.equals(ATTR_EXCEPT))
             {
                 value = autoEscape(value);
 
@@ -414,15 +448,15 @@ public class ExpressionFactory
                     regExpression.append("[^").append(value).append("]");
                 }
             }
-            else if (name.equals("min"))
+            else if (name.equals(ATTR_MIN))
             {
                 min = value;
             }
-            else if (name.equals("max"))
+            else if (name.equals(ATTR_MAX))
             {
                 max = value;
             }
-            else if (name.equals("capture") && value.equals("true"))
+            else if (name.equals(ATTR_CAPTURE) && value.equals(TRUE))
             {
                 capture = true;
             }
@@ -457,21 +491,21 @@ public class ExpressionFactory
             String name = a.getName().getLocalPart();
             String value = a.getValue();
 
-            if (name.equals("min"))
+            if (name.equals(ATTR_MIN))
             {
                 groupMin = value;
             }
-            else if (name.equals("max"))
+            else if (name.equals(ATTR_MAX))
             {
                 groupMax = value;
             }
-            else if (name.equals("capture") && value.equals("true"))
+            else if (name.equals(ATTR_CAPTURE) && value.equals(TRUE))
             {
                 capture = true;
             }
-            else if (name.equals("ignoreCase"))
+            else if (name.equals(ATTR_IGNORE_CASE))
             {
-                if (value.equals("true"))
+                if (value.equals(TRUE))
                 {
                     matchOptionsOn.append("i");
                 }
@@ -480,9 +514,9 @@ public class ExpressionFactory
                     matchOptionsOff.append("i");
                 }
             }
-            else if (name.equals("dotMatchesLineBreaks"))
+            else if (name.equals(ATTR_DOT_MATCHES_LINE_BREAKS))
             {
-                if (value.equals("true"))
+                if (value.equals(TRUE))
                 {
                     matchOptionsOn.append("s");
                 }
@@ -491,9 +525,9 @@ public class ExpressionFactory
                     matchOptionsOff.append("s");
                 }
             }
-            else if (name.equals("anchorsMatchLineBreaks"))
+            else if (name.equals(ATTR_ANCHORS_MATCH_LINE_BREAKS))
             {
-                if (value.equals("true"))
+                if (value.equals(TRUE))
                 {
                     matchOptionsOn.append("m");
                 }

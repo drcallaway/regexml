@@ -18,7 +18,7 @@ public class TestClient
 
         System.out.println("RegEx: " + exp.getRegExString());
         Pattern pattern = exp.getPattern();
-        Matcher matcher = pattern.matcher("(801) 796-3438");
+        Matcher matcher = pattern.matcher("(801) 555-1212");
 
         if (matcher.find())
         {

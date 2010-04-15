@@ -414,11 +414,11 @@ public class ExpressionFactory
             {
                 if (value.equals("true"))
                 {
-                    matchOptionsOn.append("d");
+                    matchOptionsOn.append("s");
                 }
                 else
                 {
-                    matchOptionsOff.append("d");
+                    matchOptionsOff.append("s");
                 }
             }
             else if (name.equals("multiline"))

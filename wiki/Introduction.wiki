@@ -2,11 +2,11 @@
 
 This page is under construction.
 
-= Description =
+= Project Description =
 
 The regexml Java library provides a way to define regular expressions in verbose XML rather than the terse and cryptic format commonly in use. By defining and documenting complex expressions in XML, regular expressions are easier to understand, debug, and maintain.
 
-= Installation =
+= Library Installation =
 
 In order to use the regexml Java library, simply add the _regexml-x.x.x.jar_ file to your project's classpath. Once added, the following public classes will be available to your application:
 
@@ -20,7 +20,7 @@ See below for examples of how to use these classes.
 
 = Expressions File =
 
-The expressions file is the heart of the regexml library. It is within this file that regular expressions are defined in a simple XML format. Only one expressions file is needed per application since any number of regular expressions can be defined within it.
+The expressions file is the heart of the regexml library. It is within this file that regular expressions are defined in a simple XML format. Only one expressions file is needed per application since it can contain any number of regular expressions.
 
 == Create the File ==
 
@@ -68,5 +68,7 @@ Within your application, you can choose to access the regexml expressions file f
 || `[ab\d]` || Character class matching a, b, or any digit ||
 || `[0-9a-f]` || Ranges matching digits 0 through 9 and letters a through f (hyphen indicates a range) ||
 || `[a\-c]` || Characters a, c, and hyphen (within character classes, literal hyphens must be escaped) ||
+
+More about constructs here...
 
 = Java API =

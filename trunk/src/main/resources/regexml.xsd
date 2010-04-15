@@ -63,6 +63,7 @@
         </sequence>
         <attributeGroup ref="rex:minMaxCap"/>
         <attributeGroup ref="rex:caseDot"/>
+        <attribute name="operator" type="string" use="optional" default="and"/>
     </complexType>
 
     <complexType name="matchType">

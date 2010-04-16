@@ -79,9 +79,9 @@ public class ExpressionFactory
     private Map<String, Expression> expressionMap = new HashMap<String, Expression>();
     private XMLInputFactory inputFactory = XMLInputFactory.newInstance();
     private SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    private Stack<GroupData> groupStack = new Stack<GroupData>();
     private StringBuilder regExpression;
     private String expressionId;
-    private Stack<GroupData> groupStack = new Stack<GroupData>();
     private boolean autoEscape = true;
     private boolean ignoreCase;
     private boolean dotMatchesLineBreaks;

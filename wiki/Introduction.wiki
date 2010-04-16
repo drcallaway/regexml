@@ -14,12 +14,16 @@ In order to use the regexml Java library, simply add the _regexml-x.x.x.jar_ fil
 
 The regexml library API is very simple. There are only four classes and one interface to learn as shown here:
 
-|| *Class* || *Description* ||
-|| `Resource` || Interface implemented by classes that encapsulate a regexml expressions file. ||
+|| *Class / Interface* || *Description* ||
+|| `Resource` || Interface implemented by classes that encapsulate a regexml expressions file (`ClassPathResource` and `FileSystemResource`). ||
 || `ClassPathResource` || Represents an XML file available on the classpath that contains regexml expressions (implements the `Resource` interface). ||
 || `FileSystemResource` || Represents an XML file available on the file system that contains regexml expressions (implements the `Resource` interface). ||
+|| `Expression` || Provides access to a regexml expression's `java.util.regex.Pattern` object and a text representation of the expression in standard regular expression syntax. ||
 || `ExpressionFactory` || Parses the XML file represented by a `ClassPathResource` or `FileSystemResource` object and creates a `java.util.regex.Pattern` object for each expression defined in the XML. The `Pattern` object can then be used to extract portions of a string or match text against the pattern. ||
-|| `Expression` || Provides access to a regexml expression's `java.util.regex.Pattern` object as well as a text representation of the expression in standard regular expression syntax. ||
+
+Now let's take a look at each of these classes and interface.
+
+== Resource Interface and Classes ==
 
 The `Resource` interface represents an object through which a regexml expressions file can be accessed. The `ClassPathResource` and `FileSystemResource` classes implement `Resource` and are used to access a regexml expressions file via the classpath or file system, respectively. `ClassPathResource` is instantiated like this:
 
@@ -42,12 +46,16 @@ Resource fsResource = new FileSystemResource(file);
 
 Depending on the type of resource file you choose, the regexml expressions file can be accessed from either the classpath or the file system. Keep in mind that after an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.
 
+== Expression Class ==
+
 The `Expression` class encapsulates information related to a single regexml expression. This class exposes the following three public methods:
 
 || *Method Name* || *Description* ||
 || `getId()` || Gets the ID for this expression as specified in the regexml expressions file. ||
 || `getPattern()` || Gets the `java.util.regex.Pattern` object associated with this expression. ||
 || `getRegExString()` || Gets a text representation of the expression in traditional regular expression syntax. ||
+
+== ExpressionFactory Class ==
 
 The `ExpressionFactory` class compiles regexml expressions into standard `java.util.regex.Pattern` objects and makes them available to your application via the `getExpression()` and `getPattern()` methods. `ExpressionFactory` can be instantiated like this:
 

@@ -67,7 +67,7 @@ The regexml expressions file format is very simple. This section presents the st
 || || capture || false || Whether or not the matching text should be extracted and made available to the application. ||
 || || ignoreCase || false || Whether or not case should be ignored when performing text comparisons. ||
 || || dotMatchesLineBreaks || false || Whether or not the dot (i.e., period) matches line breaks in addition to all other characters. ||
-|| group || || || Associates multiple matches into a logical group. Contains any number of match or group elements. ||
+|| group || || || Associates multiple matches into a logical group. Contains any number of match and/or group elements. ||
 || || operator || and || Indicates whether an "and" or an "or" operation should be applied to matches within the group. ||
 || || min || 1 || Minimum number of times the group may be repeated. ||
 || || max || 1 || Maximum number of times the group may be repeated. ||

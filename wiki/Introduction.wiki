@@ -168,11 +168,11 @@ The `Matcher` object creates a group for each `<match/>` element whose `capture`
 
 = Expressions File =
 
-The expressions file is the heart of the regexml library. It is within this file that regular expressions are defined in a simple XML format. Only one expressions file is needed per application since a single file can contain any number of regular expressions.
+The expressions file is the heart of the regexml library. It is in this file that regular expressions are defined in a simple XML format. Only one expressions file is needed per application since a single file can contain any number of regular expressions.
 
 == Create the File ==
 
-After adding the regexml JAR to your project, the next step is to create an XML file in which regular expressions are defined. In order to simplify creation of this XML, a schema is provided that describes the structure of a valid file. In order to retrieve the XML schema, you'll need to open the regexml JAR in a compression utility (e.g., WinZip, jZip, StuffIt, Zipeg, etc.) or the Java command-line _jar_ utility and extract the file named _regexml.xsd_. Using the _jar_ utility that ships with Java, you can extract the schema with this command:
+In order to simplify creation of the regexml expressions file, a schema is provided that describes the structure of a valid file. In order to retrieve the XML schema, you'll need to open the regexml JAR in a compression utility (e.g., WinZip, jZip, StuffIt, Zipeg, etc.) or the Java command-line _jar_ utility and extract the file named _regexml.xsd_. Using the _jar_ utility that ships with Java, you can extract the schema with this command:
 
  `jar -xf regexml-x.x.x.jar regexml.xsd`
 

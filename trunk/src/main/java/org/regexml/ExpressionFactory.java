@@ -426,6 +426,8 @@ public class ExpressionFactory
     {
         int length = regExpression.length();
         boolean capture = false;
+        boolean ignoreCase = false;
+        boolean dotMatchesLineBreaks = false;
         String min = "1";
         String max = "1";
 
@@ -474,9 +476,42 @@ public class ExpressionFactory
             {
                 capture = true;
             }
+            else if (name.equals(ATTR_IGNORE_CASE) && value.equals(TRUE))
+            {
+                ignoreCase = true;
+            }
+            else if (name.equals(ATTR_DOT_MATCHES_LINE_BREAKS) && value.equals(TRUE))
+            {
+                dotMatchesLineBreaks = true;
+            }
         }
 
         handleMinMax(min, max);
+
+        if (ignoreCase || dotMatchesLineBreaks)
+        {
+            StringBuilder optionsOn = new StringBuilder(8);
+            optionsOn.append("(?");
+
+            StringBuilder optionsOff = new StringBuilder(8);
+            optionsOff.append("(?-");
+
+            if (ignoreCase)
+            {
+                optionsOn.append("i");
+                optionsOff.append("i");
+            }
+            if (dotMatchesLineBreaks)
+            {
+                optionsOn.append("s");
+                optionsOff.append("s");
+            }
+
+            optionsOn.append(")");
+            optionsOff.append(")");
+
+            regExpression.insert(length, optionsOn.toString()).append(optionsOff.toString());
+        }
 
         if (capture)
         {

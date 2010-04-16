@@ -70,6 +70,7 @@
         <attribute name="equals" type="string" use="optional"/>
         <attribute name="except" type="string" use="optional"/>
         <attributeGroup ref="rex:minMaxCap"/>
+        <attributeGroup ref="rex:caseDot"/>
     </complexType>
 
     <attributeGroup name="caseDot">

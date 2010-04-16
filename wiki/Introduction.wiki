@@ -47,7 +47,7 @@ Other schema-aware XML editors should have similar ways to associate a namespace
 
 == File Format ==
 
-The regexml expressions file format is very simple. This section presents the structure of these files in detail.
+The regexml expressions file format is very simple. This section presents the structure of this file in detail.
 
 === Empty File ===
 

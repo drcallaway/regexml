@@ -1,4 +1,4 @@
-#summary Constructs that can be used within character classes.
+#summary Matching constructs that can be used within character classes.
 
 = Character Class Matching Constructs =
 

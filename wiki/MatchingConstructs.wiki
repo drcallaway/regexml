@@ -1,4 +1,4 @@
-#summary Matching constructs that can be used in the regexml match element.
+#summary Matching constructs that can be used in the regexml `match` element's `equals` and `except` attributes.
 
 = Matching Constructs =
 

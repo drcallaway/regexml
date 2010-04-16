@@ -20,7 +20,140 @@ The next section demonstrates how these classes are used.
 
 = Java API =
 
-Within your application, you can choose to access the regexml expressions file from either the classpath or the file system (depending on whether you choose to pass a `ClassPathResource` or `FileSystemResource` object when instantiating the `ExpressionFactory` class). Keep in mind that after an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.
+The regexml library API is very simple. There are only four classes and one interface to learn. The `Resource` interface represents a class through which a regexml expressions file can be accessed. The `ClassPathResource` and `FileSystemResource` classes implement `Resource` and are used to access a regexml expressions file via the classpath or file system, respectively. `ClassPathResource` is instantiated like this:
+
+{{{
+Resource cpResource = new ClassPathResource("expressions.xml");
+}}}
+
+`FileSystemResource` is instantiated like this:
+
+{{{
+Resource fsResource = new FileSystemResource("/home/user/expressions.xml");
+}}}
+
+Or like this:
+
+{{{
+File file = new File("/home/user/expressions.xml");
+Resource fsResource = new FileSystemResource(file);
+}}}
+
+Depending on the type of resource file you choose, the regexml expressions file can be accessed from either the classpath or the file system. Keep in mind that after an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.
+
+The `Expression` class encapsulates information related to a single regexml expression. This class exposes the following three public methods:
+
+|| *Method Name* || *Description* ||
+|| `getId()` || Gets the ID for this expression as specified in the regexml expressions file. ||
+|| `getPattern()` || Gets the `java.util.regex.Pattern` object associated with this expression. ||
+|| `getRegExString()` || Gets a text representation of the expression in traditional regular expression syntax. ||
+
+The `ExpressionFactory` class compiles regexml expressions into standard `java.util.regex.Pattern` objects and makes them available to your application via the `getExpression()` and `getPattern()` methods. `ExpressionFactory` can be instantiated like this:
+
+{{{
+ExpressionFactory ef = new ExpressionFactory(new ClassPathResource("expressions.xml"));
+}}}
+
+`ExpressionFactory` exposes the following two public methods:
+
+|| *Method Name* || *Description* ||
+|| `getExpression(String id)` || Gets the `Expression` object associated with the given expression ID. ||
+|| `getPattern(String id)` || Gets the `java.util.regex.Pattern` object associated with the given expression ID. ||
+
+Once the `ExpressionFactory` is instantiated, it can be used to evaluate regexml expressions. For example, given this regexml expressions file:
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="phone">
+        <start/>
+        <match equals="("/>
+        <match equals="\d" min="3"/> <!-- area code -->
+        <match equals=") "/>
+        <match equals="\d" min="3"/> <!-- prefix -->
+        <match equals="-"/>
+        <match equals="\d" min="4"/>
+        <end/>
+    </expression>
+</regexml>
+}}}
+
+We can validate a phone number with the following Java code:
+
+{{{
+Expression expr = ef.getExpression("phone");
+
+java.util.regex.Pattern pattern = exp.getPattern();
+java.util.regex.Matcher matcher = pattern.matcher("(801) 555-1212");
+
+if (matcher.matches())
+{
+    System.out.println("Thanks for your phone number!");
+}
+else
+{
+    System.out.println("This phone number is invalid!");
+}
+
+System.out.println("Expression in regular expression syntax: " + exp.getRegExString());
+}}}
+
+Notice that the code above outputs the expression in traditional regular expression syntax. If all we want to do is validate a phone number, we can bypass the `Expression` object and retrieve the `java.util.regex.Pattern` object directly like this:
+
+{{{
+java.util.regex.Pattern pattern = ef.getPattern("phone");
+java.util.regex.Matcher matcher = pattern.matcher("(801) 555-1212");
+
+if (matcher.matches())
+{
+    System.out.println("Thanks for your phone number!");
+}
+else
+{
+    System.out.println("This phone number is invalid!");
+}
+}}}
+
+In addition to validating a phone number, we can also extract information from by adding capture attributes to the regexml expression like this:
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="phone">
+        <start/>
+        <match equals="("/>
+        <match equals="\d" min="3" capture="true"/> <!-- area code -->
+        <match equals=") "/>
+        <match equals="\d" min="3" capture="true"/> <!-- prefix -->
+        <match equals="-"/>
+        <match equals="\d" min="4"/>
+        <end/>
+    </expression>
+</regexml>
+}}}
+
+This expression will allow us to extract the area code and prefix from any valid phone number. The Java code looks like this:
+
+{{{
+java.util.regex.Pattern pattern = ef.getPattern("phone");
+java.util.regex.Matcher matcher = pattern.matcher("(801) 555-1212");
+
+if (matcher.find())
+{
+    for (int i = 1; i <= matcher.groupCount(); i++) //output all captured matches
+    {
+        System.out.println(matcher.group(i));
+    }
+}
+}}}
+
+The output from this program looks like this:
+
+ `801
+ `555
+
+The `java.util.regex.Matcher` object creates a group for each `<match/>` element whose `capture` attribute is set. For more information on using the Java `Pattern` and `Matcher` classes, see the javadocs here:
+
+[http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html]
+[http://java.sun.com/javase/6/docs/api/java/util/regex/Matcher.html]
 
 = Expressions File =
 

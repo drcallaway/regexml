@@ -344,7 +344,7 @@ Regular expression:
 || `\b` || Word boundary anchor (e.g., `\bJava\b` matches "Java" but not "JavaScript". Finds whole words only.) ||
 || `\B` || Non-word boundary anchor || 
 || `[ab\d]` || Character class matching a, b, or any digit ||
-|| `[0-9a-f]` || Ranges matching digits 0 through 9 and letters a through f (hyphen indicates a range) ||
+|| `[0-9a-f]` || Digits 0 through 9 and letters a through f (hyphen inside a character class indicates a range) ||
 || `[a\-c]` || Characters a, c, and hyphen (within character classes, literal hyphens must be escaped) ||
 
 More about constructs here...

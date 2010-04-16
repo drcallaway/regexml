@@ -16,7 +16,11 @@ In order to use the regexml Java library, simply add the _regexml-x.x.x.jar_ fil
 || ExpressionFactory || Parses the XML file specified by a `ClassPathResource` or `FileSystemResource` object and creates a `java.util.regex.Pattern` object for each expression defined in the XML. The `Pattern` object can then be used to extract portions of a string or match text against the pattern. ||
 || Expression || Provides access to a regexml expression's `java.util.regex.Pattern` object as well as the standard regular expression string represented by the expression. ||
 
-See below for examples of how to use these classes.
+The next section demonstrates how these classes are used.
+
+= Java API =
+
+Within your application, you can choose to access the regexml expressions file from either the classpath or the file system (depending on whether you choose to pass a `ClassPathResource` or `FileSystemResource` object when instantiating the `ExpressionFactory` class). Keep in mind that after an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.
 
 = Expressions File =
 
@@ -56,9 +60,9 @@ The simplest valid expressions file is an file that defines no expressions like 
 
 Even though it is pretty much empty, this file still satisfies the schema because it uses the `<regexml>` root element and the correct regexml expressions namespace.
 
-=== Simplest Useful File ===
+=== Literal Match ===
 
-About the simplest expressions file that may be useful is on that includes a single expression that performs a literal match.
+About the simplest expressions file that may be useful is one that includes a single expression that performs a literal match.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
@@ -68,6 +72,65 @@ About the simplest expressions file that may be useful is on that includes a sin
 </regexml>
 }}}
 
+=== Multiple Literal Matches ===
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="myName">
+        <match equals="Dustin"/>
+        <match equals="Callaway"/>
+    </expression>
+</regexml>
+}}}
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="myName">
+        <match equals="DustinCallaway"/>
+    </expression>
+</regexml>
+}}}
+
+=== Optional Match ===
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="myName">
+        <match equals="Dustin" min="0"/>
+    </expression>
+</regexml>
+}}}
+
+=== Exact Repetitive Literal Match ===
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="myName">
+        <match equals="Dustin" min="3"/>
+    </expression>
+</regexml>
+}}}
+
+
+=== Maximum Repetitive Literal Match ===
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="myName">
+        <match equals="Dustin" max="3"/>
+    </expression>
+</regexml>
+}}}
+
+=== Repetitive Range Match ===
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="myName">
+        <match equals="Dustin" min="2" max="4"/>
+    </expression>
+</regexml>
+}}}
 
 
 === Matching Constructs ===
@@ -93,7 +156,3 @@ About the simplest expressions file that may be useful is on that includes a sin
 || `[a\-c]` || Characters a, c, and hyphen (within character classes, literal hyphens must be escaped) ||
 
 More about constructs here...
-
-= Java API =
-
-Within your application, you can choose to access the regexml expressions file from either the classpath or the file system (depending on whether you choose to pass a `ClassPathResource` or `FileSystemResource` object when instantiating the `ExpressionFactory` class). Keep in mind that after an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.

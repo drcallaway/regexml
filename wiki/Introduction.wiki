@@ -116,15 +116,15 @@ java.util.regex.Matcher matcher = pattern.matcher("(801) 555-1212");
 
 if (matcher.matches())
 {
-    System.out.println("Thanks for your phone number!");
+    System.out.println("Thanks for the valid phone number!");
 }
 else
 {
-    System.out.println("This phone number is invalid!");
+    System.out.println("This phone number is invalid! Please use this format: (XXX) XXX-XXXX");
 }
 }}}
 
-In addition to validating a phone number, we can also extract information from by adding capture attributes to the regexml expression like this:
+In addition to validating a phone number, we can also extract information from it by adding `capture` attributes to the regexml expression like this:
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
@@ -141,7 +141,7 @@ In addition to validating a phone number, we can also extract information from b
 </regexml>
 }}}
 
-This expression will allow us to extract the area code and prefix from any valid phone number. The Java code looks like this:
+The expression above will allow us to extract the area code and prefix from any valid phone number. The Java code looks like this:
 
 {{{
 java.util.regex.Pattern pattern = expressionFactory.getPattern("phone");
@@ -161,7 +161,7 @@ The output from this program looks like this:
  `801`<br>
  `555`
 
-The `java.util.regex.Matcher` object creates a group for each `<match/>` element whose `capture` attribute is set. For more information on using the Java `Pattern` and `Matcher` classes, see the javadocs here:
+The `Matcher` object creates a group for each `<match/>` element whose `capture` attribute is set. For more information on using the Java `Pattern` and `Matcher` classes, see the javadocs here:
 
 [http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html]<br>
 [http://java.sun.com/javase/6/docs/api/java/util/regex/Matcher.html]

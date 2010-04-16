@@ -8,19 +8,20 @@ The regexml Java library provides a way to define regular expressions in a verbo
 
 = Library Installation =
 
-In order to use the regexml Java library, simply add the _regexml-x.x.x.jar_ file to your project's classpath. Once added, the following public classes will be available to your application:
-
-|| *Class* || *Description* ||
-|| ClassPathResource || Specifies the name of an XML file available on the classpath that contains regexml expressions. ||
-|| FileSystemResource || Specifies the name of an XML file available on the file system that contains regexml expressions. ||
-|| ExpressionFactory || Parses the XML file specified by a `ClassPathResource` or `FileSystemResource` object and creates a `java.util.regex.Pattern` object for each expression defined in the XML. The `Pattern` object can then be used to extract portions of a string or match text against the pattern. ||
-|| Expression || Provides access to a regexml expression's `java.util.regex.Pattern` object as well as the standard regular expression string represented by the expression. ||
-
-The next section demonstrates how these classes are used.
+In order to use the regexml Java library, simply add the _regexml-x.x.x.jar_ file to your project's classpath. Once added, four public classes and one interface will be available to your application. Each of these classes and the interface are described in detail in the following section.
 
 = Java API =
 
-The regexml library API is very simple. There are only four classes and one interface to learn. The `Resource` interface represents a class through which a regexml expressions file can be accessed. The `ClassPathResource` and `FileSystemResource` classes implement `Resource` and are used to access a regexml expressions file via the classpath or file system, respectively. `ClassPathResource` is instantiated like this:
+The regexml library API is very simple. There are only four classes and one interface to learn as shown here:
+
+|| *Class* || *Description* ||
+|| `Resource` || Interface implemented by classes that encapsulate a regexml expressions file. ||
+|| `ClassPathResource` || Represents an XML file available on the classpath that contains regexml expressions (implements the `Resource` interface). ||
+|| `FileSystemResource` || Represents an XML file available on the file system that contains regexml expressions (implements the `Resource` interface). ||
+|| `ExpressionFactory` || Parses the XML file represented by a `ClassPathResource` or `FileSystemResource` object and creates a `java.util.regex.Pattern` object for each expression defined in the XML. The `Pattern` object can then be used to extract portions of a string or match text against the pattern. ||
+|| `Expression` || Provides access to a regexml expression's `java.util.regex.Pattern` object as well as a text representation of the expression in standard regular expression syntax. ||
+
+The `Resource` interface represents an object through which a regexml expressions file can be accessed. The `ClassPathResource` and `FileSystemResource` classes implement `Resource` and are used to access a regexml expressions file via the classpath or file system, respectively. `ClassPathResource` is instantiated like this:
 
 {{{
 Resource cpResource = new ClassPathResource("expressions.xml");
@@ -138,7 +139,7 @@ java.util.regex.Matcher matcher = pattern.matcher("(801) 555-1212");
 
 if (matcher.find())
 {
-    for (int i = 1; i <= matcher.groupCount(); i++) //output all captured matches
+    for (int i = 1; i <= matcher.groupCount(); i++) //iterate through all captured matches
     {
         System.out.println(matcher.group(i));
     }
@@ -224,6 +225,7 @@ The simplest valid expressions file is an file that defines no expressions like 
 Even though it is pretty much empty, this file still satisfies the schema because it uses the `<regexml>` root element and the correct regexml expressions namespace.
 
 === Literal Match ===
+
 
 About the simplest expressions file that may be useful is one that includes a single expression that performs a literal match.
 

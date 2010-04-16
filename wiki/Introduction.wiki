@@ -325,6 +325,10 @@ Matches: a, aa, aaa
 Matches: aa, aaa, aaaa<br>
 Regular expression: 
 
+=== Look-ahead and Look-behind ===
+
+Look-aheads and look-behinds (positive and negative) are not yet supported in regexml.
+
 === Matching Constructs ===
 
 || *Construct* || *Matches* ||

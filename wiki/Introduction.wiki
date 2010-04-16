@@ -103,6 +103,7 @@ About the simplest expressions file that may be useful is one that includes a si
 }}}
 
 Matches: a
+Regular expression: a
 
 === Multiple Matches ===
 

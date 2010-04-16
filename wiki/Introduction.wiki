@@ -187,18 +187,16 @@ For example, in IntelliJ IDEA (my IDE of choice), bring up the "Settings" dialog
 </regexml>
 }}}
 
-Other schema-aware XML editors should have similar ways to associate a namespace with a schema file. The structure of the expressions file is discussed in detail in the following section.
+Other schema-aware XML editors should have similar ways to associate a namespace with a schema file. The structure of the expressions file is discussed in detail in the following sections.
 
 == File Format ==
 
-The regexml expressions file format is very simple. This section presents the structure of this file in detail.
-
-=== Elements and Attributes ===
+The format of the regexml expressions file is defined by an XML schema. The following table documents the elements and attributes declared in this schema.
 
 || *Element* || *Attribute* || *Default Value* || *Description* ||
 || regexml || || || Root element. Contains any number of expression elements. ||
 || || autoEscape || true || Causes regexml to automatically escape most special regular expression characters. ||
-|| expression || || || Defines a single regular expression. Contains one or more match and/or group elements. ||
+|| expression || || || Defines a single regular expression. Contains any number of match and/or group elements. ||
 || || id || || Unique identifier for the expression. ||
 || || ignoreCase || false || Indicates whether or not case should be ignored when performing text comparisons. ||
 || || dotMatchesLineBreaks || false || Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. ||
@@ -211,16 +209,16 @@ The regexml expressions file format is very simple. This section presents the st
 || || capture || false || Indicates whether or not the matching text should be extracted and made available to the application. ||
 || || ignoreCase || false || Indicates whether or not case should be ignored when performing text comparisons. ||
 || || dotMatchesLineBreaks || false || Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. ||
-|| group || || || Associates multiple matches into a logical group. Contains one or more match and/or group elements. ||
+|| group || || || Associates multiple matches into a logical group. Contains any number of match and/or group elements. ||
 || || operator || and || Indicates whether an "and" or an "or" operation should be applied to matches within the group. ||
 || || min || 1 || Minimum number of times the group may be repeated. ||
 || || max || 1 || Maximum number of times the group may be repeated. ||
 || || capture || false || Indicates whether or not the text from the matching group should be extracted and made available to the application. ||
 || || ignoreCase || false || Indicates whether or not case should be ignored when performing text comparisons. ||
 || || dotMatchesLineBreaks || false || Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. ||
-|| start || || || Anchors the match to beginning of text (must start at the beginning of the text or line). ||
+|| start || || || Anchors the match to the beginning of the text (must start at the beginning of the text or line). ||
 || || matchLineBreaks || false || Indicates whether or not this anchor should match line breaks. ||
-|| end || || || Anchors the match to end of text (must end at the end of the text or line). ||
+|| end || || || Anchors the match to the end of the text (must end at the end of the text or line). ||
 || || matchLineBreaks || false || Indicates whether or not this anchor should match line breaks. ||
 
 === Empty File ===

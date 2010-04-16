@@ -72,7 +72,7 @@ About the simplest expressions file that may be useful is one that includes a si
 </regexml>
 }}}
 
-=== Multiple Literal Matches ===
+=== Multiple Matches ===
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
@@ -101,7 +101,7 @@ About the simplest expressions file that may be useful is one that includes a si
 </regexml>
 }}}
 
-=== Exact Quantity Literal Match ===
+=== Exact Quantity Match ===
 
 Matches: DustinDustinDustin
 
@@ -116,7 +116,7 @@ Matches: DustinDustinDustin
 Whenever the `max` attribute is less than the `min` attribute, `max` is automatically set equal to `min`. This behavior allows an exact number of matches to be specified by setting only the `min` attribute (since `max` defaults to 1, any `min` amount greater than 1 will cause `max` to be assigned the same value).
 
 
-=== Maximum Quantity Literal Match ===
+=== Maximum Quantity Match ===
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
@@ -135,7 +135,6 @@ Whenever the `max` attribute is less than the `min` attribute, `max` is automati
     </expression>
 </regexml>
 }}}
-
 
 === Matching Constructs ===
 

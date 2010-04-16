@@ -53,7 +53,7 @@ The regexml expressions file format is very simple. This section presents the st
 
 || *Element* || *Attribute* || *Default Value* || *Description* ||
 || regexml || || || Root element. Contains any number of expression elements. ||
-|| || autoEscape || true || Causes regexml to automatically escape most special regular expression characters ||
+|| || autoEscape || true || Causes regexml to automatically escape most special regular expression characters. ||
 || expression || || || Defines a single regular expression. Contains any number of match and/or group elements. ||
 || || id || || Unique identifier for the expression. ||
 || || ignoreCase || false || Whether or not case should be ignored when performing text comparisons. ||

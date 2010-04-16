@@ -2,7 +2,7 @@
 
 = Character Class Matching Constructs =
 
-A _character class_ defines a set of characters used to match text. Character classes are enclosed in brackets. For example, this character class matches the character a, b, or c: `[abc]`
+A _character class_ defines a set of characters that are used to match text. Character classes are enclosed in brackets. For example, this character class matches the character a, b, or c: `[abc]`
 
 || *Construct* || *Matches* ||
 || _x_ || Any literal character _x_ except for period, backslash, less than symbol, and double quotes. [`.\<"`] ||

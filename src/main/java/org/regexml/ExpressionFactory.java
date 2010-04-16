@@ -41,6 +41,7 @@ import java.io.Reader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Stack;
 import java.util.regex.Pattern;
 
 /**
@@ -80,10 +81,7 @@ public class ExpressionFactory
     private SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     private StringBuilder regExpression;
     private String expressionId;
-    private String groupMin;
-    private String groupMax;
-    private boolean groupOperatorOr;
-    private boolean groupFirstMatch;
+    private Stack<GroupData> groupStack = new Stack<GroupData>();
     private boolean autoEscape = true;
     private boolean ignoreCase;
     private boolean dotMatchesLineBreaks;
@@ -431,14 +429,7 @@ public class ExpressionFactory
         String min = "1";
         String max = "1";
 
-        if (groupFirstMatch)
-        {
-            groupFirstMatch = false;
-        }
-        else if (groupOperatorOr)
-        {
-            regExpression.append("|");
-        }
+        processOrOperator();
 
         for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
         {
@@ -520,20 +511,42 @@ public class ExpressionFactory
     }
 
     /**
+     * Determines if the logical OR operator needs to be inserted before the next match or group.
+     */
+    private void processOrOperator()
+    {
+        if (!groupStack.isEmpty())
+        {
+            GroupData groupData = groupStack.peek();
+
+            if (groupData.isFirstMatch())
+            {
+                groupData.setFirstMatch(false);
+            }
+            else if (groupData.getOperator().equals(OPERATOR_OR))
+            {
+                regExpression.append("|");
+            }
+        }
+    }
+
+    /**
      * Processes the start of the group element.
      *
      * @param se Start element
      */
     private void handleGroupElementStart(StartElement se)
     {
-        int length = regExpression.length();
-        groupMin = "1";
-        groupMax = "1";
-        groupOperatorOr = false;
-        groupFirstMatch = true;
         boolean capture = false;
         StringBuilder matchOptionsOn = new StringBuilder();
         StringBuilder matchOptionsOff = new StringBuilder();
+
+        processOrOperator();
+
+        int length = regExpression.length();
+
+        GroupData groupData = new GroupData();
+        groupStack.push(groupData);
 
         for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
         {
@@ -544,11 +557,11 @@ public class ExpressionFactory
 
             if (name.equals(ATTR_MIN))
             {
-                groupMin = value;
+                groupData.setMin(value);
             }
             else if (name.equals(ATTR_MAX))
             {
-                groupMax = value;
+                groupData.setMax(value);
             }
             else if (name.equals(ATTR_CAPTURE) && value.equals(TRUE))
             {
@@ -589,7 +602,7 @@ public class ExpressionFactory
             }
             else if (name.equals(ATTR_OPERATOR) && value.equals(OPERATOR_OR))
             {
-                groupOperatorOr = true;
+                groupData.setOperator(OPERATOR_OR);
             }
         }
 
@@ -623,7 +636,9 @@ public class ExpressionFactory
     private void handleGroupElementEnd(EndElement ee)
     {
         regExpression.append(")");
-        handleMinMax(groupMin, groupMax);
+
+        GroupData groupData = groupStack.pop();
+        handleMinMax(groupData.getMin(), groupData.getMax());
     }
 
     /**
@@ -686,5 +701,96 @@ public class ExpressionFactory
         }
 
         return text;
+    }
+
+    /**
+     * Encapsulates settings for a single group.
+     */
+    private static class GroupData
+    {
+        private String min = "1";
+        private String max = "1";
+        private String operator = OPERATOR_AND;
+        private boolean firstMatch = true;
+
+        /**
+         * Gets the minimum number of times group may appear.
+         *
+         * @return Minimum quantity
+         */
+        public String getMin()
+        {
+            return min;
+        }
+
+        /**
+         * Sets the minimum number of times group may appear.
+         *
+         * @param min Minimum quantity
+         */
+        public void setMin(String min)
+        {
+            this.min = min;
+        }
+
+        /**
+         * Gets the maximum number of times group may appear.
+         *
+         * @return Maximum quantity
+         */
+        public String getMax()
+        {
+            return max;
+        }
+
+        /**
+         * Sets the maximum number of times group may appear.
+         *
+         * @param max Maximum quantity
+         */
+        public void setMax(String max)
+        {
+            this.max = max;
+        }
+
+        /**
+         * Gets the logical operator to be used by this group ("and" or "or").
+         *
+         * @return Logical operator
+         */
+        public String getOperator()
+        {
+            return operator;
+        }
+
+        /**
+         * Sets the logical operator to be used by this group ("and" or "or").
+         *
+         * @param operator Logical operator
+         */
+        public void setOperator(String operator)
+        {
+            this.operator = operator;
+        }
+
+        /**
+         * Gets the variable used to flag the first match within this group.
+         *
+         * @return First match flag
+         */
+        public boolean isFirstMatch()
+        {
+            return firstMatch;
+        }
+
+        /**
+         * Sets the variable used to flag the first match within this group.
+         *
+         * @param firstMatch First match flag
+         */
+        public void setFirstMatch(boolean firstMatch)
+        {
+            this.firstMatch = firstMatch;
+        }
     }
 }

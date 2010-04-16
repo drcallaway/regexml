@@ -75,9 +75,9 @@ The regexml expressions file format is very simple. This section presents the st
 || || ignoreCase || false || Indicates whether or not case should be ignored when performing text comparisons. ||
 || || dotMatchesLineBreaks || false || Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. ||
 || start || || || Anchors the match to beginning of text (must start at the beginning of the text or line). ||
-|| || matchLineBreaks || false || Indicates whether or not this anchor should match on line breaks. ||
+|| || matchLineBreaks || false || Indicates whether or not this anchor should match line breaks. ||
 || end || || || Anchors the match to end of text (must end at the end of the text or line). ||
-|| || matchLineBreaks || false || Indicates whether or not this anchor should match on line breaks. ||
+|| || matchLineBreaks || false || Indicates whether or not this anchor should match line breaks. ||
 
 === Empty File ===
 

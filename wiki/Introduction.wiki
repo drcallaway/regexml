@@ -221,6 +221,8 @@ The format of the regexml expressions file is defined by an XML schema. The foll
 || end || || || Anchors the match to the end of the text (must end at the end of the text or line). ||
 || || matchLineBreaks || false || Indicates whether or not this anchor should match line breaks. ||
 
+The following sections provide examples of various regexml expressions.
+
 === Empty File ===
 
 The simplest valid expressions file is an file that defines no expressions like this:

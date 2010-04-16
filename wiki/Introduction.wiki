@@ -223,7 +223,7 @@ The format of the regexml expressions file is defined by an XML schema. The foll
 
 For additional file format information, see the _regexml.xsd_ schema included in the regexml JAR file.
 
-== Examples ==
+== Expression Examples ==
 
 The following sections provide examples of various regexml expressions.
 

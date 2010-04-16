@@ -426,6 +426,7 @@ public class ExpressionFactory
         boolean capture = false;
         boolean ignoreCase = false;
         boolean dotMatchesLineBreaks = false;
+        boolean equalsExceptFlag = false;
         String min = "1";
         String max = "1";
 
@@ -433,19 +434,21 @@ public class ExpressionFactory
 
         for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
         {
-            Attribute a = it.next();
+            Attribute attribute = it.next();
 
-            String name = a.getName().getLocalPart();
-            String value = a.getValue();
+            String name = attribute.getName().getLocalPart();
+            String value = attribute.getValue();
 
-            if (name.equals(ATTR_EQUALS))
+            if (name.equals(ATTR_EQUALS) && !equalsExceptFlag)
             {
+                equalsExceptFlag = true;
                 regExpression.append(autoEscape(value));
             }
-            else if (name.equals(ATTR_EXCEPT))
+            else if (name.equals(ATTR_EXCEPT) && !equalsExceptFlag)
             {
-                value = autoEscape(value);
+                equalsExceptFlag = true;
 
+                value = autoEscape(value);
                 if (value.startsWith("["))
                 {
                     regExpression.append("[^").append(value.substring(1));
@@ -550,10 +553,10 @@ public class ExpressionFactory
 
         for (Iterator<Attribute> it = se.getAttributes(); it.hasNext();)
         {
-            Attribute a = it.next();
+            Attribute attribute = it.next();
 
-            String name = a.getName().getLocalPart();
-            String value = a.getValue();
+            String name = attribute.getName().getLocalPart();
+            String value = attribute.getValue();
 
             if (name.equals(ATTR_MIN))
             {

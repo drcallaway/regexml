@@ -93,22 +93,22 @@ We can validate a phone number with the following Java code:
 {{{
 Expression expr = expressionFactory.getExpression("phone");
 
-java.util.regex.Pattern pattern = exp.getPattern();
+java.util.regex.Pattern pattern = expr.getPattern();
 java.util.regex.Matcher matcher = pattern.matcher("(801) 555-1212");
 
 if (matcher.matches())
 {
-    System.out.println("Thanks for your phone number!");
+    System.out.println("Thanks for the valid phone number!");
 }
 else
 {
     System.out.println("This phone number is invalid! Please use this format: (XXX) XXX-XXXX");
 }
 
-System.out.println("Expression in regular expression syntax: " + exp.getRegExString());
+System.out.println("Expression in regular expression syntax: " + expr.getRegExString());
 }}}
 
-Notice that the code above outputs the expression in traditional regular expression syntax. If all we want to do is validate a phone number, we can bypass the `Expression` object and retrieve the `java.util.regex.Pattern` object directly like this:
+The code above retrieves an `Expression` object because it's needed in order to output the expression in regular expression syntax. If all we want to do is validate a phone number, we can bypass the `Expression` object and retrieve the `java.util.regex.Pattern` object directly like this:
 
 {{{
 java.util.regex.Pattern pattern = expressionFactory.getPattern("phone");

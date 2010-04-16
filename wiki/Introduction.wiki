@@ -101,7 +101,7 @@ About the simplest expressions file that may be useful is one that includes a si
 </regexml>
 }}}
 
-=== Exact Repetitive Literal Match ===
+=== Exact Quantity Literal Match ===
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
@@ -112,7 +112,7 @@ About the simplest expressions file that may be useful is one that includes a si
 }}}
 
 
-=== Maximum Repetitive Literal Match ===
+=== Maximum Quantity Literal Match ===
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
@@ -122,7 +122,7 @@ About the simplest expressions file that may be useful is one that includes a si
 </regexml>
 }}}
 
-=== Repetitive Range Match ===
+=== Quantity Range Match ===
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

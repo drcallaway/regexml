@@ -48,22 +48,24 @@ Depending on the type of resource file you choose, the regexml expressions file 
 
 == Expression Class ==
 
-The `Expression` class encapsulates information related to a single regexml expression. This class exposes the following three public methods:
+The `Expression` class encapsulates information related to a single regexml expression. This class exposes the following public methods:
 
 || *Method Name* || *Description* ||
 || `getId()` || Gets the ID for this expression as specified in the regexml expressions file. ||
 || `getPattern()` || Gets the `java.util.regex.Pattern` object associated with this expression. ||
 || `getRegExString()` || Gets a text representation of the expression in traditional regular expression syntax. ||
 
+Typically, you will only be interested in retrieving `Pattern` objects in order to evaluate regular expressions. In that case, the `ExpressionFactory` class provides a convenience method called `getPattern()` that allows you to bypass the `Expression` object and retrieve the `Pattern` object directly. However, the `Expression` object is available for times when you need to access the expression's ID or see the expression in traditional regular expression syntax.
+
 == ExpressionFactory Class ==
 
-The `ExpressionFactory` class compiles regexml expressions into standard `java.util.regex.Pattern` objects and makes them available to your application via the `getExpression()` and `getPattern()` methods. `ExpressionFactory` can be instantiated like this:
+The `ExpressionFactory` class compiles regexml expressions into standard `java.util.regex.Pattern` objects and makes them available to client applications via the `getExpression()` and `getPattern()` methods. `ExpressionFactory` can be instantiated like this:
 
 {{{
 ExpressionFactory ef = new ExpressionFactory(new ClassPathResource("expressions.xml"));
 }}}
 
-`ExpressionFactory` exposes the following two public methods:
+`ExpressionFactory` exposes the following public methods:
 
 || *Method Name* || *Description* ||
 || `getExpression(String id)` || Gets the `Expression` object associated with the given expression ID. ||
@@ -226,6 +228,7 @@ The regexml expressions file format is very simple. This section presents the st
 The simplest valid expressions file is an file that defines no expressions like this:
 
 {{{
+
 <regexml xmlns="http://schemas.regexml.org/expressions">
 </regexml>
 }}}

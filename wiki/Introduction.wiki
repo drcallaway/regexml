@@ -236,7 +236,7 @@ The simplest valid expressions file is a file that defines no expressions like t
 </regexml>
 }}}
 
-Even though it is pretty much empty, this file still satisfies the schema because it uses the `<regexml>` root element and the correct regexml expressions namespace.
+Even though it doesn't define any expressions, this file still satisfies the schema because it uses the `<regexml>` root element and the correct regexml expressions namespace.
 
 === Literal Match ===
 
@@ -251,8 +251,7 @@ About the simplest expressions file that may be useful is one that includes a si
 </regexml>
 }}}
 
-Matches: a
-
+Matches: a<br>
 Regular expression: a
 
 === Multiple Matches ===
@@ -315,15 +314,16 @@ Matches: a, aa, aaa
 
 === Quantity Range Match ===
 
-Matches: DustinDustin, DustinDustinDustin, and DustinDustinDustinDustin
-
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="myName">
-        <match equals="Dustin" min="2" max="4"/>
+    <expression id="letters">
+        <match equals="a" min="2" max="4"/>
     </expression>
 </regexml>
 }}}
+
+Matches: aa, aaa, aaaa<br>
+Regular expression: 
 
 === Matching Constructs ===
 
@@ -344,6 +344,7 @@ Matches: DustinDustin, DustinDustinDustin, and DustinDustinDustinDustin
 || `\b` || Word boundary anchor (e.g., `\bJava\b` matches "Java" but not "JavaScript". Finds whole words only.) ||
 || `\B` || Non-word boundary anchor || 
 || `[ab\d]` || Character class matching a, b, or any digit ||
+
 || `[0-9a-f]` || Ranges matching digits 0 through 9 and letters a through f (hyphen indicates a range) ||
 || `[a\-c]` || Characters a, c, and hyphen (within character classes, literal hyphens must be escaped) ||
 

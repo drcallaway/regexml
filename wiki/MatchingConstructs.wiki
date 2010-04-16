@@ -1,6 +1,8 @@
-#summary Matching constructs that can be used in the regexml `match` element's `equals` and `except` attributes.
+#summary Matching constructs that can be used in the regexml match element.
 
 = Matching Constructs =
+
+The following constructs an be used in the `match` element's `equals` and `except` attributes.
 
 || *Construct* || *Matches* ||
 || _x_ || Any literal character _x_ except for period, backslash, less than symbol, and double quotes. [`.\<"`] ||

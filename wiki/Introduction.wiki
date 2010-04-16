@@ -147,12 +147,12 @@ if (matcher.find())
 
 The output from this program looks like this:
 
- `801
- `555
+ `801`<br>
+ `555`
 
 The `java.util.regex.Matcher` object creates a group for each `<match/>` element whose `capture` attribute is set. For more information on using the Java `Pattern` and `Matcher` classes, see the javadocs here:
 
-[http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html]
+[http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html]<br>
 [http://java.sun.com/javase/6/docs/api/java/util/regex/Matcher.html]
 
 = Expressions File =

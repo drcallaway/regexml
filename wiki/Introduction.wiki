@@ -191,37 +191,7 @@ Other schema-aware XML editors should have similar ways to associate a namespace
 
 == File Format ==
 
-The format of the regexml expressions file is defined by an XML schema. The following table documents the elements and attributes declared in this schema.
-
-|| *Element* || *Attribute* || *Default Value* || *Description* ||
-|| regexml || || || Root element. Contains any number of expression elements. ||
-|| || autoEscape || true || Causes regexml to automatically escape most special regular expression characters. ||
-|| expression || || || Defines a single regular expression. Contains any number of match and/or group elements. ||
-|| || id || || Unique identifier for the expression. ||
-|| || ignoreCase || false || Indicates whether or not case should be ignored when performing text comparisons. ||
-|| || dotMatchesLineBreaks || false || Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. ||
-|| || anchorsMatchLineBreaks || false || Indicates whether or not the `<start/>` and `<end/>` anchors match line breaks. ||
-|| match || || || Specifies criteria to match one part of the text. The equals and except attributes are mutually exclusive. If both are specified, one will be ignored. ||
-|| || equals || || Matching expression (cannot be used with the except attribute). ||
-|| || except || || Negated matching expression (cannot be used with the equals attribute). ||
-|| || min || 1 || Minimum number of times the match may be repeated. ||
-|| || max || 1 || Maximum number of times the match may be repeated. ||
-|| || capture || false || Indicates whether or not the matching text should be extracted and made available to the application. ||
-|| || ignoreCase || false || Indicates whether or not case should be ignored when performing text comparisons. ||
-|| || dotMatchesLineBreaks || false || Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. ||
-|| group || || || Associates multiple matches into a logical group. Contains any number of match and/or group elements. ||
-|| || operator || and || Indicates whether an "and" or an "or" operation should be applied to matches within the group. ||
-|| || min || 1 || Minimum number of times the group may be repeated. ||
-|| || max || 1 || Maximum number of times the group may be repeated. ||
-|| || capture || false || Indicates whether or not the text from the matching group should be extracted and made available to the application. ||
-|| || ignoreCase || false || Indicates whether or not case should be ignored when performing text comparisons. ||
-|| || dotMatchesLineBreaks || false || Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. ||
-|| start || || || Anchors the match to the beginning of the text (must start at the beginning of the text or line). ||
-|| || matchLineBreaks || false || Indicates whether or not this anchor should match line breaks. ||
-|| end || || || Anchors the match to the end of the text (must end at the end of the text or line). ||
-|| || matchLineBreaks || false || Indicates whether or not this anchor should match line breaks. ||
-
-For additional file format information, see the _regexml.xsd_ schema included in the regexml JAR file.
+Detailed documentation regarding the regexml expressions file format are available [ExpressionsFileFormat here].
 
 == Expression Examples ==
 

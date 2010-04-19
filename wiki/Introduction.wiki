@@ -19,7 +19,7 @@ The regexml library API is very simple. There are only four classes and one inte
 || `Expression` || Provides access to a regexml expression's `java.util.regex.Pattern` object and a text representation of the expression in standard regular expression syntax. ||
 || `ExpressionFactory` || Parses the XML file represented by a `ClassPathResource` or `FileSystemResource` object and creates a `java.util.regex.Pattern` object for each expression defined in the XML. The `Pattern` object can then be used to extract portions of a string or match text against the pattern. ||
 
-You can find the javadoc for these classes [http://regexml.googlecode.com/svn/trunk/javadoc/index.html here]. Now let's take a look at each of these classes and interface.
+Now let's take a look at each of these classes and interface. The javadoc is available [http://regexml.googlecode.com/svn/trunk/javadoc/index.html here].
 
 == Resource Interface and Classes ==
 

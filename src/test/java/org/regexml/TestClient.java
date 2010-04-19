@@ -1,5 +1,5 @@
-import org.regexml.Expression;
-import org.regexml.ExpressionFactory;
+package org.regexml;
+
 import org.regexml.resource.FileSystemResource;
 
 import java.util.regex.Matcher;

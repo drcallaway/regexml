@@ -191,7 +191,7 @@ Other schema-aware XML editors should have similar ways to associate a namespace
 
 == File Format ==
 
-Detailed documentation regarding the regexml expressions file format are available [ExpressionsFileFormat here].
+Detailed documentation regarding the regexml expressions file format is available [ExpressionsFileFormat here].
 
 == Expression Examples ==
 

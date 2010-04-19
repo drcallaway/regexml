@@ -166,6 +166,8 @@ The `Matcher` object creates a group for each `<match/>` element whose `capture`
 [http://java.sun.com/javase/6/docs/api/java/util/regex/Pattern.html]<br>
 [http://java.sun.com/javase/6/docs/api/java/util/regex/Matcher.html]
 
+For more details on the regexml classes, see the [http://regexml.googlecode.com/svn/trunk/javadoc/index.html regexml javadoc].
+
 = Expressions File =
 
 The expressions file is the heart of the regexml library. It is in this file that regular expressions are defined in a simple XML format. Only one expressions file is needed per application since a single file can contain any number of regular expressions.

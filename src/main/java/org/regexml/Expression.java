@@ -24,7 +24,7 @@ package org.regexml;
 import java.util.regex.Pattern;
 
 /**
- * Represents a regexml expression.
+ * Represents a single regexml expression.
  */
 public class Expression
 {
@@ -67,7 +67,7 @@ public class Expression
     }
 
     /**
-     * Gets the regular expression string.
+     * Gets the expression in traditional regular expression syntax.
      *
      * @return Regular expression string
      */

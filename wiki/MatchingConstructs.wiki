@@ -18,7 +18,7 @@ The following constructs an be used in the `match` element's `equals` and `excep
 || `\S` || Non-whitespace character ||
 || `\w` || Word character [`a-zA-Z_0-9`] ||
 || `\W` || Non-word character ||
-|| `\b` || Word boundary (e.g., `\bJava\b` matches "Java" but not "JavaScript" or "MyJava".) ||
+|| `\b` || Word boundary (e.g., `\bScript\b` matches "Script" but not "Scripting" or "JavaScript".) ||
 || `\B` || Non-word boundary || 
 || `[ab\d]` || Character class matching a, b, or any digit ||
 || `[0-9a-f]` || Digits 0 through 9 and letters a through f (hyphen indicates a range) ||

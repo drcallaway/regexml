@@ -28,29 +28,32 @@ import java.util.regex.Pattern;
  */
 public class Expression
 {
-    private String regExString;
+    private String id;
     private Pattern pattern;
+    private String regExString;
 
     /**
      * Constructs a new expression object.
      *
+     * @param id Expression ID
      * @param regExString Regular expression string
      * @param pattern Regular expression pattern
      */
-    public Expression(String regExString, Pattern pattern)
+    public Expression(String id, String regExString, Pattern pattern)
     {
+        this.id = id;
         this.regExString = regExString;
         this.pattern = pattern;
     }
 
     /**
-     * Gets the regular expression string.
+     * Gets the ID for this expression.
      *
-     * @return Regular expression string
+     * @return Expression ID
      */
-    public String getRegExString()
+    public String getId()
     {
-        return regExString;
+        return id;
     }
 
     /**
@@ -61,5 +64,15 @@ public class Expression
     public Pattern getPattern()
     {
         return pattern;
+    }
+
+    /**
+     * Gets the regular expression string.
+     *
+     * @return Regular expression string
+     */
+    public String getRegExString()
+    {
+        return regExString;
     }
 }

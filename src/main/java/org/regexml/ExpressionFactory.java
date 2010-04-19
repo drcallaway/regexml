@@ -351,7 +351,7 @@ public class ExpressionFactory
         String regExpressionString = regExpression.toString();
         Pattern pattern = Pattern.compile(regExpressionString, options);
 
-        expressionMap.put(expressionId, new Expression(regExpressionString, pattern));
+        expressionMap.put(expressionId, new Expression(expressionId, regExpressionString, pattern));
     }
 
     /**

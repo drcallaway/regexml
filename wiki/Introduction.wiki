@@ -280,6 +280,8 @@ Regular expression: `a{3}`
 
 === Maximum Quantity Match ===
 
+If only a `max` value is set, the default `min` value of one will be used.
+
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
     <expression id="letters">

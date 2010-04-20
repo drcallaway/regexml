@@ -275,7 +275,6 @@ Whenever the `max` attribute is less than the `min` attribute, `max` is automati
 </regexml>
 }}}
 
-
 Matches: _aaa_<br>
 Regular expression: `a{3}`
 
@@ -348,11 +347,39 @@ Regular expression: `(?:a)(?:bc)?(?:d){1,2}`
 
 === Character Class Match ===
 
+A _character class_ defines a set of characters enclosed in brackets that are used to match text. If no quantity modifiers are specified (i.e., `min` and `max` attributes), a character class matches a single character. For example, this character class matches the character _a_, _b_, or _c_: `[abc]` Applying quantity modifiers allows any number of characters to be matched.
 
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="letters">
+        <match equals="[abc]" max="2"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: _a_, _b_, _c_, _aa_, _ab_, _ac_, _ba_, _bb_, _bc_, _ca_, _cb_, _cc_<br>
+Regular expression: `[abc]{1,2}`
+
+=== Character Class Range Match ===
+
+The hyphen character is used to represent a range of characters within a character class. For example, the character class `[a-z]` represents all lowercase letters. Since it has special meaning, the hyphen must be escaped within character classes if wished to be used literally. For example, the character class `[a\-z]` represents the characters _a_, _-_, and _z_ rather than a range of letters from _a_ to _z_.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="letters">
+        <match equals="[a-c1-3]"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: _a_, _b_, _c_, _1_, _2_, _3_<br>
+Regular expression: `[a-c1-3]`
 
 === Digit Match ===
 
 Digits can be matched using the `[0-9]` character class or the `\d` string.
+
+=== Negated Match ===
 
 === Look-ahead and Look-behind ===
 

@@ -343,7 +343,7 @@ The `min` and `max` quantity attributes work with groups the same as they do wit
 </regexml>
 }}}
 
-Matches: a, ad, add, abcd, abcdd
+Matches: a, ad, add, abcd, abcdd<br>
 Regular expression: `(?:a)(?:bc)?(?:d){1,2}`
 
 === Look-ahead and Look-behind ===

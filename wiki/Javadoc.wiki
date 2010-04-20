@@ -1,3 +1,0 @@
-#summary Javadoc for the regexml project.
-
-The regexml javadoc is available [http://regexml.googlecode.com/svn/trunk/javadoc/index.html here].

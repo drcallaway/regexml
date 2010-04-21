@@ -526,3 +526,7 @@ Regular expression: `"Hello Tim's mom!"`
 === Look-ahead and Look-behind ===
 
 Look-aheads and look-behinds (positive and negative) are not yet supported in regexml.
+
+=== Other Matching Constructs ===
+
+See the page [MatchingConstructs here] for information about more matching constructs.

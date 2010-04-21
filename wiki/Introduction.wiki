@@ -106,7 +106,7 @@ else
 System.out.println("Expression in regular expression syntax: " + expr.getRegExString());
 }}}
 
-The code above retrieves an `Expression` object because it's needed in order to output the expression in regular expression syntax. If all we want to do is validate a phone number, we can bypass the `Expression` object and retrieve the `java.util.regex.Pattern` object directly like this:
+The code above retrieves an `Expression` object because it's used in the code above to output the expression in regular expression syntax. If all we want to do is validate a phone number, we can bypass the `Expression` object and retrieve the `java.util.regex.Pattern` object directly like this:
 
 {{{
 java.util.regex.Pattern pattern = expressionFactory.getPattern("phone");

@@ -402,8 +402,8 @@ For convenience, regular expressions offer a few predefined character classes. T
 || `\S` || Non-whitespace character `[^ \t\n\f\r]` ||
 || `\w` || Word character `[a-zA-Z_0-9]` ||
 || `\W` || Non-word character `[^a-zA-Z_0-9]` ||
-|| `\b` || Word boundary (break between words) ||
-|| `\B` || Non-word boundary ||
+|| `\b` || Word boundary anchor (break between words) ||
+|| `\B` || Non-word boundary anchor ||
 
 As shown in the table above, the predefined character class `\d` is equivalent to the user-defined character class `[0-9]`. Often times regexml expressions can be simplified through the use of these predefined character classes.
 
@@ -563,6 +563,10 @@ The following expression matches a zip code only if nothing precedes or follows 
 
 Matches: any zip code as long as it's the only item in the text being evaluated<br>
 Regular expression: `^\d{5}$`
+
+=== Match Whole Words ===
+
+
 
 === Look-ahead and Look-behind ===
 

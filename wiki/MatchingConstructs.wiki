@@ -24,4 +24,4 @@ The following constructs an be used in the `match` element's `equals` and `excep
 || `[0-9a-f]` || Digits _0_ through _9_ and letters _a_ through _f_ (hyphen indicates a range) ||
 || `[a\-c]` || Characters _a_, _c_, and hyphen (within character classes, literal hyphens must be escaped) ||
 
-A _character class_ defines a set of characters that are used to match text. Character classes are enclosed in brackets. For example, this character class matches the single character _a_, _b_, or _c_: `[abc]`
+A _character class_ defines a set of characters that are used to match text. Character classes are enclosed in brackets. For example, the character class `[abc]` matches the single character _a_, _b_, or _c_.

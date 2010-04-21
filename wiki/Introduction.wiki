@@ -377,7 +377,7 @@ The hyphen character is used to represent a range of characters within a charact
 Matches: _a_, _b_, _c_, _1_, _2_, _3_<br>
 Regular expression: `[a-c1-3]`
 
-Characters can be removed from a range by subtracting them using the hyphen character between ranges like this (assuming that the second range intersects first):
+Characters can be removed from a range by subtracting them using the hyphen character between ranges like this (assuming that the second range intersects the first):
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

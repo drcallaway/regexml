@@ -494,8 +494,24 @@ Since including the less-than symbol (`<`) and the double-quote (`"`) in a regex
 </regexml>
 }}}
 
-Matches: _<start matchLineBreaks="true"/>_<br>
+Matches: `<`_start matchLineBreaks="true"/_`>`<br>
 Regular expression: `<start matchLineBreaks="true"/>`
+
+You can avoid having to escape double-quotes if you use single quotes (a.k.a., apostrophe) to enclose an attribute that contains one or more double-quotes.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="letters">
+        <match equals='"Hello!"'/>
+    </expression>
+</regexml>
+}}}
+
+Matches: _"Hello!"_<br>
+Regular expression: `"Hello!"`
+
+Normally, single-quotes need not be escaped. However, if single-quotes are used instead of double-quotes to enclose the value of an attribute, any single quotes within the value must be escaped.
+
 
 
 === Look-ahead and Look-behind ===

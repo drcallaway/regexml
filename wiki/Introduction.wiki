@@ -13,7 +13,7 @@ In order to use the regexml Java library, simply add the _regexml-x.x.x.jar_ fil
 The regexml library API is very simple. There are only four classes and one interface to learn as shown here:
 
 || *Class / Interface* || *Description* ||
-|| `Resource` || Interface implemented by classes that encapsulate a regexml expressions file (`ClassPathResource` and `FileSystemResource`). ||
+|| `Resource` || Interface implemented by classes that encapsulate a regexml expressions file (i.e., `ClassPathResource` and `FileSystemResource`). ||
 || `ClassPathResource` || Represents an XML file available on the classpath that contains regexml expressions (implements the `Resource` interface). ||
 || `FileSystemResource` || Represents an XML file available on the file system that contains regexml expressions (implements the `Resource` interface). ||
 || `Expression` || Provides access to a regexml expression's `java.util.regex.Pattern` object and a text representation of the expression in standard regular expression syntax. ||

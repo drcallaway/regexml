@@ -576,13 +576,13 @@ The word boundary anchor (`\b`) can be used to perform "whole word" matches.
 </regexml>
 }}}
 
-Matches: _Script_
-Does not match: _JavaScript_, _Scriptaculous_
+Matches: _Script_<br>
+Does not match: _JavaScript_, _Scriptaculous_<br>
 Regular expression: `\bScript\b`
 
 === Match Partial Words ===
 
-The non-word boundary anchor (`\b`) can be used to perform "partial word" matches.
+The non-word boundary anchor (`\B`) can be used to perform "partial word" matches.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
@@ -592,8 +592,8 @@ The non-word boundary anchor (`\b`) can be used to perform "partial word" matche
 </regexml>
 }}}
 
-Matches: _JavaScript_
-Does not match: _Script_
+Matches: _JavaScript_<br>
+Does not match: _Script_<br>
 Regular expression: `\BScript`
 
 === Look-ahead and Look-behind ===

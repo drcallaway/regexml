@@ -437,6 +437,51 @@ The `except` attribute is the opposite of the match element's `equals` attribute
 Matches: one digit followed by one non-digit character<br>
 Regular expression: `\d[^\d]`
 
+=== Nested Groups ===
+
+Regexml supports nesting of groups to any level.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="letters">
+        <group min="0">
+            <match equals="a"/>
+            <group min="0">
+                <match equals="b"/>
+                <match equals="[cd]"/>
+            </group>
+            <match equals="e"/>
+        </group>
+        <match equals="f"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: _aef_, _abcef_, _abdef_, _f_
+Regular expression: `(?:a(?:b[cd])?e)?f`
+
+=== "Or" Group Matches ===
+
+Using the `group` elements `operator` attribute, a collection of `match` or `group` elements can be combined using an "or" operation.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="letters">
+        <group operator="or">
+            <match equals="a"/>
+            <group>
+                <match equals="b"/>
+                <match equals="[cd]"/>
+            </group>
+            <match equals="e"/>
+        </group>
+    </expression>
+</regexml>
+}}}
+
+Matches: _a_, _bc_, _bd_, _e_
+Regular expression: `(?:a|(?:b[cd])|e)`
+
 === Look-ahead and Look-behind ===
 
 Look-aheads and look-behinds (positive and negative) are not yet supported in regexml.

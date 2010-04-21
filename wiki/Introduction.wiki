@@ -344,7 +344,7 @@ The `min` and `max` quantity attributes work with groups the same as they do wit
 </regexml>
 }}}
 
-Matches: _a_, _ad_, _add_, _abcd_, _abcdd_<br>
+Matches: _ad_, _add_, _abcd_, _abcdd_<br>
 Regular expression: `(?:a)(?:bc)?(?:d){1,2}`
 
 === Character Class Match ===

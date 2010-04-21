@@ -457,7 +457,7 @@ Regexml supports nesting of groups to any level.
 </regexml>
 }}}
 
-Matches: _aef_, _abcef_, _abdef_, _f_
+Matches: _aef_, _abcef_, _abdef_, _f_<br>
 Regular expression: `(?:a(?:b[cd])?e)?f`
 
 === "Or" Group Matches ===
@@ -479,8 +479,24 @@ Using the `group` elements `operator` attribute, a collection of `match` or `gro
 </regexml>
 }}}
 
-Matches: _a_, _bc_, _bd_, _e_
+Matches: _a_, _bc_, _bd_, _e_<br>
 Regular expression: `(?:a|(?:b[cd])|e)`
+
+=== Expressions with XML-restricted Characters ===
+
+Since including the less-than symbol (`<`) and the double-quote (`"`) in a regexml expression will cause problems with the XML parser, these characters must be escaped when used. The less-than symbol is escaped with `&lt;` and the double-quote is escaped with `&quot;`.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="letters">
+        <match equals="&lt;start matchLineBreaks=&quot;true&quot;/>" capture="true"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: _<start matchLineBreaks="true"/>_<br>
+Regular expression: `<start matchLineBreaks="true"/>`
+
 
 === Look-ahead and Look-behind ===
 

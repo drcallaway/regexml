@@ -310,7 +310,7 @@ Regular expression: `a{2,4}`
 
 === Unbounded Quantity Range Match ===
 
-Typically, the `min` and `max` attributes will be set to non-negative integer values. However, to support unbounded maximum values, the `max` attribute can be assigned a value of asterisk (`*`). This indicates an infinite number.
+Typically, the `min` and `max` attributes will be set to non-negative integer values. However, to support unbounded maximum values, the value of the `max` attribute can be set to an asterisk (`*`). This indicates an infinite number.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

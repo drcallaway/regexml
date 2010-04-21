@@ -523,6 +523,47 @@ Normally, single-quotes need not be escaped. However, if single-quotes are used 
 Matches: _"Hello Tim's mom!"_<br>
 Regular expression: `"Hello Tim's mom!"`
 
+=== Match at Start or End of Line ===
+
+The `start` and `end` elements can be used to "anchor" an expression to the beginning or end of a line.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="letters">
+        <group operator="or">
+            <group>
+                <start/>
+                <match equals="alpha"/>
+                <match equals="." min="0" max="*"/>
+            </group>
+            <group>
+                <match equals="." min="0" max="*"/>
+                <match equals="omega"/>
+                <end/>
+            </group>
+        </group>
+    </expression>
+</regexml>
+}}}
+
+Matches: any string beginning with _alpha_ or ending with _omega_<br>
+Regular expression: `(?:(?:^alpha.*)|(?:.*omega$))`
+
+The following expression matches a zip code only if nothing precedes or follows it.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="letters">
+        <start/>
+        <match equals="\d" min="5"/>
+        <end/>
+    </expression>
+</regexml>
+}}}
+
+Matches: any zip code as long as it's the only item in the text being evaluated<br>
+Regular expression: `^\d{5}$`
+
 === Look-ahead and Look-behind ===
 
 Look-aheads and look-behinds (positive and negative) are not yet supported in regexml.

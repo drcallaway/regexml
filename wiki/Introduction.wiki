@@ -349,7 +349,7 @@ Regular expression: `(?:a)(?:bc)?(?:d){1,2}`
 
 === Character Class Match ===
 
-A _character class_ defines a set of characters enclosed in brackets that are used to match text. If no quantity modifiers are specified (i.e., `min` and `max` attributes), a character class matches a single character. For example, the character class `[abc]` matches a single character _a_, _b_, or _c_. Applying quantity modifiers allows any number of characters to be matched.
+A _character class_ defines a set of characters enclosed in brackets that are used to match one of many characters. If no quantity modifiers are specified (i.e., `min` and `max` attributes), a character class matches a single character. For example, the character class `[abc]` matches a single character _a_, _b_, or _c_. Applying quantity modifiers allows any number of characters to be matched.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

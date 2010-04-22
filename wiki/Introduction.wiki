@@ -225,7 +225,7 @@ About the simplest expressions file that may be useful is one that includes a si
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letter">
+    <expression id="example">
         <match equals="a"/>
     </expression>
 </regexml>

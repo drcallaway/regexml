@@ -114,10 +114,8 @@ System.out.println("Expression in regular expression syntax: " + expr.getRegExSt
 
 The output from this program looks like this:
 
-{{{
-Thanks for the valid phone number!
-Expression in regular expression syntax: ^\((\d{3})\) (\d{3})-(\d{4})$
-}}}
+ `Thanks for the valid phone number!`<br>
+ `Expression in regular expression syntax: ^\((\d{3})\) (\d{3})-(\d{4})$`
 
 The code above retrieves an `Expression` object because it's used to output the expression in regular expression syntax. If all we want to do is validate a phone number, we can bypass the `Expression` object and retrieve the `java.util.regex.Pattern` object directly like this:
 

@@ -8,6 +8,7 @@ The following constructs an be used in the `match` element's `equals` and `excep
 || _x_ || Any literal character _x_ except for period, backslash, less than symbol, and double quotes. [`.\<"`] ||
 || `\.` || Period character (escaping not necessary within a character class) ||
 || `\\` || Backslash character ||
+|| `\[` || Opening bracket ||
 || `&lt;` || Less than character (since it conflicts with XML markup) ||
 || `&quot;` || Double quote character `"` (escape not needed when using single-quotes to delimit attribute values) ||
 || `&apos;` || Single quote character `'` (escape not needed when using double-quotes to delimit attribute values) ||

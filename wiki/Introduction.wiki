@@ -521,7 +521,7 @@ If `equals` is not a character class, the `except` attribute will be ignored. Si
 Matches: _a_, _c_, _e_, _g_<br>
 Regular expression: `[[a-g]&&[^bdf]]`
 
-Though they are optional, including the brackets may make the expression easier for others to understand by reinforcing the fact that the `except` attribute is a character class. For this reason, dropping the brackets may be most appropriate when excluding a single character like this:
+Though they are optional, including the brackets may make the expression easier for others to understand by reinforcing the fact that the `except` attribute is a character class. For this reason, dropping the brackets may be most appropriate when excluding only a single character like this:
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

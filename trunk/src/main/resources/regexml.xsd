@@ -59,10 +59,12 @@
 
     <complexType name="groupType">
         <sequence maxOccurs="unbounded">
+            <element name="start" type="rex:startType" minOccurs="0" maxOccurs="1"/>
             <choice>
                 <element name="group" type="rex:groupType"/>
                 <element name="match" type="rex:matchType"/>
             </choice>
+            <element name="end" type="rex:endType" minOccurs="0" maxOccurs="1"/>
         </sequence>
         <attributeGroup ref="rex:minMaxCap"/>
         <attributeGroup ref="rex:caseDot"/>

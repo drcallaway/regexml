@@ -63,6 +63,12 @@ The `ExpressionFactory` class compiles regexml expressions into standard `java.u
 ExpressionFactory expressionFactory = new ExpressionFactory(new ClassPathResource("expressions.xml"));
 }}}
 
+Furthermore, there is a second `ExpressionFactory` constructor that accepts a boolean value indicating whether or not the given expressions file should be validated against the regexml schema. To validate the expressions file during instantiation, pass a second parameter to the constructor like this:
+
+{{{
+ExpressionFactory expressionFactory = new ExpressionFactory(new ClassPathResource("expressions.xml"), true);
+}}}
+
 `ExpressionFactory` exposes the following public methods:
 
 || *Method* || *Description* ||

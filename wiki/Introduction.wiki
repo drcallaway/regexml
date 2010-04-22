@@ -688,7 +688,7 @@ The values matched within a `match` or `group` element can be captured using the
 </regexml>
 }}}
 
-Matches: captures the 5 digit and "plus 4" parts of a zip code<br>
+Captures: the 5 digit and "plus 4" parts of a zip code<br>
 Regular expression: `^(\d{5})(?:-(\d{4}))?$`
 
 The following Java code extracts the captured elements:

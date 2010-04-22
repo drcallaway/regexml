@@ -13,7 +13,7 @@
         </group>
         <group min="0" capture="true"> <!-- resource (e.g., /sample/resource) -->
             <match equals="/"/>
-            <match equals="[0-9./\-A-Za-z]" except="[?#]" max="*"/>
+            <match except="[?#]" max="*"/>
         </group>
         <group min="0">
             <match equals="?"/>

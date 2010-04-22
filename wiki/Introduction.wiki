@@ -495,7 +495,7 @@ The `except` attribute is the opposite of the match element's `equals` attribute
 Matches: one digit followed by one non-digit character<br>
 Regular expression: `\d[^\d]`
 
-If the `equals` attribute is a character class, the `equals` and `except` attributes can be used together in order to exclude characters from a matching set.
+If the `equals` attribute is a character class, the `equals` and `except` attributes can be used together in order to exclude characters from the matching set.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

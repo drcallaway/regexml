@@ -493,7 +493,7 @@ The `except` attribute is the opposite of the match element's `equals` attribute
 Matches: one digit followed by one non-digit character<br>
 Regular expression: `\d[^\d]`
 
-=== Nested Groups ===
+=== Nested Groups Match ===
 
 Regexml supports nesting of groups to any level.
 
@@ -516,7 +516,7 @@ Regexml supports nesting of groups to any level.
 Matches: _aef_, _abcef_, _abdef_, _f_<br>
 Regular expression: `(?:a(?:b[cd])?e)?f`
 
-=== "Or" Group Matches ===
+=== "Or" Group Match ===
 
 Using the `group` elements `operator` attribute, a collection of `match` or `group` elements can be combined using an "or" operation instead of the default "and". This allows a match to occur on the first match _or_ the second _or_ the third, and so on.
 
@@ -538,7 +538,7 @@ Using the `group` elements `operator` attribute, a collection of `match` or `gro
 Matches: _a_, _bc_, _bd_, _e_<br>
 Regular expression: `(?:a|(?:b[cd])|e)`
 
-=== Expressions with XML-restricted Characters ===
+=== Expressions with XML-restricted Characters Match ===
 
 Since including the less-than symbol (`<`) and the double-quote (`"`) in a regexml expression will cause problems with the XML parser, these characters must be escaped when used. The less-than symbol is escaped with `&lt;` and the double-quote is escaped with `&quot;`.
 
@@ -579,7 +579,7 @@ Normally, single-quotes need not be escaped. However, if single-quotes are used 
 Matches: _"Hello Tim's mom!"_<br>
 Regular expression: `"Hello Tim's mom!"`
 
-=== Match at Start or End of Line ===
+=== Start/End of Line Match ===
 
 The `start` and `end` elements can be used to "anchor" an expression to the beginning or end of a line.
 
@@ -624,7 +624,7 @@ The following expression matches a zip code only if nothing precedes or follows 
 Matches: any zip code as long as it's the only item in the text being evaluated<br>
 Regular expression: `^\d{5}(?:-\d{4})?$`
 
-=== Match Whole Words ===
+=== Whole Word Match ===
 
 The word boundary anchor (`\b`) can be used to perform "whole word" matches.
 
@@ -640,7 +640,7 @@ Matches: _Script_<br>
 Does not match: _JavaScript_, _Scriptaculous_<br>
 Regular expression: `\bScript\b`
 
-=== Match Partial Words ===
+=== Partial Word Match ===
 
 The non-word boundary anchor (`\B`) can be used to perform "partial word" matches.
 
@@ -670,7 +670,53 @@ Matches: _internationalization_<br>
 Does not match: _nation_, _nationalize_, _international_<br>
 Regular expression: `\Bnation\B`
 
-=== Look-ahead and Look-behind ===
+=== Capture Match ===
+
+The values matched within a `match` or `group` element can be captured using the `capture` attribute.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="zipcode">
+        <start/>
+        <match equals="\d" min="5" capture="true"/> <!-- 5 digit zip code -->
+        <group min="0">
+            <match equals="-"/>
+            <match equals="\d" min="4" capture="true"/> <!-- optional "plus 4" -->
+        </group>
+        <end/>
+    </expression>
+</regexml>
+}}}
+
+Matches: captures the 5 digit and "plus 4" parts of a zip code<br>
+Regular expression: `^(\d{5})(?:-(\d{4}))?$`
+
+The following Java code extracts the captured elements:
+
+{{{
+java.util.regex.Pattern pattern = expressionFactory.getPattern("zipcode");
+java.util.regex.Matcher matcher = pattern.matcher("98765-4321");
+
+if (matcher.find())
+{
+    for (int i = 1; i <= matcher.groupCount(); i++) //iterate through all captured matches
+    {
+        System.out.println(matcher.group(i));
+    }
+}
+}}}
+
+The output from this code looks like this:
+
+ `98765`<br>
+ `4321`
+
+Note that if only a five digit zip code was provided (e.g., "98765"), the second group would have been null and the output would look like this:
+
+ `98765`<br>
+ `null`
+
+=== Look-ahead and Look-behind Match ===
 
 Look-aheads and look-behinds (positive and negative) are not yet supported in regexml.
 

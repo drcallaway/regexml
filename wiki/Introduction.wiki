@@ -204,7 +204,7 @@ Other schema-aware XML editors should have similar ways to associate a namespace
 
 Detailed documentation regarding the regexml expressions file format is available [ExpressionsFileFormat here].
 
-== Expression Examples ==
+== Expression Matching Examples ==
 
 The following sections provide examples of various regexml expressions.
 

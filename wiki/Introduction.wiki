@@ -481,7 +481,7 @@ Regular expression: `.\d{3}\s\w{3}`
 
 === Negated Match ===
 
-The `except` attribute is the opposite of the match element's `equals` attribute. Rather than "match this", it basically means "match everything except this". The `except` attribute always represents a character class.
+The `except` attribute is the opposite of the match element's `equals` attribute. Rather than "match this", it basically means "match everything except this". It's important to keep in mind that the `except` attribute always represents a character class.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

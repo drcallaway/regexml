@@ -14,7 +14,7 @@ The format of the regexml expressions file is defined by an XML schema. The foll
 || || anchorsMatchLineBreaks || false || Indicates whether or not the `start` and `end` anchors match line breaks. ||
 || match || || || Specifies criteria to match one part of the text. The `equals` and `except` attributes can be used together if the `equals` expression is a character class. If not, the `except` attribute will be ignored. ||
 || || equals || || Matching expression. ||
-|| || except || || Negated matching expression (excludes characters from `equals` expression). ||
+|| || except || || Negated matching expression (excludes characters from the `equals` expression). ||
 || || min || 1 || Minimum number of times the match may be repeated. ||
 || || max || 1 || Maximum number of times the match may be repeated. ||
 || || capture || false || Indicates whether or not the matching text should be extracted and made available to the application. ||

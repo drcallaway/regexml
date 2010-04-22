@@ -577,7 +577,7 @@ The following expression matches a zip code only if nothing precedes or follows 
 }}}
 
 Matches: any zip code as long as it's the only item in the text being evaluated<br>
-Regular expression: `^\d{5}$`
+Regular expression: `^\d{5}(?:-\d{4})?$`
 
 === Match Whole Words ===
 

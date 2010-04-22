@@ -234,6 +234,51 @@ About the simplest expressions file that may be useful is one that includes a si
 Matches: _a_<br>
 Regular expression: `a`
 
+=== Ignore Case Matches ===
+
+There are two ways to ignore case (i.e., capitalization) when performing text comparisons (by default, text comparisons are case sensitive). First, the ignore case directive can be applied to an entire expression by setting the `expression` element's `ignoreCase` attribute like this:
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="example" ignoreCase="true">
+        <match equals="a"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: _a_, _A_<br>
+Regular expression: `a`
+
+Notice that the regular expression doesn't change in this case. That is due to the fact that the "ignore case" option is set by passing a parameter to the constructor of the `java.util.regex.Pattern` object. Therefore, the `Pattern` object returned from the `ExpressionFactory` will be configured to ignore case in text comparisons. The second way to ignore case is to set the `ignoreCase` attribute on individual `match` or `group` elements like this:
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="example">
+        <match equals="a" ignoreCase="true"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: _a_, _A_<br>
+Regular expression: `(?i)a(?-i)`
+
+In this instance, the "ignore case" directive is part of the regular expression rather than a setting within the `Pattern` object. Case sensitivity can be turned of for an entire group like this:
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="example">
+        <match equals="a"/>
+        <group ignoreCase="true">
+            <match equals="b" min="0"/>
+            <match equals="c"/>
+        </group>
+    </expression>
+</regexml>
+}}}
+
+Matches: _ac_, _aC_, _abc_, _aBc_, _aBC_, _abC_<br>
+Regular expression: `a(?i:b?c)`
+
 === Multiple Matches ===
 
 Since matches are automatically concatenated (unless included in an "or" group discussed later), the following two regexml expressions are equivalent.
@@ -610,6 +655,20 @@ The non-word boundary anchor (`\B`) can be used to perform "partial word" matche
 Matches: _JavaScript_<br>
 Does not match: _Script_<br>
 Regular expression: `\BScript`
+
+In this example, only a string that does not come at the beginning or end of a word is matched.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="example">
+        <match equals="\Bnation\B"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: _internationalization_<br>
+Does not match: _nation_, _nationalize_, _international_<br>
+Regular expression: `\Bnation\B`
 
 === Look-ahead and Look-behind ===
 

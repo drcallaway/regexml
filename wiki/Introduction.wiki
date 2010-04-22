@@ -240,7 +240,7 @@ Since matches are automatically concatenated (unless included in an "or" group d
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="a"/>
         <match equals="b"/>
     </expression>
@@ -249,7 +249,7 @@ Since matches are automatically concatenated (unless included in an "or" group d
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="ab"/>
     </expression>
 </regexml>
@@ -264,7 +264,7 @@ A match can be made optional by setting it's `min` attribute to zero (`min` defa
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="a"/>
         <match equals="b" min="0"/>
     </expression>
@@ -280,7 +280,7 @@ Whenever the `max` attribute is less than the `min` attribute, `max` is automati
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="a" min="3"/>
     </expression>
 </regexml>
@@ -295,7 +295,7 @@ If only a `max` value is set, the default `min` value of one will be used.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="a" max="3"/>
     </expression>
 </regexml>
@@ -310,7 +310,7 @@ Setting the `min` and `max` attributes allows a quantity range to be specified.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="a" min="2" max="4"/>
     </expression>
 </regexml>
@@ -325,7 +325,7 @@ Typically, the `min` and `max` attributes will be set to non-negative integer va
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="a" min="2" max="*"/>
     </expression>
 </regexml>
@@ -340,7 +340,7 @@ The `min` and `max` quantity attributes work with groups the same as they do wit
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <group>
             <match equals="a"/>            
         </group>
@@ -364,7 +364,7 @@ A _character class_ defines a set of characters enclosed in brackets that is use
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="[abc]" max="2"/>
     </expression>
 </regexml>
@@ -379,7 +379,7 @@ The hyphen character is used to represent a range of characters within a charact
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="[a-c1-3]"/>
     </expression>
 </regexml>
@@ -392,7 +392,7 @@ Characters can be removed from a range by subtracting them using the hyphen char
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="[a-z-[d-w]]"/>
     </expression>
 </regexml>
@@ -420,7 +420,7 @@ As shown in the table above, the predefined character class `\d` is equivalent t
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="."/>
         <match equals="\d" min="3"/>
         <match equals="\s"/>
@@ -438,7 +438,7 @@ The `except` attribute is the opposite of the match element's `equals` attribute
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="\d"/>
         <match except="\d"/>
     </expression>
@@ -454,7 +454,7 @@ Regexml supports nesting of groups to any level.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <group min="0">
             <match equals="a"/>
             <group min="0">
@@ -477,7 +477,7 @@ Using the `group` elements `operator` attribute, a collection of `match` or `gro
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <group operator="or">
             <match equals="a"/>
             <group>
@@ -499,7 +499,7 @@ Since including the less-than symbol (`<`) and the double-quote (`"`) in a regex
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="&lt;start matchLineBreaks=&quot;true&quot;/>" capture="true"/>
     </expression>
 </regexml>
@@ -512,7 +512,7 @@ You can avoid having to escape double-quotes if you use single quotes (a.k.a., a
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals='"Hello!"'/>
     </expression>
 </regexml>
@@ -525,7 +525,7 @@ Normally, single-quotes need not be escaped. However, if single-quotes are used 
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals='"Hello Tim&apos;s mom!"'/>
     </expression>
 </regexml>
@@ -540,7 +540,7 @@ The `start` and `end` elements can be used to "anchor" an expression to the begi
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <group operator="or">
             <group>
                 <start/>
@@ -585,7 +585,7 @@ The word boundary anchor (`\b`) can be used to perform "whole word" matches.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="\bScript\b"/>
     </expression>
 </regexml>
@@ -601,7 +601,7 @@ The non-word boundary anchor (`\B`) can be used to perform "partial word" matche
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="letters">
+    <expression id="example">
         <match equals="\BScript"/>
     </expression>
 </regexml>

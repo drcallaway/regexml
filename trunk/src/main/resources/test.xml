@@ -26,14 +26,13 @@
         <end/>
     </expression>
 
-    <expression id="phone">
+    <expression id="zipcode">
         <start/>
-        <match equals="("/>
-        <match equals="\d" min="3" capture="true"/>
-        <match equals=") "/>
-        <match equals="\d" min="3" capture="true"/>
-        <match equals="-"/>
-        <match equals="\d" min="4" capture="true"/>
+        <match equals="\d" min="5" capture="true"/> <!-- 5 digit zip code -->
+        <group min="0">
+            <match equals="-"/>
+            <match equals="\d" min="4" capture="true"/> <!-- optional "plus 4" -->
+        </group>
         <end/>
     </expression>
 </regexml>

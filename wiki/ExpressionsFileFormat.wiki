@@ -12,7 +12,7 @@ The format of the regexml expressions file is defined by an XML schema. The foll
 || || ignoreCase || false || Indicates whether or not case should be ignored when performing text comparisons. ||
 || || dotMatchesLineBreaks || false || Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. ||
 || || anchorsMatchLineBreaks || false || Indicates whether or not the `start` and `end` anchors match line breaks. ||
-|| match || || || Specifies criteria to match one part of the text. The `except` attribute can be used without `equals` to indicate "all characters except these". The `equals` and `except` attributes can be used together if the `equals` expression is a character class in order to exclude certain characters from a range. If `equals` is not a character class, the `except` attribute will be ignored. ||
+|| match || || || Specifies criteria to match one part of the text. The `except` attribute can be used without `equals` to indicate "all characters except these". The `equals` and `except` attributes can be used together if the `equals` expression is a character class. If `equals` is not a character class, the `except` attribute will be ignored. ||
 || || equals || || Matching expression. ||
 || || except || || Negated matching expression (excludes characters from the `equals` expression). ||
 || || min || 1 || Minimum number of times the match may be repeated. ||

@@ -711,7 +711,7 @@ The output from this code looks like this:
  `98765`<br>
  `4321`
 
-Note that if only a five digit zip code was provided (e.g., "98765"), the second group would have been null and the output would look like this:
+Note that if only a five digit zip code was provided (e.g., "98765"), the "plus 4" group would have been null and the output would look like this:
 
  `98765`<br>
  `null`

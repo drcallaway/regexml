@@ -426,7 +426,8 @@ public class ExpressionFactory
         boolean capture = false;
         boolean ignoreCase = false;
         boolean dotMatchesLineBreaks = false;
-        boolean equalsExceptFlag = false;
+        String equalsExpression = null;
+        String exceptExpression = null;
         String min = "1";
         String max = "1";
 
@@ -439,24 +440,13 @@ public class ExpressionFactory
             String name = attribute.getName().getLocalPart();
             String value = attribute.getValue();
 
-            if (name.equals(ATTR_EQUALS) && !equalsExceptFlag)
+            if (name.equals(ATTR_EQUALS))
             {
-                equalsExceptFlag = true;
-                regExpression.append(autoEscape(value));
+                equalsExpression = autoEscape(value);
             }
-            else if (name.equals(ATTR_EXCEPT) && !equalsExceptFlag)
+            else if (name.equals(ATTR_EXCEPT))
             {
-                equalsExceptFlag = true;
-
-                value = autoEscape(value);
-                if (value.startsWith("["))
-                {
-                    regExpression.append("[^").append(value.substring(1));
-                }
-                else
-                {
-                    regExpression.append("[^").append(value).append("]");
-                }
+                exceptExpression = autoEscape(value);
             }
             else if (name.equals(ATTR_MIN))
             {
@@ -477,6 +467,50 @@ public class ExpressionFactory
             else if (name.equals(ATTR_DOT_MATCHES_LINE_BREAKS) && value.equals(TRUE))
             {
                 dotMatchesLineBreaks = true;
+            }
+        }
+
+        // process equals and except expressions
+        if (equalsExpression != null && exceptExpression != null)
+        {
+            if (isCharacterClass(equalsExpression))
+            {
+                regExpression.append("[").append(equalsExpression).append("&&[^");
+
+                if (isCharacterClass(exceptExpression))
+                {
+                    regExpression.append(exceptExpression.substring(1));
+                }
+                else
+                {
+                    regExpression.append(exceptExpression).append("]");
+                }
+
+                regExpression.append("]");
+            }
+            else //ignore except expression since it's only allowed when the equals expression is a character class
+            {
+                regExpression.append(equalsExpression);
+            }
+        }
+        else
+        {
+            if (equalsExpression != null)
+            {
+                regExpression.append(equalsExpression);
+            }
+            else if (exceptExpression != null)
+            {
+                regExpression.append("[^");
+
+                if (isCharacterClass(exceptExpression))
+                {
+                    regExpression.append(exceptExpression.substring(1));
+                }
+                else
+                {
+                    regExpression.append(exceptExpression).append("]");
+                }
             }
         }
 
@@ -531,6 +565,17 @@ public class ExpressionFactory
                 regExpression.append("|");
             }
         }
+    }
+
+    /**
+     * Indicates whether or not the given expression represents a character class.
+     *
+     * @param expression Expression to evaluate
+     * @return True if expression is a character class
+     */
+    private boolean isCharacterClass(String expression)
+    {
+        return expression.startsWith("[") && expression.endsWith("]");
     }
 
     /**

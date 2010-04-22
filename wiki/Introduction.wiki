@@ -500,13 +500,13 @@ If the `equals` attribute is a character class, the `equals` and `except` attrib
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
     <expression id="example">
-        <match equals="[a-z]" except="[d-f]"/>
+        <match equals="[a-z]" except="[d-w]"/>
     </expression>
 </regexml>
 }}}
 
-Matches: letters from _a_ through _z_ except for _d_, _e_, and _f_<br>
-Regular expression: `[[a-z]&&[^d-f]]`
+Matches: _a_, _b_, _c_, _x_, _y_, _z_<br>
+Regular expression: `[[a-z]&&[^d-w]]`
 
 If `equals` is not a character class, the `except` attribute will be ignored. Since the `except` attribute always represents a character class, the opening and closing brackets are optional as shown here:
 
@@ -518,10 +518,10 @@ If `equals` is not a character class, the `except` attribute will be ignored. Si
 </regexml>
 }}}
 
-Matches: letters from _a_ through _z_ except for _d_, _e_, and _f_<br>
-Regular expression: `[[a-z]&&[^d-f]]`
+Matches: _a_, _b_, _c_, _x_, _y_, _z_<br>
+Regular expression: `[[a-z]&&[^d-w]]`
 
-Though optional, including the brackets may make the expression easier for others to understand by reinforcing the fact that the `except` attribute is a character class. For this reason, dropping the brackets may be most appropriate when excluding a single character like this:
+Though optional, including the brackets may make the expression easier for others to understand by reinforcing the fact that the `except` attribute is a character class. For this reason, dropping the brackets may be most appropriate only when excluding a single character like this:
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

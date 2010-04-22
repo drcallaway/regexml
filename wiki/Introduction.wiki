@@ -479,7 +479,7 @@ Regular expression: `.\d{3}\s\w{3}`
 
 === Negated Match ===
 
-The `except` attribute is the opposite of the match element's `equals` attribute. It basically negates the expression.
+The `except` attribute is the opposite of the match element's `equals` attribute. Rather than "match this", it basically means "match everything except this". The `except` attribute always represents a character class.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
@@ -492,6 +492,45 @@ The `except` attribute is the opposite of the match element's `equals` attribute
 
 Matches: one digit followed by one non-digit character<br>
 Regular expression: `\d[^\d]`
+
+If the `equals` attribute is a character class, the `equals` and `except` attributes can be used together in order to exclude characters from a matching set.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="example">
+        <match equals="[a-z]" except="[d-f]"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: letters from _a_ through _z_ except for _d_, _e_, and _f_<br>
+Regular expression: `[[a-z]&&[^d-f]]`
+
+If `equals` is not a character class, the `except` attribute will be ignored. Since the `except` attribute always represents a character class, the opening and closing brackets are optional as shown here:
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="example">
+        <match equals="[a-z]" except="d-f"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: letters from _a_ through _z_ except for _d_, _e_, and _f_<br>
+Regular expression: `[[a-z]&&[^d-f]]`
+
+Though optional, including the brackets may make the expression easier for others to understand by reinforcing the fact that the `except` attribute is a character class. For this reason, dropping the brackets may be most appropriate when excluding a single character like this:
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="example">
+        <match equals="[a-z]" except="d"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: letters from _a_ through _z_ except for _d_<br>
+Regular expression: `[[a-z]&&[^d]]`
 
 === Nested Groups Match ===
 

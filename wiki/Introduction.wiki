@@ -473,7 +473,7 @@ Regular expression: `(?:a(?:b[cd])?e)?f`
 
 === "Or" Group Matches ===
 
-Using the `group` elements `operator` attribute, a collection of `match` or `group` elements can be combined using an "or" operation.
+Using the `group` elements `operator` attribute, a collection of `match` or `group` elements can be combined using an "or" operation instead of the default "and". This allows a match to occur on the first match _or_ the second _or_ the third, and so on.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

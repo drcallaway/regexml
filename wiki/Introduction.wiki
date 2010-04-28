@@ -262,7 +262,7 @@ Notice that the regular expression doesn't change in this case. That is due to t
 Matches: _a_, _A_<br>
 Regular expression: `(?i)a(?-i)`
 
-In this instance, the "ignore case" directive is part of the regular expression rather than a setting within the `Pattern` object. Case sensitivity can be turned of for an entire group like this:
+In this instance, the "ignore case" directive is part of the regular expression rather than a setting within the `Pattern` object. Case sensitivity can be turned on for an entire group like this:
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

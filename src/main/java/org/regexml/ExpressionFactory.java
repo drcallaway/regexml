@@ -50,8 +50,6 @@ import java.util.regex.Pattern;
  */
 public class ExpressionFactory
 {
-    private static final String[] autoEscapeChars = {"$", "(", ")", "*", "+", "?", "^", "{", "|"};
-
     private static final String SCHEMA_FILE_NAME = "regexml.xsd";
     private static final String ELEMENT_REGEXML = "regexml";
     private static final String ELEMENT_EXPRESSION = "expression";
@@ -730,7 +728,7 @@ public class ExpressionFactory
     }
 
     /**
-     * Escapes the following characters: $()*+.?\^{|
+     * Escapes the following characters: $()*+?^{|
      * 
      * @param text Text containing characters to autoEscape
      * @return Escaped text
@@ -739,13 +737,7 @@ public class ExpressionFactory
     {
         if (autoEscape)
         {
-            for (int i = 0; i < autoEscapeChars.length; i++)
-            {
-                if (text.contains(autoEscapeChars[i]))
-                {
-                    text = text.replaceAll("\\" + autoEscapeChars[i], "\\\\" + autoEscapeChars[i]);
-                }
-            }
+            text = text.replaceAll("([\\$\\(\\)\\*\\+\\?\\^\\{\\|])", "\\\\$1");
         }
 
         return text;

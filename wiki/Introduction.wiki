@@ -622,7 +622,7 @@ Regular expression: `"Hello Tim's mom!"`
 
 === Start/End of Line Match ===
 
-The `start` and `end` elements can be used to "anchor" an expression to the beginning or end of a line. The following expression matches a zip code only if nothing precedes or follows it.
+The `start` and `end` elements can be used to "anchor" an expression to the beginning or end of a line. For example, the following expression matches a zip code only if nothing precedes or follows it.
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

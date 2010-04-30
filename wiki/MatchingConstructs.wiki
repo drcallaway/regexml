@@ -5,7 +5,7 @@
 The following constructs an be used in the `match` element's `equals` and `except` attributes.
 
 || *Construct* || *Matches* ||
-|| _x_ || Any literal character _x_ except for period, backslash, less than symbol, and double quotes. [`.\<"`] ||
+|| _x_ || Any literal character _x_ except for period, backslash, less than symbol, open bracket, and double quotes. [`.\[<"`] ||
 || `\.` || Period character (escaping not necessary within a character class) ||
 || `\\` || Backslash character ||
 || `\[` || Opening bracket ||

@@ -814,7 +814,7 @@ The result skips the first two `</p>` strings because a greedy match will match 
 Matches: _Paragraph1_<br>
 Regular expression: `<p>(.+?)</p>`
 
-Setting the `lazy` attribute allows us to match on the first terminating paragraph element rather than the last. The `group` element also supports the `lazy` attribute when matching a group multiple times.
+Setting the `lazy` attribute allows us to match on the first terminating paragraph element rather than the last. The `lazy` attribute is also supported by the `group` element when matching a group multiple times.
 
 === Look-ahead and Look-behind Match ===
 

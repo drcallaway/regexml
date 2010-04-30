@@ -18,7 +18,7 @@ The format of the regexml expressions file is defined by an XML schema. The foll
 || || min || 1 || Minimum number of times the match may be repeated. ||
 || || max || 1 || Maximum number of times the match may be repeated. ||
 || || capture || false || Indicates whether or not the matching text should be extracted and made available to the application. ||
-|| || lazy || false || Indicates whether or not lazy matching should be performed (defaults to greedy). See [http://code.google.com/p/regexml/wiki/Introduction Introduction Wiki] for details. ||
+|| || lazy || false || Indicates whether or not lazy matching should be performed (defaults to greedy). See [http://code.google.com/p/regexml/wiki/Introduction#Lazy_Quantifier_Match Introduction Wiki] for details. ||
 || || ignoreCase || false || Indicates whether or not case should be ignored when performing text comparisons. ||
 || || dotMatchesLineBreaks || false || Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. ||
 || group || || || Associates multiple matches into a logical group. Contains any number of `match` and/or `group` elements. ||

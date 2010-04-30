@@ -782,7 +782,7 @@ Regular expression: `(\d\d):(\d\d):\2:\1`
 
 Normally, a `match` element will perform _greedy_ matches. This means that it will attempt to match as much as it can before performing the next match. For example, consider the following input text:
 
- `&lt;p>Paragraph 1&lt;/p>&lt;p>Paragraph 2&lt;/p>&lt;p>Paragraph 3&lt;/p>`
+ `<p>Paragraph 1</p><p>Paragraph 2</p><p>Paragraph 3</p>`
 
 Now consider applying this text to the following regexp expression:
 
@@ -798,8 +798,8 @@ Now consider applying this text to the following regexp expression:
 </regexml>
 }}}
 
-Matches: _Paragraph 1&lt;/p>&lt;p>Paragraph 2&lt;/p>&lt;p>Paragraph 3_<br>
-Regular expression: `(?:&lt;p>(.+)&lt;/p>)`
+Matches: _Paragraph 1</p><p>Paragraph 2</p><p>Paragraph 3_<br>
+Regular expression: `(?:<p>(.+)</p>)`
 
 The result skips the first two `</p>` strings because a greedy match will match as much text as possible before finding a suitable ending match (in this case, the third `</p>` string). If we only want to match text until the first occurrence of a possible ending match, then we must make the match _lazy_ by setting the `match` element's `lazy` attribute like this:
 

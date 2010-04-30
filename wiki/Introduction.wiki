@@ -784,7 +784,7 @@ Normally, a `match` element will perform _greedy_ matches. This means that it wi
 
  `<p>Paragraph1</p><p>Paragraph2</p><p>Paragraph3</p>`
 
-Now consider applying this text to the following regexp expression:
+Now consider using the following regexp expression to process the text above:
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

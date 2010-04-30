@@ -789,36 +789,32 @@ Now consider applying this text to the following regexp expression:
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
     <expression id="example">
-        <group>
-            <match equals="&lt;p>"/>
-            <match equals="." max="*" capture="true"/>
-            <match equals="&lt;/p>"/>
-        </group>
+        <match equals="&lt;p>"/>
+        <match equals="." max="*" capture="true"/>
+        <match equals="&lt;/p>"/>
     </expression>
 </regexml>
 }}}
 
 Matches: _Paragraph1`<`/p`><`p`>`Paragraph2`<`/p`><`p>Paragraph3_<br>
-Regular expression: `(?:<p>(.+)</p>)`
+Regular expression: `<p>(.+)</p>`
 
 The result skips the first two `</p>` strings because a greedy match will match as much text as possible before finding a suitable ending match (in this case, the third `</p>` string). If we only want to match text until the first occurrence of a possible ending match, then we must make the match _lazy_ by setting the `match` element's `lazy` attribute like this:
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
     <expression id="example">
-        <group>
-            <match equals="&lt;p>"/>
-            <match equals="." max="*" capture="true" lazy="true"/>
-            <match equals="&lt;/p>"/>
-        </group>
+        <match equals="&lt;p>"/>
+        <match equals="." max="*" capture="true" lazy="true"/>
+        <match equals="&lt;/p>"/>
     </expression>
 </regexml>
 }}}
 
 Matches: _Paragraph1_<br>
-Regular expression: `(?:<p>(.+?)</p>)`
+Regular expression: `<p>(.+?)</p>`
 
-Setting the `lazy` attribute now allows us to match on the first terminating paragraph element rather than the last.
+Setting the `lazy` attribute now allows us to match on the first terminating paragraph element rather than the last. The `group` element also supports the `lazy` attribute when matching a group multiple times.
 
 === Look-ahead and Look-behind Match ===
 

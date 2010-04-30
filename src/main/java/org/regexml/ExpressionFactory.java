@@ -68,6 +68,7 @@ public class ExpressionFactory
     private static final String ATTR_MIN = "min";
     private static final String ATTR_MAX = "max";
     private static final String ATTR_CAPTURE = "capture";
+    private static final String ATTR_LAZY = "lazy";
     private static final String ATTR_OPERATOR = "operator";
     private static final String TRUE = "true";
     private static final String FALSE = "false";
@@ -424,6 +425,7 @@ public class ExpressionFactory
         boolean capture = false;
         boolean ignoreCase = false;
         boolean dotMatchesLineBreaks = false;
+        boolean lazy = false;
         String equalsExpression = null;
         String exceptExpression = null;
         String min = "1";
@@ -465,6 +467,10 @@ public class ExpressionFactory
             else if (name.equals(ATTR_DOT_MATCHES_LINE_BREAKS) && value.equals(TRUE))
             {
                 dotMatchesLineBreaks = true;
+            }
+            else if (name.equals(ATTR_LAZY) && value.equals(TRUE))
+            {
+                lazy = true;
             }
         }
 
@@ -513,6 +519,11 @@ public class ExpressionFactory
         }
 
         handleMinMax(min, max);
+
+        if (lazy)
+        {
+            regExpression.append("?"); //add lazy quantifier
+        }
 
         if (ignoreCase || dotMatchesLineBreaks)
         {

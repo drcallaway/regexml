@@ -74,7 +74,6 @@
     <complexType name="matchType">
         <attribute name="equals" type="string" use="optional"/>
         <attribute name="except" type="string" use="optional"/>
-        <attribute name="lazy" type="boolean" use="optional" default="false"/>
         <attributeGroup ref="rex:minMaxCap"/>
         <attributeGroup ref="rex:caseDot"/>
     </complexType>
@@ -88,6 +87,7 @@
         <attribute name="min" type="nonNegativeInteger" use="optional" default="1"/>
         <attribute name="max" type="string" use="optional" default="1"/>
         <attribute name="capture" type="boolean" use="optional" default="false"/>
+        <attribute name="lazy" type="boolean" use="optional" default="false"/>
     </attributeGroup>
 
     <simpleType name="operatorEnum">

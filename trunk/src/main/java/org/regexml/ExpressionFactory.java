@@ -426,6 +426,7 @@ public class ExpressionFactory
         boolean ignoreCase = false;
         boolean dotMatchesLineBreaks = false;
         boolean lazy = false;
+        int addGroupingIndex = -1;
         String equalsExpression = null;
         String exceptExpression = null;
         String min = "1";
@@ -518,12 +519,14 @@ public class ExpressionFactory
             }
         }
 
-        handleMinMax(min, max);
-
-        if (lazy)
+        // grouping index is for grouping text before a quantifier is applied, only necessary for equals expressions
+        // that are longer than one character and not a character class
+        if (equalsExpression != null && equalsExpression.length() > 1 && !isCharacterClass(equalsExpression))
         {
-            regExpression.append("?"); //add lazy quantifier
+            addGroupingIndex = length;
         }
+
+        handleMinMax(min, max, lazy, addGroupingIndex);
 
         if (ignoreCase || dotMatchesLineBreaks)
         {
@@ -624,6 +627,10 @@ public class ExpressionFactory
             {
                 capture = true;
             }
+            else if (name.equals(ATTR_LAZY) && value.equals(TRUE))
+            {
+                groupData.setLazy(true);
+            }
             else if (name.equals(ATTR_IGNORE_CASE))
             {
                 if (value.equals(TRUE))
@@ -695,7 +702,7 @@ public class ExpressionFactory
         regExpression.append(")");
 
         GroupData groupData = groupStack.pop();
-        handleMinMax(groupData.getMin(), groupData.getMax());
+        handleMinMax(groupData.getMin(), groupData.getMax(), groupData.isLazy(), -1);
     }
 
     /**
@@ -703,11 +710,18 @@ public class ExpressionFactory
      *
      * @param min Minimum number of times match can occur
      * @param max Maximum number of times match can occur
+     * @param lazy Indicates lazy matching is to be performed
+     * @param addGroupingIndex A value greater than -1 indicates that a non-capturing group needs to be added
      */
-    private void handleMinMax(String min, String max)
+    private void handleMinMax(String min, String max, boolean lazy, int addGroupingIndex)
     {
         if (!min.equals("1") || !max.equals("1"))
         {
+            if (addGroupingIndex > -1)
+            {
+                regExpression.insert(addGroupingIndex, "(?:").append(")");
+            }
+
             if (min.equals("0") && max.equals("1"))
             {
                 regExpression.append("?");
@@ -734,6 +748,11 @@ public class ExpressionFactory
                 }
                 
                 regExpression.append("}");
+            }
+
+            if (lazy)
+            {
+                regExpression.append("?"); //add lazy quantifier
             }
         }
     }
@@ -762,6 +781,7 @@ public class ExpressionFactory
         private String min = "1";
         private String max = "1";
         private String operator = OPERATOR_AND;
+        private boolean lazy = false;
         private boolean firstMatch = true;
 
         /**
@@ -822,6 +842,26 @@ public class ExpressionFactory
         public void setOperator(String operator)
         {
             this.operator = operator;
+        }
+
+        /**
+         * Indicates whether or not lazy matching is to be performed.
+         *
+         * @return True indicates lazy matching, otherwise greedy matching is used
+         */
+        public boolean isLazy()
+        {
+            return lazy;
+        }
+
+        /**
+         * Sets whether or not lazy matching is to be performed.
+         *
+         * @param lazy True indicates lazy matching, otherwise greedy matching is used
+         */
+        public void setLazy(boolean lazy)
+        {
+            this.lazy = lazy;
         }
 
         /**

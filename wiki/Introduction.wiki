@@ -622,7 +622,26 @@ Regular expression: `"Hello Tim's mom!"`
 
 === Start/End of Line Match ===
 
-The `start` and `end` elements can be used to "anchor" an expression to the beginning or end of a line.
+The `start` and `end` elements can be used to "anchor" an expression to the beginning or end of a line. The following expression matches a zip code only if nothing precedes or follows it.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="zipcode">
+        <start/>
+        <match equals="\d" min="5"/> <!-- 5 digit zip code -->
+        <group min="0">
+            <match equals="-"/>
+            <match equals="\d" min="4"/> <!-- optional "plus 4" -->
+        </group>
+        <end/>
+    </expression>
+</regexml>
+}}}
+
+Matches: any zip code as long as it's the only item in the text being evaluated<br>
+Regular expression: `^\d{5}(?:-\d{4})?$`
+
+The `start` and `end` elements can also be used within groups like this:
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
@@ -645,25 +664,6 @@ The `start` and `end` elements can be used to "anchor" an expression to the begi
 
 Matches: any string beginning with _alpha_ or ending with _omega_<br>
 Regular expression: `(?:(?:^alpha.*)|(?:.*omega$))`
-
-The following expression matches a zip code only if nothing precedes or follows it.
-
-{{{
-<regexml xmlns="http://schemas.regexml.org/expressions">
-    <expression id="zipcode">
-        <start/>
-        <match equals="\d" min="5"/> <!-- 5 digit zip code -->
-        <group min="0">
-            <match equals="-"/>
-            <match equals="\d" min="4"/> <!-- optional "plus 4" -->
-        </group>
-        <end/>
-    </expression>
-</regexml>
-}}}
-
-Matches: any zip code as long as it's the only item in the text being evaluated<br>
-Regular expression: `^\d{5}(?:-\d{4})?$`
 
 === Whole Word Match ===
 

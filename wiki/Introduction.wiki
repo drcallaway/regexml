@@ -757,6 +757,27 @@ Note that if only a five digit zip code was provided (e.g., "98765"), the option
  `98765`<br>
  `null`
 
+=== Match on Previous Match ===
+
+You can use previous captured matches to match later in an expression by escaping a number associated with the captured match. The first captured match is 1, the second is 2, and so on. For example, suppose we want to match on the time of day where the hour and millisecond are the same and the minute and second are the same like "11:24:24:11".
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="example">
+        <match equals="\d\d" capture="true"/>
+        <match equals=":"/>
+        <match equals="\d\d" capture="true"/>
+        <match equals=":"/>
+        <match equals="\2"/> <!-- match on second capture -->
+        <match equals=":"/>
+        <match equals="\1"/> <!-- match on first capture -->
+    </expression>
+</regexml>
+}}}
+
+Matches: _11:24:24:11_, _12:51:51:12_, _05:33:33:05_, etc.
+Regular expression: `(\d\d):(\d\d):\2:\1`
+
 === Look-ahead and Look-behind Match ===
 
 Look-aheads and look-behinds (positive and negative) are not yet supported in regexml.

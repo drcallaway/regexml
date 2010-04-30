@@ -775,7 +775,7 @@ You can use previous captured matches to match later in an expression by escapin
 </regexml>
 }}}
 
-Matches: _11:24:24:11_, _12:51:51:12_, _05:33:33:05_, etc.
+Matches: _11:24:24:11_, _12:51:51:12_, _05:33:33:05_, etc.<br>
 Regular expression: `(\d\d):(\d\d):\2:\1`
 
 === Look-ahead and Look-behind Match ===

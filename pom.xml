@@ -4,7 +4,7 @@
     <groupId>org.regexml</groupId>
     <artifactId>regexml</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.3</version>
+    <version>0.9.6</version>
     <name>Regular Expressions in XML</name>
     <url>http://www.regexml.org</url>
     <build>

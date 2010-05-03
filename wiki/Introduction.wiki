@@ -57,7 +57,9 @@ Typically, you will only be interested in retrieving `Pattern` objects in order 
 
 == ExpressionFactory Class ==
 
-The `ExpressionFactory` class compiles regexml expressions into standard `java.util.regex.Pattern` objects and makes them available to client applications via the `getExpression()` and `getPattern()` methods. `ExpressionFactory` can be instantiated like this:
+The `ExpressionFactory` class compiles regexml expressions into standard `java.util.regex.Pattern` objects, caches them, and makes them available to client applications via the `getExpression()` and `getPattern()` methods. Given that regexml expressions are converted to standard `Pattern` objects, performance of regexml expressions is equivalent to that of standard regular expressions.
+
+`ExpressionFactory` can be instantiated like this:
 
 {{{
 ExpressionFactory expressionFactory = new ExpressionFactory(new ClassPathResource("expressions.xml"));

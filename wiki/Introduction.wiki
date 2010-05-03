@@ -864,7 +864,7 @@ Consider what happens when the expression above is applied to this text:
 
  `javascripts`
 
-In this case, the regular expression engine will match the first ten characters (`javascript`) and then move on to attempt a match against `\b`. This match will fail and, because of the `atomic` attribute, the regular expression engine will give up immediately and indicate that the text doesn't match the expression. If the `atomic` attribute had not been set, the regular expression engine would have unnecessarily backtracked and attempted to match the text against the `java` alternative.
+In this case, the regular expression engine will match the first ten characters (`javascript`) and then move on to attempt a match against a word boundary. This match will fail and, because of the `atomic` attribute, the regular expression engine will give up immediately and indicate that the text doesn't match the expression. If the `atomic` attribute had not been set, the regular expression engine would have unnecessarily backtracked and attempted to match the text against the `java` alternative.
 
 === Look-ahead and Look-behind Match ===
 

@@ -849,22 +849,22 @@ The following example shows a typical case where using the `atomic` attribute wi
 <regexml xmlns="http://schemas.regexml.org/expressions">
     <expression id="example">
         <group operator="or" atomic="true">
-            <match equals="javascript"/>            
-            <match equals="java"/>
+            <match equals="abc"/>            
+            <match equals="def"/>
         </group>
         <match equals="\b"/>
     </expression>
 </regexml>
 }}}
 
-Matches: _javascript_ and _java_ if immediately followed by a word boundary<br>
-Regular expression: `\b(?>(?:javascript|java))\b`
+Matches: _abc_ and _def_ if immediately followed by a word boundary<br>
+Regular expression: `\b(?>(?:abc|def))\b`
 
 Consider what happens when the expression above is applied to this text:
 
- `javascripts`
+ `abcd`
 
-In this case, the regular expression engine will match the first ten characters (`javascript`) and then move on to attempt a match against a word boundary. This match will fail and, because of the `atomic` attribute, the regular expression engine will give up immediately and indicate that the text doesn't match the expression. If the `atomic` attribute had not been set, the regular expression engine would have unnecessarily backtracked and attempted to match the text against the `java` alternative.
+In this case, the regular expression engine will match the first three characters `abc` and then move on to attempt a match against a word boundary. This match will fail and, because of the `atomic` attribute, the regular expression engine will give up immediately and indicate that the text doesn't match the expression. If the `atomic` attribute had not been set, the regular expression engine would have unnecessarily backtracked and attempted to match the text against the `def` alternative.
 
 === Look-ahead and Look-behind Match ===
 

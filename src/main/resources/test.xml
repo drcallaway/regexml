@@ -1,12 +1,10 @@
 <regexml xmlns="http://schemas.regexml.org/expressions">
     <expression id="url">
         <start/>
-        <group min="0">
-            <match equals="[A-Za-z]" max="*" capture="true"/> <!-- scheme (e.g., http) -->
-            <match equals=":"/>
-        </group>
-        <match equals="/" min="0" max="3"/>
-        <match equals="[0-9.\-A-Za-z]" max="*" capture="true"/> <!-- domain (e.g., www.regexml.org) -->
+        <match equals="[A-Za-z]" max="*" capture="true"/> <!-- scheme (e.g., http) -->
+        <match equals=":"/>
+        <match equals="//" min="0"/> <!-- optional since mailto: and news: URLs do not require forward slashes -->
+        <match equals="[0-9.\-A-Za-z@]" max="*" capture="true"/> <!-- domain (e.g., www.regexml.org) -->
         <group min="0">
             <match equals=":"/>
             <match equals="\d" max="5" capture="true"/> <!-- port number -->
@@ -21,7 +19,7 @@
         </group>
         <group min="0">
             <match equals="#"/>
-            <match equals="." min="0" max="*" capture="true"/> <!-- anchor -->
+            <match equals="." min="0" max="*" capture="true"/> <!-- anchor tag -->
         </group>
         <end/>
     </expression>

@@ -841,7 +841,30 @@ First consider applying the above expression _without_ the `atomic` attribute ag
 
  `Hello 123.`
 
-In this case, the regular expression will find a match for the first `\b` at the space between Hello and 123. It will then use the `\d` portion of the expression to match the numbers 123. The match will then fail when the period is discovered (since the period is not a digit or a word boundary). At this point, we can safely say that the text does not match the expression. However, without marking the `\d` match as atomic, the regular expression engine will backtrack and needlessly attempt to match the `\b` after the 2 and then again after the 1. Including the `atomic` attribute will allow the match to avoid the unnecessary backtracking and fail more quickly.
+In this case, the regular expression will find a match for the first `\b` at the space between Hello and 123. It will then use the `\d` portion of the expression to match the numbers 123. The match will then fail when the period is discovered (since the period is not a digit or a word boundary). At this point, we can safely say that the text does not match the expression. However, without marking the `\d` match as atomic, the regular expression engine will backtrack and needlessly attempt to match the `\b` after the 2 and then again after the 1. Including the `atomic` attribute will avoid unnecessary backtracking and allow the match to fail more quickly.
+
+The following example shows a typical case where using the `atomic` attribute with a group makes for more efficient matching.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="example">
+        <group operator="or" atomic="true">
+            <match equals="javascript"/>            
+            <match equals="java"/>
+        </group>
+        <match equals="\b"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: _javascript_ and _java_ if followed by a word boundary<br>
+Regular expression: `\b(?>(?:javascript|java))\b`
+
+Consider what happens when the expression above is applied to this text:
+
+ `javascripts`
+
+In this case, the regular expression engine will match the first ten characters (`javascript`) and then move on to attempt a match against `\b`. This match will fail and, because of the `atomic` attribute, the regular expression engine will give up immediately and indicate that the text doesn't match the expression. If the `atomic` attribute had not been set, the regular expression engine would have unnecessarily backtracked and attempted to match the text against the `java` alternative.
 
 === Look-ahead and Look-behind Match ===
 

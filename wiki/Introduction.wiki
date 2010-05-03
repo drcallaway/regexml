@@ -816,6 +816,33 @@ Regular expression: `<p>(.+?)</p>`
 
 Setting the `lazy` attribute allows us to match on the first terminating paragraph element rather than the last. The `lazy` attribute is also supported by the `group` element when matching a group multiple times.
 
+=== Atomic Group Match ===
+
+Regular expression engines perform their matching by stepping through text from left to right one character at a time. The engine maintains a "backtracking position" so that when it discovers a portion of text doesn't match, it can backtrack to its previous position and attempt a different match (if the match can be performed another way). There are times when backtracking is unnecessary and, therefore, inefficient. Atomic groups provide a way of telling the regular expression engine to not backtrack. You can read more about atomic grouping here:
+
+[http://www.regular-expressions.info/atomic.html http://www.regular-expressions.info/atomic.html]
+
+An atomic group is specified using the `atomic` attribute. The `match` and `group` elements both support this attribute. In the following example, a one to five digit number surrounded by word boundaries is matched.
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="example">
+        <match equals="\b"/>
+        <match equals="\d" max="5" atomic="true"/>
+        <match equals="\b"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: any one to five digit number<br>
+Regular expression: `\b(?>\d{1,5})\b`
+
+First consider applying the above expression _without_ the `atomic` attribute against this text:
+
+ `Hello 123.`
+
+In this case, the regular expression will find a match for the first `\b` at the space between Hello and 123. It will then use the `\d` portion of the expression to match the numbers 123. The match will then fail when the period is discovered (since the period is not a digit or a word boundary). At this point, we can safely say that the text does not match the expression. However, without marking the `\d` match as atomic, the regular expression engine will backtrack and needlessly attempt to match the `\b` after the 2 and then again after the 1. Including the `atomic` attribute will allow the match to avoid the unnecessary backtracking and fail more quickly.
+
 === Look-ahead and Look-behind Match ===
 
 Look-aheads and look-behinds (positive and negative) are not yet supported in regexml.

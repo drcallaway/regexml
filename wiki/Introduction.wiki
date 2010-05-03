@@ -834,7 +834,7 @@ An atomic group is specified using the `atomic` attribute. The `match` and `grou
 </regexml>
 }}}
 
-Matches: any one to five digit number preceded by and followed by a word boundary<br>
+Matches: any one to five digit number immediately preceded by and followed by a word boundary<br>
 Regular expression: `\b(?>\d{1,5})\b`
 
 First consider applying the above expression _without_ the `atomic` attribute against this text:
@@ -857,7 +857,7 @@ The following example shows a typical case where using the `atomic` attribute wi
 </regexml>
 }}}
 
-Matches: _javascript_ and _java_ if followed by a word boundary<br>
+Matches: _javascript_ and _java_ if immediately followed by a word boundary<br>
 Regular expression: `\b(?>(?:javascript|java))\b`
 
 Consider what happens when the expression above is applied to this text:

@@ -820,7 +820,7 @@ Setting the `lazy` attribute allows us to match on the first terminating paragra
 
 === Atomic Group Match ===
 
-Regular expression engines perform their matching by stepping through text from left to right one character at a time. The engine maintains a "backtracking position" so that when it discovers a portion of text doesn't match, it can backtrack to its previous position and attempt a different match (if the match can be performed another way). There are times when backtracking is unnecessary and, therefore, inefficient. Atomic groups provide a way of telling the regular expression engine to not backtrack. You can read more about atomic grouping here:
+Regular expression engines perform their matching by stepping through text from left to right one character at a time. The engine maintains a "backtracking position" so that when it discovers a portion of text doesn't match, it can backtrack to its previous position and attempt a different match (if the match can be performed another way). There are times when backtracking is unnecessary and, therefore, inefficient. Atomic groups provide a way of telling the regular expression engine to not backtrack. This kind of group is called _atomic_ because once a match is achieved, alternative matches in the group will not be checked. You can read more about atomic grouping here:
 
 [http://www.regular-expressions.info/atomic.html http://www.regular-expressions.info/atomic.html]
 

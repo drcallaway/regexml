@@ -69,6 +69,7 @@ public class ExpressionFactory
     private static final String ATTR_MAX = "max";
     private static final String ATTR_CAPTURE = "capture";
     private static final String ATTR_LAZY = "lazy";
+    private static final String ATTR_ATOMIC = "atomic";
     private static final String ATTR_OPERATOR = "operator";
     private static final String TRUE = "true";
     private static final String FALSE = "false";
@@ -426,6 +427,7 @@ public class ExpressionFactory
         boolean ignoreCase = false;
         boolean dotMatchesLineBreaks = false;
         boolean lazy = false;
+        boolean atomic = false;
         int addGroupingIndex = -1;
         String equalsExpression = null;
         String exceptExpression = null;
@@ -472,6 +474,10 @@ public class ExpressionFactory
             else if (name.equals(ATTR_LAZY) && value.equals(TRUE))
             {
                 lazy = true;
+            }
+            else if (name.equals(ATTR_ATOMIC) && value.equals(TRUE))
+            {
+                atomic = true;
             }
         }
 
@@ -557,6 +563,11 @@ public class ExpressionFactory
         {
             regExpression.insert(length, "(").append(")");
         }
+
+        if (atomic)
+        {
+            regExpression.insert(length, "(?>").append(")"); //do not store any backtracking positions
+        }
     }
 
     /**
@@ -629,6 +640,7 @@ public class ExpressionFactory
     private void handleGroupElementStart(StartElement se)
     {
         boolean capture = false;
+        boolean atomic = false;
         StringBuilder matchOptionsOn = new StringBuilder();
         StringBuilder matchOptionsOff = new StringBuilder();
 
@@ -661,6 +673,11 @@ public class ExpressionFactory
             else if (name.equals(ATTR_LAZY) && value.equals(TRUE))
             {
                 groupData.setLazy(true);
+            }
+            else if (name.equals(ATTR_ATOMIC) && value.equals(TRUE))
+            {
+                atomic = true;
+                groupData.setAtomic(true);
             }
             else if (name.equals(ATTR_IGNORE_CASE))
             {
@@ -703,9 +720,14 @@ public class ExpressionFactory
 
         StringBuilder groupStart = new StringBuilder("(");
 
+        if (atomic)
+        {
+            groupStart.append("?>("); //start atomic group
+        }
+
         if (!capture)
         {
-            groupStart.append("?");
+            groupStart.append("?"); //start non-capturing group
         }
 
         groupStart.append(matchOptionsOn.toString());
@@ -717,7 +739,7 @@ public class ExpressionFactory
 
         if (!capture)
         {
-            groupStart.append(":");
+            groupStart.append(":"); //part of non-capturing group start
         }
 
         regExpression.insert(length, groupStart.toString());
@@ -730,10 +752,15 @@ public class ExpressionFactory
      */
     private void handleGroupElementEnd(EndElement ee)
     {
-        regExpression.append(")");
+        regExpression.append(")"); //end capturing or non-capturing group
 
         GroupData groupData = groupStack.pop();
         handleMinMax(groupData.getMin(), groupData.getMax(), groupData.isLazy(), -1);
+
+        if (groupData.isAtomic())
+        {
+            regExpression.append(")"); //end atomic group
+        }
     }
 
     /**
@@ -813,6 +840,7 @@ public class ExpressionFactory
         private String max = "1";
         private String operator = OPERATOR_AND;
         private boolean lazy = false;
+        private boolean atomic = false;
         private boolean firstMatch = true;
 
         /**
@@ -893,6 +921,28 @@ public class ExpressionFactory
         public void setLazy(boolean lazy)
         {
             this.lazy = lazy;
+        }
+
+        /**
+         * Gets whether or not the group is atomic. An atomic group is more efficient since all backtracking information
+         * is dropped after it is evaluated.
+         *
+         * @return True indicates an atomic group
+         */
+        public boolean isAtomic()
+        {
+            return atomic;
+        }
+
+        /**
+         * Sets whether or not the group is atomic. An atomic group is more efficient since all backtracking information
+         * is dropped after it is evaluated.
+         *
+         * @param atomic True indicates an atomic group
+         */
+        public void setAtomic(boolean atomic)
+        {
+            this.atomic = atomic;
         }
 
         /**

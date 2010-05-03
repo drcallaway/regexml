@@ -521,7 +521,7 @@ public class ExpressionFactory
 
         // grouping index is for grouping text before a quantifier is applied, only necessary for equals expressions
         // that are longer than one character and not a character class
-        if (equalsExpression != null && equalsExpression.length() > 1 && !isCharacterClass(equalsExpression))
+        if (requiresGrouping(equalsExpression))
         {
             addGroupingIndex = length;
         }
@@ -580,6 +580,35 @@ public class ExpressionFactory
     }
 
     /**
+     * Indicates whether or not a given expression must be in a group before a quantifier is applied.
+     *
+     * @param expression Expression to evaluate for grouping
+     * @return True indicates that expression must be grouped before quantifier
+     */
+    private boolean requiresGrouping(String expression)
+    {
+        boolean requiresGrouping = true;
+
+        if (expression == null)
+        {
+            requiresGrouping = false;
+        }
+        else if (expression.startsWith("\\"))
+        {
+            if (expression.length() == 2)
+            {
+                requiresGrouping = false;
+            }
+        }
+        else if (expression.length() == 1 || isCharacterClass(expression))
+        {
+            requiresGrouping = false;
+        }
+
+        return requiresGrouping;
+    }
+
+    /**
      * Indicates whether or not the given expression represents a character class.
      *
      * @param expression Expression to evaluate
@@ -587,7 +616,9 @@ public class ExpressionFactory
      */
     private boolean isCharacterClass(String expression)
     {
-        return expression.startsWith("[") && expression.endsWith("]");
+        return (expression.startsWith("[") && expression.endsWith("]")) || expression.equals(".") ||
+            expression.equalsIgnoreCase("\\d") || expression.equalsIgnoreCase("\\s") ||
+            expression.equalsIgnoreCase("\\w") || expression.equalsIgnoreCase("\\b");
     }
 
     /**

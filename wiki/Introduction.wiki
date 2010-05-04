@@ -870,7 +870,7 @@ In this case, the regular expression engine will match the first three character
 
 === Lookaround Match ===
 
-A _lookahead_ or _lookbehind_ group (collectively known as _lookaround_ groups) is used to match text without including it in the match results. For example, consider the following text:
+_Lookahead_ and _lookbehind_ groups (collectively known as _lookaround_ groups) are used to match text without including it in the match results. For example, consider the following text:
 
  `This is a <p>paragraph</p> in HTML. Here is <p>another</p>.`
 

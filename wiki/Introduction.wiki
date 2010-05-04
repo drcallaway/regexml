@@ -868,9 +868,61 @@ Consider what happens when the expression above is applied to this text:
 
 In this case, the regular expression engine will match the first three characters `abc` and then move on to attempt a match against a word boundary. This match will fail and, because of the `atomic` attribute, the regular expression engine will give up immediately and indicate that the text doesn't match the expression. If the `atomic` attribute had not been set, the regular expression engine would have unnecessarily backtracked and attempted to match the text against the `def` alternative.
 
-=== Look-ahead and Look-behind Match ===
+=== Lookahead and Lookbehind Match ===
 
-Look-aheads and look-behinds (positive and negative) are not yet supported in regexml.
+A _lookahead_ or _lookbehind_ group (collectively known as _lookaround_ groups) are used to match text without including it in the overall match. For example, consider the following text:
+
+ `This is a <p>paragraph</p> in HTML. Here is <p>another</p>.`
+
+Say we wanted to match the text between the paragraph tags without including the tags themselves in the match. This can be done using positive lookaround groups like this:
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="example">
+        <match equals="&lt;p>" lookbehind="positive"/>
+        <match equals="." max="*" lazy="true"/>
+        <match equals="&lt;/p>" lookahead="positive"/>
+    </expression>
+</regexml>
+}}}
+
+Matches: text between `<p>` and `</p>` tags<br>
+Regular expression: `(?<=<p>).+?(?=</p>)`
+
+Note that we use the `lazy` attribute for the reasons described in the section on lazy matches above. The following code outputs the matching text:
+
+{{{
+ExpressionFactory ef = new ExpressionFactory(new FileSystemResource("test.xml"), true);
+Pattern pattern = ef.getPattern("example");
+Matcher matcher = pattern.matcher("This is a <p>paragraph</p> in HTML. Here is <p>another</p>.");
+
+while (matcher.find())
+{
+    System.out.println(matcher.group());
+}
+}}}
+
+The output from this program looks like this:
+
+ `paragraph`
+ `another`
+
+Notice that the paragraph tags were not included even though they were used to match the text. Lookaround groups make this functionality possible.
+
+The `group` and `match` elements both support the `lookahead` and `lookbehind` attributes. In addition to positive lookarounds, negative lookarounds are also supported. A negative lookaround works exactly the same as a positive except the match is negated. For example, the following regexml expression would find all instances of the letter "p" _not_ followed by a greater than symbol (>):
+
+{{{
+<regexml xmlns="http://schemas.regexml.org/expressions">
+    <expression id="example" ignoreCase="true">
+        <match equals="p"/>
+        <match equals=">" lookahead="negative"/>
+    </expression>
+</regexml>
+}}}
+
+For more information on lookarounds, see the following URL:
+
+[http://www.regular-expressions.info/lookaround.html http://www.regular-expressions.info/lookaround.html]
 
 === Other Matching Constructs ===
 

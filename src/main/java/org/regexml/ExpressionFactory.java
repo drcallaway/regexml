@@ -640,7 +640,6 @@ public class ExpressionFactory
     private void handleGroupElementStart(StartElement se)
     {
         boolean capture = false;
-        boolean atomic = false;
         StringBuilder matchOptionsOn = new StringBuilder();
         StringBuilder matchOptionsOff = new StringBuilder();
 
@@ -676,7 +675,6 @@ public class ExpressionFactory
             }
             else if (name.equals(ATTR_ATOMIC) && value.equals(TRUE))
             {
-                atomic = true;
                 groupData.setAtomic(true);
             }
             else if (name.equals(ATTR_IGNORE_CASE))
@@ -720,7 +718,7 @@ public class ExpressionFactory
 
         StringBuilder groupStart = new StringBuilder("(");
 
-        if (atomic)
+        if (groupData.isAtomic())
         {
             groupStart.append("?>("); //start atomic group
         }

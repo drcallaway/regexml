@@ -889,7 +889,7 @@ Say we wanted to match the text between the paragraph tags without including the
 Matches: text between `<p>` and `</p>` tags<br>
 Regular expression: `(?<=<p>).+?(?=</p>)`
 
-The valid values for the `lookahead` and `lookbehind` attributes are `positive`, `negative`, and `none`. A _positive_ lookaround succeeds if the text matches while a _negative_ lookaround succeeds only if the text doesn't match. Note that we use the `lazy` attribute for the reasons described in the section on lazy matches above. The following code outputs the matching text:
+The valid values for the `lookahead` and `lookbehind` attributes are `positive`, `negative`, and `none`. A _positive_ lookaround succeeds if the text matches while a _negative_ lookaround succeeds only if the text doesn't match. Note that we use the `lazy` attribute for reasons described in the section on lazy matches above. The following code outputs the matching text:
 
 {{{
 ExpressionFactory ef = new ExpressionFactory(new FileSystemResource("example.xml"), true);

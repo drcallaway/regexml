@@ -868,7 +868,7 @@ Consider what happens when the expression above is applied to this text:
 
 In this case, the regular expression engine will match the first three characters `abc` and then move on to attempt a match against a word boundary. This match will fail and, because of the `atomic` attribute, the regular expression engine will give up immediately and indicate that the text doesn't match the expression. If the `atomic` attribute had not been set, the regular expression engine would have unnecessarily backtracked and attempted to match the text against the `def` alternative.
 
-=== Lookahead and Lookbehind Match ===
+=== Lookaround Match ===
 
 A _lookahead_ or _lookbehind_ group (collectively known as _lookaround_ groups) is used to match text without including it in the match results. For example, consider the following text:
 

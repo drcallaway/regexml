@@ -904,7 +904,7 @@ while (matcher.find())
 
 The output from this program looks like this:
 
- `paragraph`
+ `paragraph`<br>
  `another`
 
 Notice that the paragraph tags were not included even though they were used to match the text. Lookaround groups make this functionality possible.

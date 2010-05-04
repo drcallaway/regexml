@@ -66,7 +66,7 @@
             </choice>
             <element name="end" type="rex:endType" minOccurs="0" maxOccurs="1"/>
         </sequence>
-        <attributeGroup ref="rex:minMaxCapLazyAtomic"/>
+        <attributeGroup ref="rex:minMaxCapLazyAtomicLook"/>
         <attributeGroup ref="rex:caseDot"/>
         <attribute name="operator" type="rex:operatorEnum" use="optional" default="and"/>
     </complexType>
@@ -74,7 +74,7 @@
     <complexType name="matchType">
         <attribute name="equals" type="string" use="optional"/>
         <attribute name="except" type="string" use="optional"/>
-        <attributeGroup ref="rex:minMaxCapLazyAtomic"/>
+        <attributeGroup ref="rex:minMaxCapLazyAtomicLook"/>
         <attributeGroup ref="rex:caseDot"/>
     </complexType>
 
@@ -83,18 +83,28 @@
         <attribute name="dotMatchesLineBreaks" type="boolean" use="optional" default="false"/>
     </attributeGroup>
 
-    <attributeGroup name="minMaxCapLazyAtomic">
+    <attributeGroup name="minMaxCapLazyAtomicLook">
         <attribute name="min" type="nonNegativeInteger" use="optional" default="1"/>
         <attribute name="max" type="string" use="optional" default="1"/>
         <attribute name="capture" type="boolean" use="optional" default="false"/>
         <attribute name="lazy" type="boolean" use="optional" default="false"/>
         <attribute name="atomic" type="boolean" use="optional" default="false"/>
+        <attribute name="lookahead" type="rex:lookaroundEnum" use="optional" default="none"/>
+        <attribute name="lookbehind" type="rex:lookaroundEnum" use="optional" default="none"/>
     </attributeGroup>
 
     <simpleType name="operatorEnum">
 		<restriction base="string">
 			<enumeration value="and" />
 			<enumeration value="or" />
+		</restriction>
+	</simpleType>
+
+    <simpleType name="lookaroundEnum">
+		<restriction base="string">
+            <enumeration value="none"/>
+			<enumeration value="positive" />
+			<enumeration value="negative" />
 		</restriction>
 	</simpleType>
 

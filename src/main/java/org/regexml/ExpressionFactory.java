@@ -71,10 +71,15 @@ public class ExpressionFactory
     private static final String ATTR_LAZY = "lazy";
     private static final String ATTR_ATOMIC = "atomic";
     private static final String ATTR_OPERATOR = "operator";
+    private static final String ATTR_LOOKAHEAD = "lookahead";
+    private static final String ATTR_LOOKBEHIND = "lookbehind";
     private static final String TRUE = "true";
     private static final String FALSE = "false";
     private static final String OPERATOR_AND = "and";
     private static final String OPERATOR_OR = "or";
+    private static final String LOOKAROUND_NONE = "none";
+    private static final String LOOKAROUND_POSITIVE = "positive";
+    private static final String LOOKAROUND_NEGATIVE = "negative";
 
     private Map<String, Expression> expressionMap = new HashMap<String, Expression>();
     private XMLInputFactory inputFactory = XMLInputFactory.newInstance();
@@ -87,6 +92,7 @@ public class ExpressionFactory
     private boolean dotMatchesLineBreaks;
     private boolean anchorsMatchLineBreaks;
     private boolean startAnchorMatchesLineBreaks;
+    private enum LookaroundOptions {NONE, POSITIVE, NEGATIVE};
 
     /**
      * Constructs an ExpressionFactory object.
@@ -428,6 +434,8 @@ public class ExpressionFactory
         boolean dotMatchesLineBreaks = false;
         boolean lazy = false;
         boolean atomic = false;
+        LookaroundOptions lookahead = LookaroundOptions.NONE;
+        LookaroundOptions lookbehind = LookaroundOptions.NONE;
         int addGroupingIndex = -1;
         String equalsExpression = null;
         String exceptExpression = null;
@@ -478,6 +486,14 @@ public class ExpressionFactory
             else if (name.equals(ATTR_ATOMIC) && value.equals(TRUE))
             {
                 atomic = true;
+            }
+            else if (name.equals(ATTR_LOOKAHEAD))
+            {
+                lookahead = LookaroundOptions.valueOf(value.toUpperCase());
+            }
+            else if (name.equals(ATTR_LOOKBEHIND))
+            {
+                lookbehind = LookaroundOptions.valueOf(value.toUpperCase());
             }
         }
 
@@ -562,6 +578,22 @@ public class ExpressionFactory
         if (capture)
         {
             regExpression.insert(length, "(").append(")");
+        }
+        else if (lookahead == LookaroundOptions.POSITIVE)
+        {
+            regExpression.insert(length, "(?=").append(")");
+        }
+        else if (lookahead == LookaroundOptions.NEGATIVE)
+        {
+            regExpression.insert(length, "(?!").append(")");
+        }
+        else if (lookbehind == LookaroundOptions.POSITIVE)
+        {
+            regExpression.insert(length, "(?<=").append(")");
+        }
+        else if (lookbehind == LookaroundOptions.NEGATIVE)
+        {
+            regExpression.insert(length, "(?<!").append(")");
         }
 
         if (atomic)
@@ -714,6 +746,14 @@ public class ExpressionFactory
             {
                 groupData.setOperator(OPERATOR_OR);
             }
+            else if (name.equals(ATTR_LOOKAHEAD))
+            {
+                groupData.setLookahead(LookaroundOptions.valueOf(value.toUpperCase()));
+            }
+            else if (name.equals(ATTR_LOOKBEHIND))
+            {
+                groupData.setLookbehind(LookaroundOptions.valueOf(value.toUpperCase()));
+            }
         }
 
         StringBuilder groupStart = new StringBuilder("(");
@@ -725,6 +765,23 @@ public class ExpressionFactory
 
         if (!capture)
         {
+            if (groupData.getLookahead() == LookaroundOptions.POSITIVE)
+            {
+                groupStart.append("?=("); //start positive lookahead
+            }
+            else if (groupData.getLookahead() == LookaroundOptions.NEGATIVE)
+            {
+                groupStart.append("?!("); //start negative lookahead
+            }
+            else if (groupData.getLookbehind() == LookaroundOptions.POSITIVE)
+            {
+                groupStart.append("?<=("); //start positive lookbehind
+            }
+            else if (groupData.getLookbehind() == LookaroundOptions.NEGATIVE)
+            {
+                groupStart.append("?<!("); //start negative lookbehind
+            }
+
             groupStart.append("?"); //start non-capturing group
         }
 
@@ -754,6 +811,11 @@ public class ExpressionFactory
 
         GroupData groupData = groupStack.pop();
         handleMinMax(groupData.getMin(), groupData.getMax(), groupData.isLazy(), -1);
+
+        if (groupData.getLookahead() != LookaroundOptions.NONE || groupData.getLookbehind() != LookaroundOptions.NONE)
+        {
+            regExpression.append(")"); //end lookaround group
+        }
 
         if (groupData.isAtomic())
         {
@@ -839,6 +901,8 @@ public class ExpressionFactory
         private String operator = OPERATOR_AND;
         private boolean lazy = false;
         private boolean atomic = false;
+        private LookaroundOptions lookahead = LookaroundOptions.NONE;
+        private LookaroundOptions lookbehind = LookaroundOptions.NONE;
         private boolean firstMatch = true;
 
         /**
@@ -941,6 +1005,46 @@ public class ExpressionFactory
         public void setAtomic(boolean atomic)
         {
             this.atomic = atomic;
+        }
+
+        /**
+         * Gets the lookahead option used by this group.
+         *
+         * @return Lookahead option
+         */
+        public LookaroundOptions getLookahead()
+        {
+            return lookahead;
+        }
+
+        /**
+         * Sets the lookahead option used by this group.
+         *
+         * @param lookahead Lookahead option
+         */
+        public void setLookahead(LookaroundOptions lookahead)
+        {
+            this.lookahead = lookahead;
+        }
+
+        /**
+         * Gets the lookbehind option used by this group.
+         *
+         * @return Lookbehind option
+         */
+        public LookaroundOptions getLookbehind()
+        {
+            return lookbehind;
+        }
+
+        /**
+         * Sets the lookbehind option used by this group.
+         *
+         * @param lookbehind Lookbehind option
+         */
+        public void setLookbehind(LookaroundOptions lookbehind)
+        {
+            this.lookbehind = lookbehind;
         }
 
         /**

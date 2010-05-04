@@ -909,7 +909,7 @@ The output from this program looks like this:
 
 Notice that the paragraph tags were not included even though they were used to match the text. Lookaround groups make this functionality possible.
 
-The `group` and `match` elements both support the `lookahead` and `lookbehind` attributes. In addition to positive lookarounds, negative lookarounds are also supported. A negative lookaround works exactly the same as a positive except the match is negated. For example, the following regexml expression would find all instances of the letter "p" _not_ followed by a greater than symbol (>):
+The `lookahead` and `lookbehind` attributes are supported by both the `group` and `match` elements. In addition to positive lookarounds, negative lookarounds are also supported. A negative lookaround works exactly the same as a positive except the match is negated. For example, the following regexml expression would find all instances of the letter "p" _not_ followed by a greater than symbol (>):
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

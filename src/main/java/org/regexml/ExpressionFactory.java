@@ -579,7 +579,8 @@ public class ExpressionFactory
         {
             regExpression.insert(length, "(").append(")");
         }
-        else if (lookahead == LookaroundOptions.POSITIVE)
+
+        if (lookahead == LookaroundOptions.POSITIVE)
         {
             regExpression.insert(length, "(?=").append(")");
         }
@@ -756,32 +757,32 @@ public class ExpressionFactory
             }
         }
 
-        StringBuilder groupStart = new StringBuilder("(");
+        StringBuilder groupStart = new StringBuilder("("); //start capturing or non-capturing group
 
         if (groupData.isAtomic())
         {
             groupStart.append("?>("); //start atomic group
         }
 
+        if (groupData.getLookahead() == LookaroundOptions.POSITIVE)
+        {
+            groupStart.append("?=("); //start positive lookahead
+        }
+        else if (groupData.getLookahead() == LookaroundOptions.NEGATIVE)
+        {
+            groupStart.append("?!("); //start negative lookahead
+        }
+        else if (groupData.getLookbehind() == LookaroundOptions.POSITIVE)
+        {
+            groupStart.append("?<=("); //start positive lookbehind
+        }
+        else if (groupData.getLookbehind() == LookaroundOptions.NEGATIVE)
+        {
+            groupStart.append("?<!("); //start negative lookbehind
+        }
+
         if (!capture)
         {
-            if (groupData.getLookahead() == LookaroundOptions.POSITIVE)
-            {
-                groupStart.append("?=("); //start positive lookahead
-            }
-            else if (groupData.getLookahead() == LookaroundOptions.NEGATIVE)
-            {
-                groupStart.append("?!("); //start negative lookahead
-            }
-            else if (groupData.getLookbehind() == LookaroundOptions.POSITIVE)
-            {
-                groupStart.append("?<=("); //start positive lookbehind
-            }
-            else if (groupData.getLookbehind() == LookaroundOptions.NEGATIVE)
-            {
-                groupStart.append("?<!("); //start negative lookbehind
-            }
-
             groupStart.append("?"); //start non-capturing group
         }
 

@@ -889,7 +889,7 @@ Say we wanted to match the text between the paragraph tags without including the
 Matches: text between `<p>` and `</p>` tags<br>
 Regular expression: `(?<=<p>).+?(?=</p>)`
 
-The valid values for the `lookahead` and `lookbehind` attributes are `positive`, `negative`, and `none`. A _positive_ lookaround succeeds if the text matches while a _negative_ lookaround succeeds only if the text doesn't match. Note that we use the `lazy` attribute for reasons described in the section on lazy matches above. The following code outputs the matching text:
+The `lookahead` and `lookbehind` attributes are supported by both `group` and `match` elements. Valid values for these attributes are `positive`, `negative`, and `none`. A _positive_ lookaround succeeds if the text matches while a _negative_ lookaround succeeds only if the text doesn't match. Note that we use the `lazy` attribute for reasons described in the section on lazy matches above. The following code outputs the matching text:
 
 {{{
 ExpressionFactory ef = new ExpressionFactory(new FileSystemResource("example.xml"), true);
@@ -909,7 +909,7 @@ The output from this program looks like this:
 
 Notice that the paragraph tags were not included even though they were used to match the text. Lookaround groups enable this type of functionality.
 
-The `lookahead` and `lookbehind` attributes are supported by both the `group` and `match` elements. The following regexml expression uses a negative lookahead to find all instances of the letter "p" that are _not_ followed by a greater than symbol (>):
+The following regexml expression is an example of a negative lookahead. It finds all instances of the letter "p" that are _not_ followed by a greater than symbol (>):
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
@@ -919,6 +919,9 @@ The `lookahead` and `lookbehind` attributes are supported by both the `group` an
     </expression>
 </regexml>
 }}}
+
+Matches: all instances of the letter _p_ not followed by a _>_<br>
+Regular expression: `p(?!>)`
 
 For more information on lookarounds, see the following URL:
 

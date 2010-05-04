@@ -921,7 +921,7 @@ Notice that the paragraph tags were not included even though they were used to m
 Matches: all instances of the letter _p_ not followed by a _>_<br>
 Regular expression: `p(?!>)`
 
-For more information on lookarounds, see the following URL:
+You can learn more about lookarounds here:
 
 [http://www.regular-expressions.info/lookaround.html http://www.regular-expressions.info/lookaround.html]
 

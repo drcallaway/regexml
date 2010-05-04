@@ -6,7 +6,7 @@ The format of the regexml expressions file is defined by an XML schema. The foll
 
 || *Element* || *Attribute* || *Default Value* || *Description* ||
 || regexml || || || Root element. Contains any number of `expression` elements. ||
-|| || autoEscape || true || Causes regexml to automatically escape most special regular expression characters (namely, $()*+?^{|). ||
+|| || autoEscape || true || Causes regexml to automatically escape most special regular expression characters (namely, $()*+?^{| ). ||
 || expression || || || Defines a single regular expression. May contain one `start` and/or `end` element and any number of `match` and/or `group` elements. ||
 || || id || || Unique identifier for the expression. ||
 || || ignoreCase || false || Indicates whether or not case should be ignored when performing text comparisons. ||

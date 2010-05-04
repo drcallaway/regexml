@@ -907,7 +907,7 @@ The output from this program looks like this:
  `paragraph`<br>
  `another`
 
-Notice that the paragraph tags were not included even though they were used to match the text. Lookaround groups make this functionality possible.
+Notice that the paragraph tags were not included even though they were used to match the text. Lookaround groups enable this type of functionality.
 
 The `lookahead` and `lookbehind` attributes are supported by both the `group` and `match` elements. The following regexml expression uses a negative lookahead to find all instances of the letter "p" that are _not_ followed by a greater than symbol (>):
 

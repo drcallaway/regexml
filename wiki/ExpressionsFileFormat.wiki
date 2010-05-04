@@ -20,8 +20,8 @@ The format of the regexml expressions file is defined by an XML schema. The foll
 || || capture || false || Indicates whether or not the matching text should be extracted and made available to the application. ||
 || || lazy || false || Indicates whether or not lazy matching should be performed. See the [http://code.google.com/p/regexml/wiki/Introduction#Lazy_Quantifier_Match Introduction Wiki] for details. ||
 || || atomic || false || Indicates whether or not this match should be wrapped in an atomic group. See the [http://code.google.com/p/regexml/wiki/Introduction#Atomic_Group_Match Introduction Wiki] for details. ||
-|| || lookahead || none || Indicates the type of lookahead to apply to the match. Valid values are `none`, `positive`, and `negative`. ||
-|| || lookbehind || none || Indicates the type of lookbehind to apply to the match. Valid values are `none`, `positive`, and `negative`. ||
+|| || lookahead || none || Indicates the type of lookahead to apply to the match. Valid values are `positive`, `negative`, and `none`. ||
+|| || lookbehind || none || Indicates the type of lookbehind to apply to the match. Valid values are `positive`, `negative`, and `none`. ||
 || || ignoreCase || false || Indicates whether or not case should be ignored when performing text comparisons. ||
 || || dotMatchesLineBreaks || false || Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. ||
 || group || || || Associates multiple matches into a logical group. May contain one `start` and/or `end` element and any number of `match` and/or `group` elements. ||
@@ -31,8 +31,8 @@ The format of the regexml expressions file is defined by an XML schema. The foll
 || || capture || false || Indicates whether or not the text from the matching group should be extracted and made available to the application. ||
 || || lazy || false || Indicates whether or not lazy matching should be performed. See the [http://code.google.com/p/regexml/wiki/Introduction#Lazy_Quantifier_Match Introduction Wiki] for details. ||
 || || atomic || false || Indicates whether or not this group is an atomic group. See the [http://code.google.com/p/regexml/wiki/Introduction#Atomic_Group_Match Introduction Wiki] for details. ||
-|| || lookahead || none || Indicates the type of lookahead to apply to the group. Valid values are `none`, `positive`, and `negative`. ||
-|| || lookbehind || none || Indicates the type of lookbehind to apply to the group. Valid values are `none`, `positive`, and `negative`. ||
+|| || lookahead || none || Indicates the type of lookahead to apply to the group. Valid values are `positive`, `negative`, and `none`. ||
+|| || lookbehind || none || Indicates the type of lookbehind to apply to the group. Valid values are `positive`, `negative`, and `none`. ||
 || || ignoreCase || false || Indicates whether or not case should be ignored when performing text comparisons. ||
 || || dotMatchesLineBreaks || false || Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. ||
 || start || || || Anchors the match to the beginning of the text (must start at the beginning of the text or line). ||

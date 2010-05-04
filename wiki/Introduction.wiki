@@ -892,7 +892,7 @@ Regular expression: `(?<=<p>).+?(?=</p>)`
 Note that we use the `lazy` attribute for the reasons described in the section on lazy matches above. The following code outputs the matching text:
 
 {{{
-ExpressionFactory ef = new ExpressionFactory(new FileSystemResource("test.xml"), true);
+ExpressionFactory ef = new ExpressionFactory(new FileSystemResource("example.xml"), true);
 Pattern pattern = ef.getPattern("example");
 Matcher matcher = pattern.matcher("This is a <p>paragraph</p> in HTML. Here is <p>another</p>.");
 

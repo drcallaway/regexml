@@ -883,7 +883,7 @@ public class ExpressionFactory
     {
         if (autoEscape)
         {
-            text = text.replaceAll("([\\$\\(\\)\\*\\+\\?\\^\\{\\|])", "\\\\$1");
+            text = text.replaceAll("[\\$\\(\\)\\*\\+\\?\\^\\{\\|]", "\\\\$0");
         }
 
         return text;

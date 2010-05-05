@@ -77,9 +77,6 @@ public class ExpressionFactory
     private static final String FALSE = "false";
     private static final String OPERATOR_AND = "and";
     private static final String OPERATOR_OR = "or";
-    private static final String LOOKAROUND_NONE = "none";
-    private static final String LOOKAROUND_POSITIVE = "positive";
-    private static final String LOOKAROUND_NEGATIVE = "negative";
 
     private Map<String, Expression> expressionMap = new HashMap<String, Expression>();
     private XMLInputFactory inputFactory = XMLInputFactory.newInstance();

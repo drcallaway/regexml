@@ -42,7 +42,7 @@ File file = new File("/home/user/expressions.xml");
 Resource fsResource = new FileSystemResource(file);
 }}}
 
-Depending on the type of resource file you choose, the regexml expressions file can be accessed from either the classpath or the file system. Keep in mind that after an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.
+Depending on the type of resource implementation you choose, the regexml expressions file can be accessed from either the classpath or the file system. Keep in mind that after an application is packaged for distribution, it's usually easier to access the expressions file from the classpath rather than the file system.
 
 == Expression Class ==
 

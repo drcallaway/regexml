@@ -323,7 +323,7 @@ Regular expression: `ab?`
 
 === Exact Quantity Match ===
 
-Whenever the `max` attribute is less than the `min` attribute, `max` is automatically set equal to `min`. This behavior allows an exact number of matches to be specified by setting only the `min` attribute (since `max` defaults to one, any `min` amount greater than one will cause `max` to be assigned the same value).
+Whenever the `min` attribute is greater than the `max` attribute, `max` is automatically set equal to `min`. This behavior allows an exact number of matches to be specified by setting only the `min` attribute (since `max` defaults to one, any `min` amount greater than one will cause `max` to be assigned the same value).
 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">

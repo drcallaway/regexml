@@ -614,13 +614,13 @@ Normally, single-quotes need not be escaped. However, if single-quotes are used 
 {{{
 <regexml xmlns="http://schemas.regexml.org/expressions">
     <expression id="example">
-        <match equals='"Hello Tim&apos;s mom!"'/>
+        <match equals='"O&apos;Reilly Publishing"'/>
     </expression>
 </regexml>
 }}}
 
-Matches: _"Hello Tim's mom!"_<br>
-Regular expression: `"Hello Tim's mom!"`
+Matches: _"O'Reilly Publishing"_<br>
+Regular expression: `"O'Reilly Publishing"`
 
 === Start/End of Line Match ===
 

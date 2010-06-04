@@ -16,7 +16,7 @@ The format of the regexml expressions file is defined by an XML schema. The foll
 || || equals || || Matching expression. ||
 || || except || || Negated matching expression (excludes characters from the matching set created by the `equals` expression). ||
 || || min || 1 || Minimum number of times the match may be repeated. ||
-|| || max || 1`*` || Maximum number of times the match may be repeated. `*`If max is less than min, max default changes to equal the min value. ||
+|| || max || 1<sup>`*`</sup> || Maximum number of times the match may be repeated. `*`If max is less than min, max default changes to equal the min value. ||
 || || capture || false || Indicates whether or not the matching text should be extracted and made available to the application. ||
 || || lazy || false || Indicates whether or not lazy matching should be performed. See the [http://code.google.com/p/regexml/wiki/Introduction#Lazy_Quantifier_Match Introduction Wiki] for details. ||
 || || atomic || false || Indicates whether or not this match should be wrapped in an atomic group. See the [http://code.google.com/p/regexml/wiki/Introduction#Atomic_Group_Match Introduction Wiki] for details. ||

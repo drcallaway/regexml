@@ -1,0 +1,42 @@
+# Expressions File Format #
+
+The format of the regexml expressions file is defined by an XML schema. The following table documents the elements and attributes declared in this schema.
+
+| **Element** | **Attribute** | **Default Value** | **Description** |
+|:------------|:--------------|:------------------|:----------------|
+| regexml     |               |                   | Root element. Contains any number of `expression` elements. |
+|             | autoEscape    | true              | Causes regexml to automatically escape most special regular expression characters (namely, `$()*+?^{|`). |
+| expression  |               |                   | Defines a single regular expression. May contain one `start` and/or `end` element and any number of `match` and/or `group` elements. |
+|             | id            |                   | Unique identifier for the expression. |
+|             | ignoreCase    | false             | Indicates whether or not case should be ignored when performing text comparisons. |
+|             | dotMatchesLineBreaks | false             | Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. |
+|             | anchorsMatchLineBreaks | false             | Indicates whether or not the `start` and `end` anchors match line breaks. |
+| match       |               |                   | Specifies criteria to match one part of the text. The `except` attribute can be used without `equals` to indicate "all characters except these". If the `equals` expression is a character class, the `equals` and `except` attributes can be used together in order to exclude characters from the matching set. If `equals` is not a character class, the `except` attribute will be ignored. |
+|             | equals        |                   | Matching expression. |
+|             | except        |                   | Negated matching expression (excludes characters from the matching set created by the `equals` expression). |
+|             | min           | 1                 | Minimum number of times the match may be repeated. |
+|             | max           | 1<sup><code>*</code></sup> | Maximum number of times the match may be repeated. <sup><code>*</code></sup>If max is less than min, max default changes to equal the min value. |
+|             | capture       | false             | Indicates whether or not the matching text should be extracted and made available to the application. |
+|             | lazy          | false             | Indicates whether or not lazy matching should be performed. See the [Introduction Wiki](http://code.google.com/p/regexml/wiki/Introduction#Lazy_Quantifier_Match) for details. |
+|             | atomic        | false             | Indicates whether or not this match should be wrapped in an atomic group. See the [Introduction Wiki](http://code.google.com/p/regexml/wiki/Introduction#Atomic_Group_Match) for details. |
+|             | lookahead     | none              | Indicates the type of lookahead to apply to the match. Valid values are `positive`, `negative`, and `none`. |
+|             | lookbehind    | none              | Indicates the type of lookbehind to apply to the match. Valid values are `positive`, `negative`, and `none`. |
+|             | ignoreCase    | false             | Indicates whether or not case should be ignored when performing text comparisons. |
+|             | dotMatchesLineBreaks | false             | Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. |
+| group       |               |                   | Associates multiple matches into a logical group. May contain one `start` and/or `end` element and any number of `match` and/or `group` elements. |
+|             | operator      | and               | Indicates whether an "and" or an "or" operation should be applied to matches within the group. |
+|             | min           | 1                 | Minimum number of times the group may be repeated. |
+|             | max           | 1<sup><code>*</code></sup> | Maximum number of times the group may be repeated. <sup><code>*</code></sup>If max is less than min, max default changes to equal the min value. |
+|             | capture       | false             | Indicates whether or not the text from the matching group should be extracted and made available to the application. |
+|             | lazy          | false             | Indicates whether or not lazy matching should be performed. See the [Introduction Wiki](http://code.google.com/p/regexml/wiki/Introduction#Lazy_Quantifier_Match) for details. |
+|             | atomic        | false             | Indicates whether or not this group is an atomic group. See the [Introduction Wiki](http://code.google.com/p/regexml/wiki/Introduction#Atomic_Group_Match) for details. |
+|             | lookahead     | none              | Indicates the type of lookahead to apply to the group. Valid values are `positive`, `negative`, and `none`. |
+|             | lookbehind    | none              | Indicates the type of lookbehind to apply to the group. Valid values are `positive`, `negative`, and `none`. |
+|             | ignoreCase    | false             | Indicates whether or not case should be ignored when performing text comparisons. |
+|             | dotMatchesLineBreaks | false             | Indicates whether or not the dot (i.e., period) matches line breaks in addition to all other characters. |
+| start       |               |                   | Anchors the match to the beginning of the text (must start at the beginning of the text or line). |
+|             | matchLineBreaks | false             | Indicates whether or not this anchor should match line breaks. |
+| end         |               |                   | Anchors the match to the end of the text (must end at the end of the text or line). |
+|             | matchLineBreaks | false             | Indicates whether or not this anchor should match line breaks. |
+
+For additional file format information, see the _regexml.xsd_ schema included in the regexml JAR file.

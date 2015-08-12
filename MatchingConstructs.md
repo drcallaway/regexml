@@ -1,0 +1,27 @@
+# Matching Constructs #
+
+The following constructs an be used in the `match` element's `equals` and `except` attributes.
+
+| **Construct** | **Matches** |
+|:--------------|:------------|
+| _x_           | Any literal character _x_ except for period, backslash, less than symbol, opening bracket, and double quotes. [`.\[<"`] |
+| `\.`          | Period character (escaping not necessary within a character class) |
+| `\\`          | Backslash character |
+| `\[`          | Opening bracket |
+| `&lt;`        | Less than character (since it conflicts with XML markup) |
+| `&quot;`      | Double quote character `"` (escape not needed when using single-quotes to delimit attribute values) |
+| `&apos;`      | Single quote character `'` (escape not needed when using double-quotes to delimit attribute values) |
+| `.`           | Any character (when used outside of a character class). Matches line terminators only if the `dotMatchesLineBreaks` attribute is set to true. |
+| `\d`          | Digit [`0-9`] |
+| `\D`          | Non-digit   |
+| `\s`          | Whitespace characters including space, tab, new line, form-feed, and carriage return [` \t\n\f\r`] |
+| `\S`          | Non-whitespace character |
+| `\w`          | Word character [`a-zA-Z_0-9`] |
+| `\W`          | Non-word character |
+| `\b`          | Word boundary anchor (e.g., `\bScript\b` matches "Script" but not "Scriptaculous" or "JavaScript".) |
+| `\B`          | Non-word boundary anchor (e.g., `\BScript` matches "JavaScript" but not "Script".) |
+| `[ab\d]`      | Character class matching _a_, _b_, or any digit |
+| `[0-9a-f]`    | Character class matching digits _0_ through _9_ and letters _a_ through _f_ (hyphen indicates a range) |
+| `[a\-c]`      | Character class matching characters _a_, _c_, and hyphen (within character classes, literal hyphens must be escaped) |
+
+A _character class_ defines a set of characters that are used to match text. Character classes are enclosed in brackets. For example, the character class `[abc]` matches the single character _a_, _b_, or _c_.
